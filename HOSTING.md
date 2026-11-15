@@ -68,14 +68,16 @@ npm run deploy
 
 ## Domain and HTTPS
 
-First verify the generated `workers.dev` URL: map loads, picks score, drift reaches
+The demo is https://driftle.xjackwalker.workers.dev/. The `driftle.games` domain
+has not been purchased; leave custom domains and DNS untouched for the playtest.
+
+For a later, separately approved domain setup, first verify the `workers.dev` URL: map loads, picks score, drift reaches
 Today, zoom works and source notices are available. Then add `driftle.games` under
 **Settings → Domains & Routes → Add → Custom domain**. Cloudflare generates DNS and
 HTTPS certificates. The domain must be an active Cloudflare zone; if it is
 registered elsewhere, its registrar can stay unchanged while nameservers point
 to Cloudflare. Preserve any existing mail and verification records during DNS
-onboarding. Add `www` with a redirect to the apex if needed. No domain purchase,
-registrar transfer or paid SSL product is necessary.
+onboarding. Add `www` with a redirect to the apex if needed. The free demo needs no domain purchase or paid SSL product.
 
 ## Caching and updates
 

@@ -268,3 +268,6 @@ crossfade described above. All 42 Node tests pass.
   headline, paragraph, direction hint or confirmation question.
 - Mobile shows a compact score total; the five-round breakdown remains in final
   results. The map stays interactive and missed guesses advance automatically.
+- Browser win path: Libya miss at 300 Ma, correct territory at 225 Ma. The clock
+  continued through 150 and 75 Ma to Today before results appeared; 10,011 points
+  retained the miss and awarded remaining rounds. No browser warnings or errors.
