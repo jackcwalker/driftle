@@ -28,20 +28,22 @@ existing quaternion interpolation supplies intermediate motion for scoring/pins.
 The territory file references the motion file's rotations to avoid duplicating
 their download and decoded memory.
 
-The existing 0.01% unsupported/unknown coordinate-area threshold retains Brazil,
-Australia, Central African Republic and Czechia. Unsupported proportions are about
-0.00082%, 0.00261%, 0%, and 0%, respectively. India remains excluded at about 2.91%,
-and USA at about 22.83% plus 0.00117% unpartitioned. These are screening fractions
-in locally unwrapped coordinate area, not physical land-area or accuracy estimates.
+The pool now audits every one of the 258 country/territory features in the source,
+using the existing 0.01% unsupported/unknown coordinate-area threshold. 116 pass;
+142 are excluded for technical support gaps. No size, difficulty or recognition
+filter is applied. `country-support.json` records the exact fractions and reasons;
+COUNTRY-POOL.md describes the policy. Each eligible country's original full geometry
+and partition are stored in a separate bundle; only the selected bundle downloads.
 Modern 0 Ma scoring still uses the complete modern country, including islands and
 holes. Ancient target area can be underwater: these are modern territorial material
 locations, not ancient countries or a guarantee of dry land.
 
-Saves use `driftle-paleomap-v1-<UTC date>`. The earlier Müller save is retained in
+Saves use `driftle-paleomap-v2-<UTC date>`. The earlier Müller save is retained in
 browser storage but is not reinterpreted under a different model. Saved missed-guess
 pin attachments are validated against the matching model on reload, independently
 of which owner textures are currently resident. Daily selection
-and the four-country pool stay deterministic. Random testing does not overwrite
+cycles evenly through the 116 eligible entries in stable ID order. Saves also check
+the selected country ID, so a changed pool cannot reinterpret another target's picks. Random testing does not overwrite
 the daily save.
 
 ## Endpoint quality and playback
@@ -52,26 +54,35 @@ mesh. The 0 Ma map includes the sharper Europe inset when zoomed in. Only final
 results add modern country boundaries and translucent gold target highlighting.
 Rivers remain removed. Modern natural lakes appear at Today.
 
-During each 75 Ma transition, a screen fragment is inverse-rotated from the current
-plate orientation to its modern material coordinates, then forward-rotated into
-each endpoint's texture coordinates. This is the same quaternion convention used
-by country reconstruction and pins. Categorical owner masks restrict transported
-land to supported published domains at each endpoint. Longitude repeats across
-the date line; latitude clamps at the poles. The inverse fragment projection avoids
-triangles stretching across the seam. Conservative plate bounds reduce overdraw.
+During each 75 Ma transition, the current landscape is carried forward. A screen
+fragment is inverse-rotated from the current plate orientation to modern material
+coordinates, then forward-rotated into the **departure** texture coordinates. This
+is the same quaternion convention used by countries and pins. Categorical source
+owner masks restrict transported land to supported published domains. Longitude
+repeats across the date line; latitude clamps at the poles. The inverse fragment
+projection avoids triangles stretching across the seam. Conservative plate bounds
+reduce overdraw.
 
-The two endpoint layers are composed separately before blending, avoiding opacity
-seams from layering partially transparent individual plates. Full native atlases
-also crossfade beneath moving land to fill gaps between rigid pieces. This can
-show blended or ghosted coastlines between stops, particularly around Asia. The
-intermediate landscapes are display interpolation, not published reconstructions
-at those exact ages or newly inferred topography. Native endpoint shorelines and
-scoring geometry remain intact.
+The destination atlas is neither requested nor shown during this movement. The
+renderer rejects an arrival load before the geological clock reaches the endpoint.
+Once it arrives, the moved departure landscape stays on screen while the endpoint
+loads. The native atlas then settles in over 320 ms **at the fixed arrival age**,
+before guessing or the next segment begins. Only the source landscape moves;
+there are no destination continents fading underneath it. This replaces the earlier
+two-endpoint/native-underlay crossfade.
+
+Unsupported departure geography fades out over the first 5.5% of the segment and
+receives no invented rotation. A quiet ocean lies behind transported land. Gaps
+and overlaps between rigid pieces remain visible; we do not fill them using guessed
+plates or ghosted destination geography. Intermediate landscapes carry published
+source terrain; they are not newly inferred elevation or exact reconstructions
+published at every animation age. Native endpoint shorelines and scoring geometry
+remain intact.
 
 Depending on age, roughly 87.6–92.3% of ancient exposed land has a supported raster
 transport assignment in this preparation; about 99.95% of modern exposed land does.
-Unassigned geography remains in the native crossfade and receives no invented
-rotation. High-latitude raster cells beyond a 0.15° boundary allowance are removed
+Unassigned geography is retained in the exact native maps at guessing stops,
+and fades during motion without invented rotation. High-latitude raster cells beyond a 0.15° boundary allowance are removed
 when they fail the original spherical domain check. `owner-audit.json` records
 3,000 sampled owned cells per age, checked independently with pyGPlates against
 the original spherical domains, allowing 0.22° for categorical raster boundaries.
@@ -85,10 +96,11 @@ pins are created for automatically awarded rounds.
 
 ## Performance and limits
 
-The browser keeps two endpoint atlases, their R8 owner textures and an optional
-Europe inset on the GPU. Two temporary RGBA layers use CSS-pixel resolution during
-motion; exact guessing stops retain the sharper device-resolution rendering.
-Compressed later images are prefetched without keeping their decoded GPU textures.
+During movement the browser keeps the departure atlas and its R8 owner texture.
+A single temporary RGBA layer uses CSS-pixel resolution; exact guessing stops
+retain sharper device-resolution rendering. The next atlas/owner (and Europe inset
+at 0 Ma) load only after arrival, coexist briefly for the settle, then replace the
+departure assets. No future-era image prefetch remains.
 Terrain detail does not increase geometry count. Duplicate requests share downloads.
 Main-canvas DPR is capped at 2 on desktop and 1.5 on narrow screens.
 
@@ -105,7 +117,9 @@ Bake the raster inputs as in RASTER-MAPS.md, then use the same Python environmen
 and source directory:
 
 ```sh
-python scripts/prepare-game-maps.py SOURCE_DIRECTORY
+python scripts/prepare-game-maps.py SOURCE_DIRECTORY COUNTRIES_GEOJSON
+# To rebuild only the pool, partitions and model metadata (keep existing masks):
+python scripts/prepare-game-maps.py SOURCE_DIRECTORY COUNTRIES_GEOJSON --countries-only
 python scripts/audit-game-maps.py SOURCE_DIRECTORY
 npm test
 ```

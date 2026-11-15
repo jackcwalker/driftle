@@ -193,3 +193,46 @@ are migrated; completed winning saves without arrival metadata replay once.
   Asia. Intermediate landscapes are cartographic interpolation. No drainage or
   unsupported plate motion is invented. Forced WebGL context loss and physical
   phone gestures/performance remain untested.
+
+## Opt-out pool and departure-only drift — 15 November 2026
+
+This revision replaces the earlier four-target pool and the two-map playback
+crossfade described above. All 42 Node tests pass.
+
+- All 258 Natural Earth source entries are audited; 116 pass the unchanged 0.01%
+  support-gap threshold. The remaining 142 have technical reason codes, exact
+  fractions and affected plate domains in `data/paleomap/country-support.json`.
+  No size/difficulty exclusions. Daily selection visits every eligible entry
+  exactly once per cycle; Monaco, Vatican, San Marino and Liechtenstein remain.
+- The selected target's complete geometry/partition is loaded separately. The
+  catalogue is about 45 KB and the territory index about 20 KB; approximately
+  9.6 MB of target bundles exists in the repository but is not downloaded as a pool.
+- All 116 targets match independent pyGPlates reference coordinates at all five
+  endpoints, earn full points for an interior pick and carry a correct pin to its
+  modern country. Legacy full-area, hole, date-line and nearest-edge regressions
+  remain. Staging tests reject a destination load before arrival, traverse all
+  four winning segments and invalidate an older arrival download after reset.
+- Desktop browser 1440×900: an Australian 300 Ma miss shows 11,579 km / 8 points,
+  then moves the departure landscape to 225 Ma. During motion, DOM diagnostics
+  show source 300, no arrival atlas and zero settle fraction. A correct Australian
+  225 Ma pick secures 10,008 total; every remaining era plays before results at
+  0 Ma. Both original numbered pins remain; final arrival countries are USA and
+  Australia. Random reset selects Belgium from the expanded pool.
+- Desktop first segment: 540 measured frame intervals, mean 8.35 ms, p95 10.0 ms,
+  p95 CPU draw submission 2.0 ms. The three-segment winning journey measured
+  1,623 intervals, mean 8.81 ms, p95 10.1 ms, p95 CPU draw 2.6 ms; its mean includes
+  the brief endpoint loading/settling pauses. GPU textures plus the one CSS-pixel
+  RGBA layer estimated 44.1 MiB during ancient motion, 83.6 MiB at the modern end.
+- Phone layout 390×844 on the same desktop browser: a correct 300 Ma Australia
+  pick secures 15,000, visits all four segments, then shows one actual pick and
+  four awarded rows at Today. 2,163 intervals: mean 8.82 ms, p95 10.1 ms, p95 CPU
+  draw 2.5 ms; estimated 11.0 MiB during ancient motion / 20.9 MiB at modern end.
+  These are RAF/CPU measurements, not GPU timers or physical-phone performance.
+- Reloading a completed early win now prepares the modern atlas directly, verified
+  by source age 0 in DOM diagnostics. Results collapse and zoom remain functional.
+  Browser console has no warnings or errors in the desktop/mobile-layout runs.
+- No future-era image is prefetched. The current terrain moves first; the next
+  atlas loads at arrival and settles over 320 ms with geological time held fixed.
+  Unassigned departure material fades rather than receiving a guessed rotation.
+  Rigid-piece gaps/overlaps remain a visible scientific/display limitation.
+  Physical-phone gestures/performance and forced context loss remain untested.

@@ -29,7 +29,11 @@ data.territories = json("data/paleomap/territories.json");
 data.territories.rotations = data.rotations;
 const owners = json("data/paleomap/owners.json");
 const manifest = json("data/maps/raster-v2/manifest.json");
-const countries = json("data/countries.json");
+const catalogue = json("data/paleomap/countries.json");
+const report = json("data/paleomap/country-support.json");
+const bundles = catalogue.filter((c) => c.eligible).map((c) => json(c.url));
+const countries = bundles.map((b) => b.country);
+data.territories.countries = bundles.map((b) => b.territory);
 const context = {};
 vm.runInNewContext(read("vendor/d3.min.js").toString(), context);
 const d3 = context.d3;
@@ -51,9 +55,29 @@ test("Terrain, masks, country scoring and pins share the exact published model b
       dataset.inputModelSHA256,
       manifest.inputHashes["paleomap2024-model.zip"],
     );
-  assert.deepEqual(
-    eligible.map((c) => c.name),
-    ["Brazil", "Australia", "Central African Republic", "Czechia"],
+  assert.equal(eligible.length, 116);
+  assert.equal(catalogue.length, 258);
+  assert.equal(report.countries.length, catalogue.length);
+  assert.equal(report.inputModelSHA256, data.inputModelSHA256);
+  for (const bundle of bundles) {
+    assert.equal(bundle.inputModelSHA256, data.inputModelSHA256);
+    assert.equal(bundle.inputCountrySHA256, report.inputCountrySHA256);
+    assert.equal(bundle.country.name, bundle.territory.name);
+    assert.equal(bundle.license, "CC BY 4.0 + Natural Earth public domain");
+  }
+  for (const entry of catalogue) {
+    const audit = report.countries.find((c) => c.id === entry.id);
+    assert.equal(
+      entry.eligible,
+      audit.unsupportedFraction < report.maximumUnsupportedFraction &&
+        audit.sourceArea > 0,
+    );
+    assert.equal(entry.eligible, entry.reasons.length === 0);
+    assert.equal(entry.eligible, Boolean(entry.url));
+  }
+  assert.equal(
+    report.inputCountrySHA256,
+    "392a03db8aa3ba82c105852655620129b11182b95dfc34ef046827ea7d0e5b8c",
   );
   assert.ok(data.features.some((f) => f.begin === 0 && f.end === 0));
   for (const t of eligible)
@@ -68,6 +92,14 @@ test("Terrain, masks, country scoring and pins share the exact published model b
 test("All supported targets match pyGPlates endpoint coordinates, score correctly and carry the pin to today", () => {
   for (const t of eligible) {
     const country = countries.find((c) => c.name === t.name);
+    const geometry = country.geometry;
+    const polygons =
+      geometry.type === "Polygon"
+        ? [geometry.coordinates]
+        : geometry.coordinates;
+    for (const rings of polygons)
+      if (d3.geoArea({ type: "Polygon", coordinates: rings }) > 2 * Math.PI)
+        for (const r of rings) r.reverse();
     for (const [i, age] of [300, 225, 150, 75, 0].entries()) {
       const expected = data.references[country.name][age];
       assert.ok(distance(position(data, country, age), expected) < 0.01);

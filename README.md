@@ -41,10 +41,12 @@ The final map highlights the whole modern country in gold over the terrain.
 Saved progress is versioned by reconstruction model; the terrain integration
 starts a fresh daily save instead of applying old Müller guesses to a new map.
 
-The daily pool currently supports Brazil, Australia, Central African Republic and
-Czechia. India and USA are omitted because too much territory has unsupported
-300 Ma positions. The original six-entry UTC date rotation is retained, skipping
-unsupported entries forward, so existing Brazil challenge dates remain Brazil.
+The pool is opt-out: all 258 country/territory features in the Natural Earth source
+are audited, and 116 currently pass the reconstruction checks. Entries are excluded
+only for unsupported domain lifetimes, rotations or territorial coverage, with no
+size or difficulty filter. See [COUNTRY-POOL.md](COUNTRY-POOL.md) and the generated
+support report for every inclusion and exclusion. Daily selection cycles evenly
+through all eligible entries; detailed geometry loads only for the selected country.
 Country geometry comes from modern Natural Earth territory partitioned across the
 published model's static plates. This is a rigid-plate educational approximation,
 not ancient political geography or continental deformation. Tiny unsupported
@@ -58,8 +60,10 @@ Daily progress is saved locally when storage is available; random testing rounds
 **Scientific scope:** native published PALEOMAP 2024 terrain at the four ancient
 stops, NOAA ETOPO 2022 modern relief, and modern country territory partitioned and
 rotated with the matching PALEOMAP model. Between stops, supported land moves on
-its plates over a crossfade of the native atlases. These are cartographic visual
-transitions, not continuous paleoelevation or deforming-land simulations. Ancient
+its plates using only the departure atlas. The next map is requested after arrival
+and settles in over 320 ms while geological time stays fixed. Unsupported departure
+land fades out without a guessed rotation. Gaps and overlaps can appear between
+rigid pieces. These are cartographic visual transitions, not continuous paleoelevation or deforming-land simulations. Ancient
 features are broad reconstructions; only modern Europe has the finer terrain inset.
 There are no political boundaries during guessing and no river overlay. Read
 [SOURCES.md](SOURCES.md) and [GAME-MAP-INTEGRATION.md](GAME-MAP-INTEGRATION.md)
@@ -93,7 +97,9 @@ https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
 - geo.js: plate-partitioned territory containment, nearest-edge scoring and pin motion
 - data/paleomap/: matched motion, scoring territory, transport masks and audit
 - data/maps/raster-v2/: five elevation-tinted, relief-shaded endpoint atlases
-- data/countries.json: full public-domain modern country geometries
+- data/paleomap/countries.json: audited pool; countries/: lazily loaded complete target geometries
+- data/paleomap/country-support.json: technical coverage report for all 258 source entries
+- data/countries.json: original six-country regression baseline
 - data/motion.json and data/country-territories.json: preserved Müller regression baseline
 - vendor/: D3 and upstream quaternion/mesh helpers with licences
 - tests/: deterministic geometry and data checks

@@ -64,8 +64,11 @@ https://github.com/datasets/geo-countries/blob/master/data/countries.geojson
 https://github.com/datasets/geo-countries/blob/master/README.md
 https://opendatacommons.org/licenses/pddl/1.0/
 
-Six country features were selected without changing their coordinates. Modern
-geometries define modern territory and are split by source static plate polygons
+All 258 country/territory features are now screened automatically, with 116
+technically supported entries shipped as lazy-loaded target bundles. Source modern
+coordinates are preserved. The original six-country file remains a regression
+baseline. Full input SHA-256, coverage fractions and exclusion reasons are in
+`data/paleomap/country-support.json`; see COUNTRY-POOL.md. Modern geometries define modern territory and are split by source static plate polygons
 for rigid reconstruction. They do not represent ancient national borders. The country name is visible up front.
 The upstream representative points correspond to Brazil (-55,-15), Australia
 (134,-25), India (78,22), USA (-100,40), Central African Republic (20,8) and Czechia
@@ -82,34 +85,33 @@ Vendored browser bundle, licence in vendor/D3-LICENSE. No CDN requests at runtim
 
 - At each guessing stop, the map uses a native published age-specific elevation
   atlas with reconstructed shorelines, mountain systems and seas. Between stops,
-  supported raster patches follow plate rotations over a crossfade of the native
-  atlases. Intermediate terrain can show blended/ghosted coastlines; it is display
-  interpolation, not continuous elevation evolution, continental deformation or
+  only the departure terrain follows its plate rotations. The destination atlas
+  loads after arrival, then settles over 320 ms at a fixed geological age. This is
+  display interpolation, not continuous elevation evolution, continental deformation or
   a reconstruction published at that exact intermediate age.
 - Scoring uses the union of supported reconstructed country pieces: any contained
   click receives the round maximum. Misses use the shortest spherical distance
   to any territory edge. A 10 m numerical boundary tolerance counts edge clicks
   as inside; it is not a claim about geological accuracy. Modern 0 Ma scoring
   uses the full original country geometry, including islands and holes.
-- The daily pool includes Brazil, Australia, Central African Republic and Czechia.
-  India and USA are excluded because a material fraction of their territory has
-  no valid reconstruction through all five rounds. Tiny unsupported fragments in
-  otherwise supported countries are omitted at older ages, not given guessed
-  rotations. See coverage details below.
-- Unsupported material has no invented rotation. Its appearance dissolves between
-  native endpoint maps. Rigid patches can overlap or separate during transitions;
-  the native atlas crossfade fills behind them. These are inherited model and
-  visual interpolation limits, not ancient national boundaries. Finite rotations between 5 Ma samples use shortest-path
-  quaternion interpolation; this is a visual approximation between model samples.
+- Every source country/territory is audited; 116 pass and 142 fail technical
+  reconstruction checks. No size or difficulty exclusions are applied. Tiny
+  unsupported fragments in otherwise eligible countries are omitted at older
+  ages, without guessed rotations. See COUNTRY-POOL.md and the generated report.
+- Unsupported departure material fades out during the first 5.5% of a transition
+  without invented motion. Rigid patches can overlap or separate over a quiet
+  ocean background; gaps remain visible. The native map returns only at arrival.
+  These are model and display limits, not ancient national boundaries. Finite
+  rotations between 5 Ma samples use shortest-path quaternion interpolation.
 - D3 performs spherical clipping at the antimeridian and poles before projection;
   scoring uses spherical great-circle distance and wraps longitude naturally.
 - Four 75 Ma animations connect the five guessing ages. After 0 Ma the country
   is revealed; a fifth 75 Ma advance would invent a future model and is omitted.
 - Reduced-motion preference shortens the transition to a 1.5 s duration
   instead of 4.5 s (motion still occurs to preserve the game mechanic).
-- Daily selection uses UTC epoch-day modulo the original six-country catalogue,
-  skipping forward past unsupported countries. The sequence repeats every six days. It is deterministic, not random or secret.
-  Date changes are manual; a page left open across midnight keeps its selected day.
+- Daily selection uses UTC epoch-day modulo the full eligible pool in stable ID
+  order. Every eligible entry appears once per 116-day cycle. It is deterministic,
+  not secret. A page left open across midnight keeps its selected day until reload.
 - Client-side game data is inspectable. Local history is optional and editable;
   there is no trusted leaderboard, anti-cheat, backend, analytics or account.
 - Political geography follows Natural Earth's de facto representation.
@@ -142,7 +144,8 @@ These bundled continental pieces are not a complete oceanic plate partition.
 
 Internal source-piece outlines and the latitude/longitude grid are not drawn.
 The full native raster is shown at each guessing stop. Intermediate rigid patches
-are composited over a native-atlas crossfade, as described in GAME-MAP-INTEGRATION.md. After each guess
+are composited over a quiet ocean using only departure terrain; the native
+arrival atlas appears after motion, as described in GAME-MAP-INTEGRATION.md. After each guess
 feedback uses great-circle distance and initial compass bearing at the guessed
 age; warmer/colder compares distances to each round's reconstructed country edge.
 
@@ -164,8 +167,8 @@ The output inherits Natural Earth's public-domain / package PDDL 1.0 terms.
 
 ## Retained Müller scoring baseline and reproduction
 
-The active PALEOMAP scoring file is `data/paleomap/territories.json`; see
-GAME-MAP-INTEGRATION.md. The following records the older regression baseline.
+Active PALEOMAP scoring partitions are in `data/paleomap/countries/`; the
+`territories.json` file is their metadata index. See GAME-MAP-INTEGRATION.md. The following records the older regression baseline.
 
 `data/country-territories.json` is derived from the full selected Natural Earth
 country geometries and `StaticPolygons/shapes_static_polygons_Merdith_etal.gpml`
@@ -229,6 +232,6 @@ PALEOMAP v24221 PaleoDEMs, **CC BY 4.0**, https://zenodo.org/records/10659112,
 plus NOAA NCEI ETOPO 2022 modern terrain (freely reusable NOAA data) and public-domain
 Natural Earth natural lakes. Rivers are removed. Full attribution, exact inputs,
 changes, licences, reproduction and limits are in [RASTER-MAPS.md](RASTER-MAPS.md)
-and the generated `data/maps/raster-v2/manifest.json`. These assets are not loaded
-by the normal game. The earlier Scotese & Wright (2018) CC BY 4.0 vector study data
+and the generated `data/maps/raster-v2/manifest.json`. The normal game uses the
+same physical maps. The earlier Scotese & Wright (2018) CC BY 4.0 vector study data
 are retained; their provenance remains in [TERRAIN.md](TERRAIN.md).

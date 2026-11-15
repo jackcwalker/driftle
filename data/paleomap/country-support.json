@@ -1,0 +1,5779 @@
+{
+  "source": "https://github.com/datasets/geo-countries/blob/master/data/countries.geojson",
+  "license": "Natural Earth public domain / PDDL distribution",
+  "inputCountrySHA256": "392a03db8aa3ba82c105852655620129b11182b95dfc34ef046827ea7d0e5b8c",
+  "model": "PALEOMAP2024-v24221",
+  "inputModelSHA256": "aee07c0d0159864f7a058cbf1591263ae4ee1413ccd2ec96a76cbb60ab7c6079",
+  "maximumUnsupportedFraction": 0.0001,
+  "areaUnits": "locally unwrapped longitude/latitude coordinate area, not physical area",
+  "countries": [
+    {
+      "id": "afghanistan",
+      "name": "Afghanistan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 62.59171423522323,
+      "unpartitionedArea": 4.090020822269376e-14,
+      "unsupportedArea": 5.984730433764805,
+      "unsupportedFraction": 0.09561537827952575,
+      "unsupportedDomains": [
+        {
+          "pid": 506,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "akrotiri-sovereign-base-area",
+      "name": "Akrotiri Sovereign Base Area",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.009701007478806823,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.009701007478806823,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 331,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "aland",
+      "name": "Aland",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.15238853455708004,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "albania",
+      "name": "Albania",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 3.039398811837029,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "algeria",
+      "name": "Algeria",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 212.69093758179386,
+      "unpartitionedArea": 4.743943796314117e-15,
+      "unsupportedArea": 6.790107027982173e-05,
+      "unsupportedFraction": 3.1924759492140176e-07,
+      "unsupportedDomains": [
+        {
+          "pid": 321,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "american-samoa",
+      "name": "American Samoa",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.015101641070917805,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.015101641070917804,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "andorra",
+      "name": "Andorra",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.049561530141966355,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "angola",
+      "name": "Angola",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 103.58563169182476,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "anguilla",
+      "name": "Anguilla",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.007467496584765851,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.00746749658476585,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "antarctica",
+      "name": "Antarctica",
+      "eligible": false,
+      "reasons": [
+        "unassigned-territory",
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 6049.565247567402,
+      "unpartitionedArea": 2.350456276950776,
+      "unsupportedArea": 916.6912431465194,
+      "unsupportedFraction": 0.15191863577188908,
+      "unsupportedDomains": [
+        {
+          "pid": 802,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 803,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 804,
+          "begin": 270.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 805,
+          "begin": 280.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 811,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 811,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 812,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 895,
+          "begin": 40.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 896,
+          "begin": 40.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 897,
+          "begin": 40.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 904,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "antigua-and-barbuda",
+      "name": "Antigua and Barbuda",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.038399708635999945,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.038399708635999945,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "argentina",
+      "name": "Argentina",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 278.5062223474816,
+      "unpartitionedArea": 4.3253382325267336e-13,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.5530490471879562e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "armenia",
+      "name": "Armenia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 3.1337866173550517,
+      "unpartitionedArea": 4.097372002776888e-15,
+      "unsupportedArea": 0.7818868178794972,
+      "unsupportedFraction": 0.24950225186021818,
+      "unsupportedDomains": [
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "aruba",
+      "name": "Aruba",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.01411891174789223,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "ashmore-and-cartier-islands",
+      "name": "Ashmore and Cartier Islands",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.00022410960449995845,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "australia",
+      "name": "Australia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 695.9094556115656,
+      "unpartitionedArea": 2.868262008105592e-16,
+      "unsupportedArea": 0.01819394561773347,
+      "unsupportedFraction": 2.6144127617500052e-05,
+      "unsupportedDomains": [
+        {
+          "pid": 801,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 821,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "austria",
+      "name": "Austria",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 10.043706705788463,
+      "unpartitionedArea": 2.3289872313492635e-15,
+      "unsupportedArea": 0.4179937842583702,
+      "unsupportedFraction": 0.04161748212116462,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "azerbaijan",
+      "name": "Azerbaijan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 9.135444196463176,
+      "unpartitionedArea": 3.661018748839316e-15,
+      "unsupportedArea": 6.583865036370164,
+      "unsupportedFraction": 0.720694571033463,
+      "unsupportedDomains": [
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 513,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "bahrain",
+      "name": "Bahrain",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.06205626509950327,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "bajo-nuevo-bank-petrel-is",
+      "name": "Bajo Nuevo Bank (Petrel Is.)",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 3.0243399999965537e-06,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 3.0243399999965537e-06,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 221,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "bangladesh",
+      "name": "Bangladesh",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 12.13624633145617,
+      "unpartitionedArea": 6.959294621034916e-18,
+      "unsupportedArea": 3.3907529144024857,
+      "unsupportedFraction": 0.2793905810574995,
+      "unsupportedDomains": [
+        {
+          "pid": 624,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "barbados",
+      "name": "Barbados",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.03703969098139483,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.037039690981394834,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "baykonur-cosmodrome",
+      "name": "Baykonur Cosmodrome",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.7548096689975012,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "belarus",
+      "name": "Belarus",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 28.122353282027987,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "belgium",
+      "name": "Belgium",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 3.897380752814022,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "belize",
+      "name": "Belize",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 1.8944166902740263,
+      "unpartitionedArea": 1.3081099398610523e-15,
+      "unsupportedArea": 0.013340816481803656,
+      "unsupportedFraction": 0.007042176386165191,
+      "unsupportedDomains": [
+        {
+          "pid": 257,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "id": "benin",
+      "name": "Benin",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.568104252265453,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "bermuda",
+      "name": "Bermuda",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.00596574996649944,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.005965749966499438,
+      "unsupportedFraction": 0.9999999999999997,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "bhutan",
+      "name": "Bhutan",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 3.6891158467999223,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "bir-tawil",
+      "name": "Bir Tawil",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.1764700539586615,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "bolivia",
+      "name": "Bolivia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 92.20379028980942,
+      "unpartitionedArea": 5.3146414717841495e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.764016267747223e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "bosnia-and-herzegovina",
+      "name": "Bosnia and Herzegovina",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 5.8324569216427,
+      "unpartitionedArea": 2.7681035984132515e-15,
+      "unsupportedArea": 0.960806284402451,
+      "unsupportedFraction": 0.16473439878092483,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "botswana",
+      "name": "Botswana",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 50.73933788286245,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "brazil",
+      "name": "Brazil",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 707.1035067877526,
+      "unpartitionedArea": 1.2401080111269202e-13,
+      "unsupportedArea": 0.005806670605499964,
+      "unsupportedFraction": 8.211910349593177e-06,
+      "unsupportedDomains": [
+        {
+          "pid": 201,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 714,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "brazilian-island",
+      "name": "Brazilian Island",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.00026457363700003165,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "british-indian-ocean-territory",
+      "name": "British Indian Ocean Territory",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.004016217831967697,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.004016217831967695,
+      "unsupportedFraction": 0.9999999999999996,
+      "unsupportedDomains": [
+        {
+          "pid": 501,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "british-virgin-islands",
+      "name": "British Virgin Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.012400724433033068,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.012400724433033071,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 237,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "brunei",
+      "name": "Brunei",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.465840393770626,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.4658403937706259,
+      "unsupportedFraction": 0.9999999999999998,
+      "unsupportedDomains": [
+        {
+          "pid": 620,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "bulgaria",
+      "name": "Bulgaria",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 12.402932547696683,
+      "unpartitionedArea": 5.829671383731821e-15,
+      "unsupportedArea": 8.239305399016203,
+      "unsupportedFraction": 0.6643030079645406,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "burkina-faso",
+      "name": "Burkina Faso",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 22.669086643569706,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "burundi",
+      "name": "Burundi",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 2.200615754154172,
+      "unpartitionedArea": 1.1291349052706086e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.130995282293626e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "cabo-verde",
+      "name": "Cabo Verde",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.3314754951785814,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.3314754951785814,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 714,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cambodia",
+      "name": "Cambodia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 15.071691624600717,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "cameroon",
+      "name": "Cameroon",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 37.937616398741866,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "canada",
+      "name": "Canada",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 1691.8816786136067,
+      "unpartitionedArea": 3.730408664099678e-13,
+      "unsupportedArea": 103.16202765127188,
+      "unsupportedFraction": 0.06097472947151199,
+      "unsupportedDomains": [
+        {
+          "pid": 107,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 123,
+          "begin": 115.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 125,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 126,
+          "begin": 145.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 127,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 128,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 128,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 129,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cayman-islands",
+      "name": "Cayman Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.026596525557002947,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.026596525557002943,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 216,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "central-african-republic",
+      "name": "Central African Republic",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 50.547745441346,
+      "unpartitionedArea": 2.2322996266403405e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 4.41621996619143e-18,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "chad",
+      "name": "Chad",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 106.80753835174673,
+      "unpartitionedArea": 5.656336943965501e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.2958218410929207e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "chile",
+      "name": "Chile",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 76.7616083810055,
+      "unpartitionedArea": 5.248317245132043e-14,
+      "unsupportedArea": 0.030061051800719617,
+      "unsupportedFraction": 0.00039161571044166193,
+      "unsupportedDomains": [
+        {
+          "pid": 902,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "china",
+      "name": "China",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 951.1803516416687,
+      "unpartitionedArea": 7.554477240520063e-13,
+      "unsupportedArea": 101.26371629557708,
+      "unsupportedFraction": 0.10646111026242706,
+      "unsupportedDomains": [
+        {
+          "pid": 602,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 606,
+          "begin": 130.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 607,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 614,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "clipperton-island",
+      "name": "Clipperton Island",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0004128324764999078,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0004128324764999078,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "colombia",
+      "name": "Colombia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 92.57651403786234,
+      "unpartitionedArea": 2.310746747844936e-13,
+      "unsupportedArea": 0.003789363028921249,
+      "unsupportedFraction": 4.093222853047301e-05,
+      "unsupportedDomains": [
+        {
+          "pid": 223,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 902,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "comoros",
+      "name": "Comoros",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.13875215849367661,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.13875215849367664,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cook-islands",
+      "name": "Cook Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0165062775147492,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.016506277514749205,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "coral-sea-islands",
+      "name": "Coral Sea Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.8013170000023876e-06,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 1.8013170000023876e-06,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 840,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "costa-rica",
+      "name": "Costa Rica",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 4.217902520141267,
+      "unpartitionedArea": 5.995815485342623e-05,
+      "unsupportedArea": 2.7015975871188607,
+      "unsupportedFraction": 0.6405215702289937,
+      "unsupportedDomains": [
+        {
+          "pid": 230,
+          "begin": 80.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 909,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "croatia",
+      "name": "Croatia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 6.287400530275764,
+      "unpartitionedArea": 1.0012016049627369e-15,
+      "unsupportedArea": 2.102154965943933,
+      "unsupportedFraction": 0.3343440513804413,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cuba",
+      "name": "Cuba",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 9.590747267375969,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 9.590747267375981,
+      "unsupportedFraction": 1.0000000000000013,
+      "unsupportedDomains": [
+        {
+          "pid": 206,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 257,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curacao",
+      "name": "Cura\u00e7ao",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.038480425461202956,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.038480425461202984,
+      "unsupportedFraction": 1.0000000000000007,
+      "unsupportedDomains": [
+        {
+          "pid": 224,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cyprus",
+      "name": "Cyprus",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.5321677079618138,
+      "unpartitionedArea": 6.852856566840718e-17,
+      "unsupportedArea": 0.5321677079618122,
+      "unsupportedFraction": 0.9999999999999973,
+      "unsupportedDomains": [
+        {
+          "pid": 331,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 331,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 715,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "cyprus-no-mans-area",
+      "name": "Cyprus No Mans Area",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.033711881997500026,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.03371188199750005,
+      "unsupportedFraction": 1.0000000000000007,
+      "unsupportedDomains": [
+        {
+          "pid": 331,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "czechia",
+      "name": "Czechia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.822658205627132,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "democratic-republic-of-the-congo",
+      "name": "Democratic Republic of the Congo",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 189.67892769537778,
+      "unpartitionedArea": 3.3408530639388436e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.7613200920790821e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "denmark",
+      "name": "Denmark",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 6.141134018713689,
+      "unpartitionedArea": 1.1802425525944808e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.921864185015282e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "dhekelia-sovereign-base-area",
+      "name": "Dhekelia Sovereign Base Area",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.012584514033999936,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.012584514033999938,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 331,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "djibouti",
+      "name": "Djibouti",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.8119562267255669,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "dominica",
+      "name": "Dominica",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.06149328740967647,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.06149328740967651,
+      "unsupportedFraction": 1.0000000000000007,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "dominican-republic",
+      "name": "Dominican Republic",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 4.153763945501639,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 4.15376394550165,
+      "unsupportedFraction": 1.0000000000000027,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 252,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "east-timor",
+      "name": "East Timor",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.2395919422808583,
+      "unpartitionedArea": 5.3661353097041426e-15,
+      "unsupportedArea": 1.2395919422808521,
+      "unsupportedFraction": 0.9999999999999993,
+      "unsupportedDomains": [
+        {
+          "pid": 626,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 679,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "ecuador",
+      "name": "Ecuador",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 20.729623854187906,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.6257185851603136,
+      "unsupportedFraction": 0.03018475345050232,
+      "unsupportedDomains": [
+        {
+          "pid": 902,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "egypt",
+      "name": "Egypt",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 90.73019609323958,
+      "unpartitionedArea": 4.774698571604991e-15,
+      "unsupportedArea": 0.07633397273932435,
+      "unsupportedFraction": 0.0008413293040928064,
+      "unsupportedDomains": [
+        {
+          "pid": 503,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 715,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "el-salvador",
+      "name": "El Salvador",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.7164760190696642,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "equatorial-guinea",
+      "name": "Equatorial Guinea",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 2.1678854570478725,
+      "unpartitionedArea": 5.410308863667172e-17,
+      "unsupportedArea": 0.051975948991663586,
+      "unsupportedFraction": 0.02397541291800634,
+      "unsupportedDomains": [
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "eritrea",
+      "name": "Eritrea",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 10.316151504776064,
+      "unpartitionedArea": 6.53887347333214e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 6.3384814291500475e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "estonia",
+      "name": "Estonia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 7.089600154729357,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "eswatini",
+      "name": "eSwatini",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.5501050846961686,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "ethiopia",
+      "name": "Ethiopia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 92.70785120328689,
+      "unpartitionedArea": 1.9599250553655227e-13,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 2.1140874585345095e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "falkland-islands",
+      "name": "Falkland Islands",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.5087714889309314,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "faroe-islands",
+      "name": "Faroe Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.22805711868917214,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.2280571186891721,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 324,
+          "begin": 120.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "federated-states-of-micronesia",
+      "name": "Federated States of Micronesia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.051881971715926636,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.05188197171592663,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 654,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "fiji",
+      "name": "Fiji",
+      "eligible": false,
+      "reasons": [
+        "unassigned-territory",
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.6102513506609215,
+      "unpartitionedArea": 0.005172628265419821,
+      "unsupportedArea": 1.605078722395501,
+      "unsupportedFraction": 0.9999999999999996,
+      "unsupportedDomains": [
+        {
+          "pid": 815,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 819,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 846,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 847,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "finland",
+      "name": "Finland",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 62.22778936714022,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "france",
+      "name": "France",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 71.57598916174219,
+      "unpartitionedArea": 1.2198454147570463e-14,
+      "unsupportedArea": 0.4911992350689049,
+      "unsupportedFraction": 0.006862625872468783,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 305,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 704,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "french-polynesia",
+      "name": "French Polynesia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.2813950343553257,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.28139503435532576,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "french-southern-and-antarctic-lands",
+      "name": "French Southern and Antarctic Lands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.8962886518066586,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.8962886518066581,
+      "unsupportedFraction": 0.9999999999999993,
+      "unsupportedDomains": [
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 802,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 985,
+          "begin": 93.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "gabon",
+      "name": "Gabon",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 21.126990202675508,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "gambia",
+      "name": "Gambia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.8765267951713442,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 7.58021616131738,
+      "unpartitionedArea": 2.775375272448222e-14,
+      "unsupportedArea": 7.557134827470922,
+      "unsupportedFraction": 0.9969550559832031,
+      "unsupportedDomains": [
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 513,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "germany",
+      "name": "Germany",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 45.930056593932534,
+      "unpartitionedArea": 1.5695910610318165e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 3.417350592246305e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "ghana",
+      "name": "Ghana",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 19.581144169087008,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "gibraltar",
+      "name": "Gibraltar",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.0003696872094999761,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "greece",
+      "name": "Greece",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 13.67420854267365,
+      "unpartitionedArea": 3.0212386181279546e-15,
+      "unsupportedArea": 4.069267699261679,
+      "unsupportedFraction": 0.29758707325272643,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 329,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 330,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "greenland",
+      "name": "Greenland",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 659.877949015237,
+      "unpartitionedArea": 6.166142793434646e-16,
+      "unsupportedArea": 0.06450912858152873,
+      "unsupportedFraction": 9.7759182099961e-05,
+      "unsupportedDomains": [
+        {
+          "pid": 102,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "grenada",
+      "name": "Grenada",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.028841610363567957,
+      "unpartitionedArea": 2.789703011782038e-18,
+      "unsupportedArea": 0.028841610363568002,
+      "unsupportedFraction": 1.0000000000000018,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "guam",
+      "name": "Guam",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.04709378056532633,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.04709378056532631,
+      "unsupportedFraction": 0.9999999999999996,
+      "unsupportedDomains": [
+        {
+          "pid": 652,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "guatemala",
+      "name": "Guatemala",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.174870917579574,
+      "unpartitionedArea": 5.320192248655154e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.798656238815702e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "guernsey",
+      "name": "Guernsey",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.009180158440015093,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "guinea",
+      "name": "Guinea",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 20.176379220860927,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "guinea-bissau",
+      "name": "Guinea-Bissau",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 2.725443911467448,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "guyana",
+      "name": "Guyana",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 17.226465470968268,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "haiti",
+      "name": "Haiti",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 2.3065704244872824,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 2.306570424487283,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 252,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "heard-island-and-mcdonald-islands",
+      "name": "Heard Island and McDonald Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.05295640358898233,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0529564035889823,
+      "unsupportedFraction": 0.9999999999999994,
+      "unsupportedDomains": [
+        {
+          "pid": 985,
+          "begin": 93.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "honduras",
+      "name": "Honduras",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 9.424330104681967,
+      "unpartitionedArea": 1.3800113032505967e-16,
+      "unsupportedArea": 0.002119983499619115,
+      "unsupportedFraction": 0.00022494792479372662,
+      "unsupportedDomains": [
+        {
+          "pid": 217,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "hong-kong-s-a-r",
+      "name": "Hong Kong S.A.R.",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.09086575217799978,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "hungary",
+      "name": "Hungary",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 11.05703101533296,
+      "unpartitionedArea": 1.5533194280943084e-16,
+      "unsupportedArea": 11.052113466411033,
+      "unsupportedFraction": 0.999555255934879,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "iceland",
+      "name": "Iceland",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 19.46719736590243,
+      "unpartitionedArea": 5.740748077587954e-15,
+      "unsupportedArea": 19.467197365902393,
+      "unsupportedFraction": 0.9999999999999986,
+      "unsupportedDomains": [
+        {
+          "pid": 102,
+          "begin": 15.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 301,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 301,
+          "begin": 30.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "india",
+      "name": "India",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 278.5746609083642,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 8.103472647016124,
+      "unsupportedFraction": 0.029089051461438278,
+      "unsupportedDomains": [
+        {
+          "pid": 501,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 501,
+          "begin": 20.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 624,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 626,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "indian-ocean-territories",
+      "name": "Indian Ocean Territories",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.009249922837499836,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.009249922837499838,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 820,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 873,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "indonesia",
+      "name": "Indonesia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 153.07868022842766,
+      "unpartitionedArea": 0.0015803521708519226,
+      "unsupportedArea": 101.41731593658994,
+      "unsupportedFraction": 0.6625278983162195,
+      "unsupportedDomains": [
+        {
+          "pid": 616,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 620,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 623,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 626,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 656,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 664,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 671,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        },
+        {
+          "pid": 672,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 673,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 679,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 682,
+          "begin": 145.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 684,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 800,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 800,
+          "begin": 145.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "iran",
+      "name": "Iran",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 156.0881249642973,
+      "unpartitionedArea": 1.0873463503575129e-13,
+      "unsupportedArea": 12.314169359849213,
+      "unsupportedFraction": 0.07889241646451961,
+      "unsupportedDomains": [
+        {
+          "pid": 503,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 513,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 515,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "iraq",
+      "name": "Iraq",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 42.24399936012872,
+      "unpartitionedArea": 1.7021737657732453e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 4.029385928312017e-18,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "ireland",
+      "name": "Ireland",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.334028480837679,
+      "unpartitionedArea": 1.2754109233978051e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.3664099333060358e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "isle-of-man",
+      "name": "Isle of Man",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.07918608139121047,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "israel",
+      "name": "Israel",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 2.097318028218878,
+      "unpartitionedArea": 1.1487068525410072e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.477027504105005e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "italy",
+      "name": "Italy",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 33.17222754219118,
+      "unpartitionedArea": 7.718624260535857e-15,
+      "unsupportedArea": 0.05010073522901581,
+      "unsupportedFraction": 0.0015103217040610634,
+      "unsupportedDomains": [
+        {
+          "pid": 305,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 306,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 323,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 715,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "ivory-coast",
+      "name": "Ivory Coast",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 26.28710640272517,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "jamaica",
+      "name": "Jamaica",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.9420613733028032,
+      "unpartitionedArea": 4.358443924101227e-18,
+      "unsupportedArea": 0.942061373302804,
+      "unsupportedFraction": 1.0000000000000009,
+      "unsupportedDomains": [
+        {
+          "pid": 218,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 222,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 222,
+          "begin": 79.1,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "japan",
+      "name": "Japan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 38.171476783364106,
+      "unpartitionedArea": 3.171842864227777e-15,
+      "unsupportedArea": 38.035127708983424,
+      "unsupportedFraction": 0.9964279853474229,
+      "unsupportedDomains": [
+        {
+          "pid": 603,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 609,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 610,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 631,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        },
+        {
+          "pid": 632,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 650,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 651,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 655,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "jersey",
+      "name": "Jersey",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.014694545007500346,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "jordan",
+      "name": "Jordan",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 8.415096304920182,
+      "unpartitionedArea": 4.3632847403069664e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.185068099287014e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "kazakhstan",
+      "name": "Kazakhstan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 328.61261265264415,
+      "unpartitionedArea": 1.301784417123045e-13,
+      "unsupportedArea": 46.75307186261046,
+      "unsupportedFraction": 0.14227412479760884,
+      "unsupportedDomains": [
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "kenya",
+      "name": "Kenya",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 47.61964957586565,
+      "unpartitionedArea": 3.365732904317727e-13,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 7.0679497524558234e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "kiribati",
+      "name": "Kiribati",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.07726766948275186,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.07726766948275195,
+      "unsupportedFraction": 1.000000000000001,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "kosovo",
+      "name": "Kosovo",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 1.1965692406701836,
+      "unpartitionedArea": 4.4883003208326e-16,
+      "unsupportedArea": 0.9433425027219996,
+      "unsupportedFraction": 0.7883726830497879,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "kuwait",
+      "name": "Kuwait",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.6233086926638107,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "kyrgyzstan",
+      "name": "Kyrgyzstan",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 21.44887085072006,
+      "unpartitionedArea": 3.166884499326947e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.4764807534008865e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "laos",
+      "name": "Laos",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 19.528702406599322,
+      "unpartitionedArea": 2.1508194443638647e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.1013632137878447e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "latvia",
+      "name": "Latvia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.504877264292025,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "lebanon",
+      "name": "Lebanon",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.975368734945379,
+      "unpartitionedArea": 9.292160398702715e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 9.52681797743197e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "lesotho",
+      "name": "Lesotho",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 2.8033453607637293,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "liberia",
+      "name": "Liberia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 7.791175380577021,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "libya",
+      "name": "Libya",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 147.89453413382338,
+      "unpartitionedArea": 6.060860547507347e-15,
+      "unsupportedArea": 0.007043389163329035,
+      "unsupportedFraction": 4.7624404813783294e-05,
+      "unsupportedDomains": [
+        {
+          "pid": 715,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "liechtenstein",
+      "name": "Liechtenstein",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.01627435144000006,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "lithuania",
+      "name": "Lithuania",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.190452852751186,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "luxembourg",
+      "name": "Luxembourg",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.32553839540071217,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "macao-s-a-r",
+      "name": "Macao S.A.R",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.002633198305499923,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "madagascar",
+      "name": "Madagascar",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 51.069836261996336,
+      "unpartitionedArea": 2.973394600130105e-14,
+      "unsupportedArea": 0.0467378142781642,
+      "unsupportedFraction": 0.0009151745472302194,
+      "unsupportedDomains": [
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "malawi",
+      "name": "Malawi",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 9.962327883450396,
+      "unpartitionedArea": 2.452022647152375e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 2.461294865857327e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "malaysia",
+      "name": "Malaysia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 26.703186457975907,
+      "unpartitionedArea": 4.773318397333925e-17,
+      "unsupportedArea": 16.000080641766917,
+      "unsupportedFraction": 0.5991824483923301,
+      "unsupportedDomains": [
+        {
+          "pid": 620,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 623,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "maldives",
+      "name": "Maldives",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.008860329215945048,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.00886032921594505,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 501,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 501,
+          "begin": 52.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "mali",
+      "name": "Mali",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 106.68247285374107,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "malta",
+      "name": "Malta",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 0.03252217087641468,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0007618127828775629,
+      "unsupportedFraction": 0.023424413633778524,
+      "unsupportedDomains": [
+        {
+          "pid": 323,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "marshall-islands",
+      "name": "Marshall Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.013496169511293805,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.013496169511293803,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "mauritania",
+      "name": "Mauritania",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 89.72211534283858,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "mauritius",
+      "name": "Mauritius",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.1741043034143261,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.17410430341432612,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 704,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "mexico",
+      "name": "Mexico",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 174.20224310574164,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 15.378494578101572,
+      "unsupportedFraction": 0.08827954395952725,
+      "unsupportedDomains": [
+        {
+          "pid": 104,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 105,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 135,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 135,
+          "begin": 155.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 198,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        },
+        {
+          "pid": 257,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "moldova",
+      "name": "Moldova",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 3.9418951182032806,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "monaco",
+      "name": "Monaco",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.0021049237050001232,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "mongolia",
+      "name": "Mongolia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 184.60162911751218,
+      "unpartitionedArea": 3.0097145999289737e-14,
+      "unsupportedArea": 0.024634678531943587,
+      "unsupportedFraction": 0.00013344778510211274,
+      "unsupportedDomains": [
+        {
+          "pid": 606,
+          "begin": 130.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "montenegro",
+      "name": "Montenegro",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 1.5102559742555768,
+      "unpartitionedArea": 2.24095499599507e-16,
+      "unsupportedArea": 0.008545289657336195,
+      "unsupportedFraction": 0.005658173053444463,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "montserrat",
+      "name": "Montserrat",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.00843991317115919,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.008439913171159191,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "morocco",
+      "name": "Morocco",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 55.35566510466118,
+      "unpartitionedArea": 2.847179005001337e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.143428409031243e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "mozambique",
+      "name": "Mozambique",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 67.15984508834435,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 1.833877584310764e-06,
+      "unsupportedFraction": 2.7306161619319086e-08,
+      "unsupportedDomains": [
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "myanmar",
+      "name": "Myanmar",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 57.78452838206606,
+      "unpartitionedArea": 1.0683749419049051e-13,
+      "unsupportedArea": 27.79391892438002,
+      "unsupportedFraction": 0.48099239887551315,
+      "unsupportedDomains": [
+        {
+          "pid": 624,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 626,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "namibia",
+      "name": "Namibia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 72.12909388144263,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "nauru",
+      "name": "Nauru",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.002337148610000117,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.002337148610000117,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "nepal",
+      "name": "Nepal",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 13.527820298470733,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "netherlands",
+      "name": "Netherlands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 4.909190666352437,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.024576040090977407,
+      "unsupportedFraction": 0.005006128659744555,
+      "unsupportedDomains": [
+        {
+          "pid": 224,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "new-caledonia",
+      "name": "New Caledonia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.640112021437604,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 1.6401120214376124,
+      "unsupportedFraction": 1.000000000000005,
+      "unsupportedDomains": [
+        {
+          "pid": 675,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 834,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "new-zealand",
+      "name": "New Zealand",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 29.144644154420384,
+      "unpartitionedArea": 4.762895888503642e-15,
+      "unsupportedArea": 29.14464415442034,
+      "unsupportedFraction": 0.9999999999999987,
+      "unsupportedDomains": [
+        {
+          "pid": 806,
+          "begin": 270.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 807,
+          "begin": 270.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 813,
+          "begin": 200.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 814,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 848,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "nicaragua",
+      "name": "Nicaragua",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 10.717284581245682,
+      "unpartitionedArea": 3.172319391612155e-17,
+      "unsupportedArea": 0.03824171465676853,
+      "unsupportedFraction": 0.003568227974807,
+      "unsupportedDomains": [
+        {
+          "pid": 230,
+          "begin": 80.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "niger",
+      "name": "Niger",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 100.57318097033873,
+      "unpartitionedArea": 2.3467996412871664e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 2.3334248938385374e-17,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "nigeria",
+      "name": "Nigeria",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 74.80326887520917,
+      "unpartitionedArea": 1.3079287961701735e-13,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.7484914975468927e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "niue",
+      "name": "Niue",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.018930583343734524,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.018930583343734524,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "norfolk-island",
+      "name": "Norfolk Island",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0038112540410004583,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0038112540410004587,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 834,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "north-korea",
+      "name": "North Korea",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 12.938048581256236,
+      "unpartitionedArea": 3.165870343657673e-16,
+      "unsupportedArea": 0.007489223977442922,
+      "unsupportedFraction": 0.0005788526708960667,
+      "unsupportedDomains": [
+        {
+          "pid": 637,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "north-macedonia",
+      "name": "North Macedonia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 2.741451358959899,
+      "unpartitionedArea": 5.461611710442278e-16,
+      "unsupportedArea": 1.508985748739521,
+      "unsupportedFraction": 0.5504331651946681,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "northern-cyprus",
+      "name": "Northern Cyprus",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.3288639177364061,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.32886391773640605,
+      "unsupportedFraction": 0.9999999999999998,
+      "unsupportedDomains": [
+        {
+          "pid": 331,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "northern-mariana-islands",
+      "name": "Northern Mariana Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.04899518661937662,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.048995186619376616,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 652,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "norway",
+      "name": "Norway",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 85.59622017414068,
+      "unpartitionedArea": 1.9742483533854224e-05,
+      "unsupportedArea": 0.12077501629814558,
+      "unsupportedFraction": 0.0014112160389317344,
+      "unsupportedDomains": [
+        {
+          "pid": 102,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 301,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 802,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "oman",
+      "name": "Oman",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 26.983026300624534,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.07887852916023805,
+      "unsupportedFraction": 0.002923264732481559,
+      "unsupportedDomains": [
+        {
+          "pid": 503,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "pakistan",
+      "name": "Pakistan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 81.71044202497646,
+      "unpartitionedArea": 2.1964233466774325e-13,
+      "unsupportedArea": 10.484870938889685,
+      "unsupportedFraction": 0.12831739345731347,
+      "unsupportedDomains": [
+        {
+          "pid": 503,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 515,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "palau",
+      "name": "Palau",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.04028062837732122,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.04028062837732122,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 656,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "palestine",
+      "name": "Palestine",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.5792196422317157,
+      "unpartitionedArea": 7.62792357036619e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.316931093872444e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "panama",
+      "name": "Panama",
+      "eligible": false,
+      "reasons": [
+        "unassigned-territory",
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 6.12087034281473,
+      "unpartitionedArea": 0.001242941664149666,
+      "unsupportedArea": 5.560832607874242,
+      "unsupportedFraction": 0.9087066443202304,
+      "unsupportedDomains": [
+        {
+          "pid": 230,
+          "begin": 80.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 902,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 909,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "papua-new-guinea",
+      "name": "Papua New Guinea",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 38.04367594971483,
+      "unpartitionedArea": 0.0002497445535996505,
+      "unsupportedArea": 14.999592561593762,
+      "unsupportedFraction": 0.3942795203590151,
+      "unsupportedDomains": [
+        {
+          "pid": 675,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 676,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 800,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 800,
+          "begin": 145.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 808,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 809,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 810,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 817,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "paraguay",
+      "name": "Paraguay",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 35.30336935562974,
+      "unpartitionedArea": 5.294989272228426e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.4998538011738099e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "peru",
+      "name": "Peru",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 106.41707302056969,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "philippines",
+      "name": "Philippines",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 24.375608203597444,
+      "unpartitionedArea": 5.57552035385628e-14,
+      "unsupportedArea": 24.375608203597253,
+      "unsupportedFraction": 0.9999999999999944,
+      "unsupportedDomains": [
+        {
+          "pid": 620,
+          "begin": 220.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 622,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 623,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 656,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 659,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 664,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "pitcairn-islands",
+      "name": "Pitcairn Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.003789339215500243,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.003789339215500243,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "poland",
+      "name": "Poland",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 41.142160216033304,
+      "unpartitionedArea": 1.1191268898528722e-13,
+      "unsupportedArea": 0.6718650337214017,
+      "unsupportedFraction": 0.016330329525567414,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "portugal",
+      "name": "Portugal",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 9.585326580471921,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.3469137990040035,
+      "unsupportedFraction": 0.03619217311914725,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 301,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 714,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "puerto-rico",
+      "name": "Puerto Rico",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.7692832414036967,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.7692832414036971,
+      "unsupportedFraction": 1.0000000000000004,
+      "unsupportedDomains": [
+        {
+          "pid": 224,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 237,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 237,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 252,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "qatar",
+      "name": "Qatar",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.9996307040660231,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "republic-of-serbia",
+      "name": "Republic of Serbia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 8.74420004266649,
+      "unpartitionedArea": 2.5906195556241447e-15,
+      "unsupportedArea": 8.357913133028013,
+      "unsupportedFraction": 0.9558236422138532,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "republic-of-the-congo",
+      "name": "Republic of the Congo",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 28.044544293064643,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "romania",
+      "name": "Romania",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 27.387157787172267,
+      "unpartitionedArea": 2.5408032016861722e-14,
+      "unsupportedArea": 13.5476422849063,
+      "unsupportedFraction": 0.494671348892284,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "russia",
+      "name": "Russia",
+      "eligible": false,
+      "reasons": [
+        "unassigned-territory",
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 2929.004109988161,
+      "unpartitionedArea": 1.4967817681342352,
+      "unsupportedArea": 202.8400491089249,
+      "unsupportedFraction": 0.0697632448449808,
+      "unsupportedDomains": [
+        {
+          "pid": 117,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 403,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 406,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 406,
+          "begin": 115.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 408,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95,
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            180,
+            185,
+            190,
+            195,
+            200,
+            205,
+            210,
+            215,
+            220,
+            225,
+            230,
+            235,
+            240,
+            245,
+            250,
+            255,
+            260,
+            265,
+            270,
+            275,
+            280,
+            285,
+            290,
+            295,
+            300
+          ]
+        },
+        {
+          "pid": 409,
+          "begin": 250.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 410,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 416,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 420,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 513,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 609,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 632,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "rwanda",
+      "name": "Rwanda",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 2.0570616307088354,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "saint-barthelemy",
+      "name": "Saint Barthelemy",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0020825519814509177,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0020825519814509177,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saint-helena",
+      "name": "Saint Helena",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.033666865513011054,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.033666865513011054,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 201,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saint-kitts-and-nevis",
+      "name": "Saint Kitts and Nevis",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.022444878614265355,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.022444878614265352,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saint-lucia",
+      "name": "Saint Lucia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.05060593306225277,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.05060593306225275,
+      "unsupportedFraction": 0.9999999999999996,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saint-martin",
+      "name": "Saint Martin",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.005827628940882072,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.005827628940882082,
+      "unsupportedFraction": 1.0000000000000016,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 239,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saint-pierre-and-miquelon",
+      "name": "Saint Pierre and Miquelon",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.028673568515868553,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "saint-vincent-and-the-grenadines",
+      "name": "Saint Vincent and the Grenadines",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.030665776291753405,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.030665776291753412,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "samoa",
+      "name": "Samoa",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.23237731526854727,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.23237731526854732,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "san-marino",
+      "name": "San Marino",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.006761029046500023,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "sao-tome-and-principe",
+      "name": "S\u00e3o Tom\u00e9 and Principe",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.08426508191130108,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.08426508191130108,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 701,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "saudi-arabia",
+      "name": "Saudi Arabia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 171.01579907483327,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "scarborough-reef",
+      "name": "Scarborough Reef",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 8.222465999987034e-06,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "senegal",
+      "name": "Senegal",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 16.44563808888876,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "serranilla-bank",
+      "name": "Serranilla Bank",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 8.885386000002295e-06,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 8.885386000002297e-06,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 222,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "seychelles",
+      "name": "Seychelles",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 0.03564492946944612,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.019306476644779712,
+      "unsupportedFraction": 0.5416331840782209,
+      "unsupportedDomains": [
+        {
+          "pid": 702,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 704,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "siachen-glacier",
+      "name": "Siachen Glacier",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.20693718365220573,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "sierra-leone",
+      "name": "Sierra Leone",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 5.882094546907957,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "singapore",
+      "name": "Singapore",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.04148502856841806,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "sint-maarten",
+      "name": "Sint Maarten",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0019932157931820157,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0019932157931820157,
+      "unsupportedFraction": 1.0,
+      "unsupportedDomains": [
+        {
+          "pid": 239,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "slovakia",
+      "name": "Slovakia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 5.920501563628445,
+      "unpartitionedArea": 9.830340704643336e-16,
+      "unsupportedArea": 5.184106945204374,
+      "unsupportedFraction": 0.875619555115401,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "slovenia",
+      "name": "Slovenia",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 2.3657679712640176,
+      "unpartitionedArea": 3.8899941582762545e-17,
+      "unsupportedArea": 0.23858307821243965,
+      "unsupportedFraction": 0.10084804643160587,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "solomon-islands",
+      "name": "Solomon Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 2.236400596172764,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 2.2364005961727638,
+      "unsupportedFraction": 0.9999999999999998,
+      "unsupportedDomains": [
+        {
+          "pid": 675,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 819,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 824,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "somalia",
+      "name": "Somalia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 38.51700973955741,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "somaliland",
+      "name": "Somaliland",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 13.794799624927448,
+      "unpartitionedArea": 3.902794282251961e-18,
+      "unsupportedArea": 0.004893043358029369,
+      "unsupportedFraction": 0.00035470202475341186,
+      "unsupportedDomains": [
+        {
+          "pid": 709,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "south-africa",
+      "name": "South Africa",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 113.10148537015344,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.037736601374738415,
+      "unsupportedFraction": 0.0003336525709740749,
+      "unsupportedDomains": [
+        {
+          "pid": 802,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "south-georgia-and-the-islands",
+      "name": "South Georgia and the Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.5462412795601405,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.5462412795601397,
+      "unsupportedFraction": 0.9999999999999986,
+      "unsupportedDomains": [
+        {
+          "pid": 930,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 932,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "south-korea",
+      "name": "South Korea",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 9.8980830163385,
+      "unpartitionedArea": 1.3692961495681273e-15,
+      "unsupportedArea": 0.007451002751999856,
+      "unsupportedFraction": 0.0007527723034553311,
+      "unsupportedDomains": [
+        {
+          "pid": 637,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "south-sudan",
+      "name": "South Sudan",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 51.355811209737716,
+      "unpartitionedArea": 1.7141972244532194e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 3.337883647582585e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "southern-patagonian-ice-field",
+      "name": "Southern Patagonian Ice Field",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.1749248495319167,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "spain",
+      "name": "Spain",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 53.681865416467424,
+      "unpartitionedArea": 3.292650505641397e-16,
+      "unsupportedArea": 0.7184154540555937,
+      "unsupportedFraction": 0.013382833261886112,
+      "unsupportedDomains": [
+        {
+          "pid": 305,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 320,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 714,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "spratly-islands",
+      "name": "Spratly Islands",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 0.0009896061289999792,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "sri-lanka",
+      "name": "Sri Lanka",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 5.432880705563837,
+      "unpartitionedArea": 8.032929704367938e-14,
+      "unsupportedArea": 0.10383965376240062,
+      "unsupportedFraction": 0.01911318495474018,
+      "unsupportedDomains": [
+        {
+          "pid": 501,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "sudan",
+      "name": "Sudan",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 156.92477946152937,
+      "unpartitionedArea": 0.00836991845824973,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.3337136983529386e-05,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "suriname",
+      "name": "Suriname",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 11.82169471738014,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "sweden",
+      "name": "Sweden",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 78.56169660474147,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "switzerland",
+      "name": "Switzerland",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 4.882653615859519,
+      "unpartitionedArea": 2.759720093256611e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 5.652090667035374e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "syria",
+      "name": "Syria",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 18.36858093261293,
+      "unpartitionedArea": 1.589602461250606e-14,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 8.653920883067832e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "taiwan",
+      "name": "Taiwan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 3.206211837420236,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 3.183416417992735,
+      "unsupportedFraction": 0.9928902329030628,
+      "unsupportedDomains": [
+        {
+          "pid": 605,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 655,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 656,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "tajikistan",
+      "name": "Tajikistan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 14.696633758914139,
+      "unpartitionedArea": 4.829290610571075e-15,
+      "unsupportedArea": 2.894913621896933,
+      "unsupportedFraction": 0.19697800662284642,
+      "unsupportedDomains": [
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "thailand",
+      "name": "Thailand",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 43.32391065492194,
+      "unpartitionedArea": 1.9338910728889405e-16,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 4.46379618934339e-18,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "the-bahamas",
+      "name": "The Bahamas",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.1207625050507473,
+      "unpartitionedArea": 2.842360931832486e-16,
+      "unsupportedArea": 1.1207625050507466,
+      "unsupportedFraction": 0.9999999999999996,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 101,
+          "begin": 165.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "togo",
+      "name": "Togo",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 4.671144905820325,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "tonga",
+      "name": "Tonga",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.05210183331373134,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.05210183331373136,
+      "unsupportedFraction": 1.0000000000000004,
+      "unsupportedDomains": [
+        {
+          "pid": 848,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "trinidad-and-tobago",
+      "name": "Trinidad and Tobago",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 0.42305469329979895,
+      "unpartitionedArea": 2.4544385165442094e-15,
+      "unsupportedArea": 0.00020603632501430366,
+      "unsupportedFraction": 0.0004870205396131839,
+      "unsupportedDomains": [
+        {
+          "pid": 201,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "tunisia",
+      "name": "Tunisia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 15.31065387755068,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "turkey",
+      "name": "Turkey",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 81.2094031183746,
+      "unpartitionedArea": 4.771269901327211e-05,
+      "unsupportedArea": 14.552903083795561,
+      "unsupportedFraction": 0.17920277994509476,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 331,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 511,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 550,
+          "begin": 10.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "turkmenistan",
+      "name": "Turkmenistan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 49.059386337690505,
+      "unpartitionedArea": 7.872634242940597e-15,
+      "unsupportedArea": 46.74643898527508,
+      "unsupportedFraction": 0.9528541320004553,
+      "unsupportedDomains": [
+        {
+          "pid": 513,
+          "begin": 100.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "turks-and-caicos-islands",
+      "name": "Turks and Caicos Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.03887877899281889,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.03887877899281895,
+      "unsupportedFraction": 1.0000000000000013,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 101,
+          "begin": 150.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "tuvalu",
+      "name": "Tuvalu",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.00188715422699854,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.0018871542269985398,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "uganda",
+      "name": "Uganda",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 19.65878683682892,
+      "unpartitionedArea": 7.313129165429596e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 3.7200307557784413e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "ukraine",
+      "name": "Ukraine",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 70.54116377286917,
+      "unpartitionedArea": 7.993504150479433e-15,
+      "unsupportedArea": 3.382688841023512,
+      "unsupportedFraction": 0.04795340280910613,
+      "unsupportedDomains": [
+        {
+          "pid": 308,
+          "begin": 65.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "united-arab-emirates",
+      "name": "United Arab Emirates",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 6.303533034107817,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "united-kingdom",
+      "name": "United Kingdom",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 33.54581503653322,
+      "unpartitionedArea": 5.9824533655901526e-15,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 1.7833680174635598e-16,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "united-republic-of-tanzania",
+      "name": "United Republic of Tanzania",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 77.01868749938026,
+      "unpartitionedArea": 0.0019880504094965767,
+      "unsupportedArea": 0.15144757893944077,
+      "unsupportedFraction": 0.0019921870176010464,
+      "unsupportedDomains": [
+        {
+          "pid": 709,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "united-states-minor-outlying-islands",
+      "name": "United States Minor Outlying Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.0023644547744997744,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.002364454774499775,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 252,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "united-states-of-america",
+      "name": "United States of America",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 1116.3517491362347,
+      "unpartitionedArea": 0.013089669393599975,
+      "unsupportedArea": 254.84828778394333,
+      "unsupportedFraction": 0.22829845310900726,
+      "unsupportedDomains": [
+        {
+          "pid": 101,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 105,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 107,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 121,
+          "begin": 115.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 123,
+          "begin": 115.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 125,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 126,
+          "begin": 145.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 127,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 128,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 129,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 130,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 135,
+          "begin": 155.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 406,
+          "begin": 115.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 416,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 416,
+          "begin": 50.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 3.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 6.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 24.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "united-states-virgin-islands",
+      "name": "United States Virgin Islands",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.03026168328094995,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.030261683280949952,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 224,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 237,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "uruguay",
+      "name": "Uruguay",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 17.075981430632904,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "us-naval-base-guantanamo-bay",
+      "name": "US Naval Base Guantanamo Bay",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.005638876220297589,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.005638876220297591,
+      "unsupportedFraction": 1.0000000000000002,
+      "unsupportedDomains": [
+        {
+          "pid": 206,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "uzbekistan",
+      "name": "Uzbekistan",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 48.506479390253006,
+      "unpartitionedArea": 1.0145370286296151e-14,
+      "unsupportedArea": 20.199713985850167,
+      "unsupportedFraction": 0.41643331447198684,
+      "unsupportedDomains": [
+        {
+          "pid": 514,
+          "begin": 245.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "vanuatu",
+      "name": "Vanuatu",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 1.0395521083042312,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 1.039552108304232,
+      "unsupportedFraction": 1.0000000000000009,
+      "unsupportedDomains": [
+        {
+          "pid": 675,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "vatican",
+      "name": "Vatican",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 1.3243734999963908e-06,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "venezuela",
+      "name": "Venezuela",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 74.7787626944015,
+      "unpartitionedArea": 4.196035929224037e-14,
+      "unsupportedArea": 0.0122380419120581,
+      "unsupportedFraction": 0.0001636566515831947,
+      "unsupportedDomains": [
+        {
+          "pid": 224,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "vietnam",
+      "name": "Vietnam",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 27.945069507198966,
+      "unpartitionedArea": 2.371562453273462e-13,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 8.486514777365362e-15,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "wallis-and-futuna",
+      "name": "Wallis and Futuna",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime",
+        "no-continuously-supported-territory"
+      ],
+      "sourceArea": 0.011644274061315395,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.011644274061315393,
+      "unsupportedFraction": 0.9999999999999999,
+      "unsupportedDomains": [
+        {
+          "pid": 847,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        },
+        {
+          "pid": 901,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "western-sahara",
+      "name": "Western Sahara",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 8.048580371378986,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "yemen",
+      "name": "Yemen",
+      "eligible": false,
+      "reasons": [
+        "unsupported-rotation-or-domain-lifetime"
+      ],
+      "sourceArea": 38.24676597005018,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0.3172460778827762,
+      "unsupportedFraction": 0.008294716424682847,
+      "unsupportedDomains": [
+        {
+          "pid": 709,
+          "begin": 0.0,
+          "end": 0,
+          "missingRotationAges": []
+        }
+      ]
+    },
+    {
+      "id": "zambia",
+      "name": "Zambia",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 62.81564304567646,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    },
+    {
+      "id": "zimbabwe",
+      "name": "Zimbabwe",
+      "eligible": true,
+      "reasons": [],
+      "sourceArea": 33.4185283856192,
+      "unpartitionedArea": 0.0,
+      "unsupportedArea": 0,
+      "unsupportedFraction": 0.0,
+      "unsupportedDomains": []
+    }
+  ]
+}

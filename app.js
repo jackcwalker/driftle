@@ -1,18 +1,21 @@
-import { eraPair } from "./raster-drift.js?v=terrain-game4";
-import { DriftMap } from "./drift-map.js?v=terrain-game4";
+import { eraPair } from "./raster-drift.js?v=terrain-game6";
+import { DriftMap } from "./drift-map.js?v=terrain-game6";
+import {
+  dailyCountry,
+  supportedCountries,
+} from "./country-pool.js?v=terrain-game6";
 import { driftClock } from "./drift.js";
 import { challengeOutcome } from "./challenge.js";
 import { zoomAround, panBy, wheelIntent } from "./navigation.js";
 import {
   ages,
-  dailyIndex,
   renderRings,
   recordGuess,
   restoreGuess,
   attachPin,
   pinPosition,
   feedback,
-} from "./geo.js?v=terrain-game4";
+} from "./geo.js?v=terrain-game6";
 const $ = (id) => document.getElementById(id),
   d3 = window.d3,
   canvas = $("map"),
@@ -53,41 +56,37 @@ function save() {
   if (testing) return;
   try {
     localStorage.setItem(
-      "driftle-paleomap-v1-" + today,
+      "driftle-paleomap-v2-" + today,
       JSON.stringify({
         guesses: history,
         arrived: finished,
         modelHash: data.inputModelSHA256,
+        countryId: country.id,
       }),
     );
   } catch {
     /* Storage is optional. */
   }
 }
-function valid(c) {
-  const t = data.territories?.countries.find((t) => t.name === c.name);
-  return t && (t.unpartitionedArea + t.unsupportedArea) / t.sourceArea < 0.0001;
-}
 async function start(restore = true, randomize = false) {
   if (!data || !countries || !renderer) return;
   testing = randomize;
   const previousCountry = country;
   run++;
-  busy = false;
+  const token = run;
+  renderer.ticket++;
+  busy = true;
   $("feedback").hidden = true;
   finished = false;
   history = [];
+  delete canvas.dataset.playback;
   round = 0;
   age = 300;
   guess = null;
-  const startIndex = dailyIndex(today, countries.length);
-  country = Array.from(
-    { length: countries.length },
-    (_, i) => countries[(startIndex + i) % countries.length],
-  ).find(valid);
+  country = dailyCountry(today, countries);
   if (randomize) {
-    const pool = countries.filter(
-      (c) => valid(c) && c.name !== previousCountry?.name,
+    const pool = supportedCountries(countries).filter(
+      (c) => c.name !== previousCountry?.name,
     );
     country = pool[Math.floor(Math.random() * pool.length)] ?? country;
   }
@@ -97,17 +96,49 @@ async function start(restore = true, randomize = false) {
   $("results").classList.remove("collapsed");
   document.body.classList.remove("finished");
   $("results").replaceChildren();
-  const stored = restore ? safeRead("driftle-paleomap-v1-" + today) : null;
+  $("country-name").textContent = country.name;
+  ui();
+  $("status").textContent = "Loading map…";
+  try {
+    const response = await fetch(country.url, { cache: "no-cache" });
+    if (!response.ok) throw Error(`Country: ${response.status}`);
+    const payload = await response.json();
+    if (token !== run) return;
+    if (
+      payload.inputModelSHA256 !== data.inputModelSHA256 ||
+      payload.country.id !== country.id
+    )
+      throw Error("Country reconstruction mismatch");
+    country = payload.country;
+    data.territories = { ...territories, countries: [payload.territory] };
+    const polygons =
+      country.geometry.type === "Polygon"
+        ? [country.geometry.coordinates]
+        : country.geometry.coordinates;
+    for (const rings of [
+      ...polygons,
+      ...payload.territory.parts.map((p) => p.rings),
+    ]) {
+      if (d3.geoArea({ type: "Polygon", coordinates: rings }) > 2 * Math.PI)
+        for (const r of rings) r.reverse();
+    }
+  } catch (e) {
+    if (token !== run) return;
+    $("status").textContent =
+      "Country unavailable. Reset to retry. " + e.message;
+    return;
+  }
+  const stored = restore ? safeRead("driftle-paleomap-v2-" + today) : null;
   const saved = Array.isArray(stored) ? stored : stored?.guesses;
   if (
     Array.isArray(saved) &&
     (!stored?.modelHash || stored.modelHash === data.inputModelSHA256) &&
+    stored?.countryId === country.id &&
     saved.length <= 5 &&
     saved.every(
       (h, i) =>
         h.age === ages[i] &&
-        (h.countryName === country.name ||
-          (!h.countryName && country.name === countries[startIndex].name)) &&
+        h.countryName === country.name &&
         Array.isArray(h.guess) &&
         h.guess.length === 2 &&
         h.guess.every(Number.isFinite),
@@ -129,21 +160,21 @@ async function start(restore = true, randomize = false) {
     finished = false;
     round = history.length - 1;
     age = history.at(-1).age;
+  } else if (finished) {
+    round = 4;
+    age = 0;
   }
   $("country-name").textContent = country.name;
-  const token = run;
   busy = true;
   ui();
   $("status").textContent = "Loading map…";
   try {
-    if (!(await renderer.prepare(age, Math.max(0, age - 75))) || token !== run)
-      return;
+    if (!(await renderer.prepare(age)) || token !== run) return;
   } catch (e) {
     if (token !== run) return;
     $("status").textContent = "Map unavailable. Reset to retry. " + e.message;
     return;
   }
-  renderer.prefetch(Math.max(0, age - 150));
   busy = false;
   ui();
   draw();
@@ -458,6 +489,11 @@ function draw() {
 
   ctx.restore();
   canvas.dataset.age = age.toFixed(3);
+  canvas.dataset.terrainSource = String(renderer.stage?.from);
+  canvas.dataset.terrainArrival = renderer.arrival
+    ? String(renderer.arrival.from)
+    : "";
+  canvas.dataset.terrainSettle = String(renderer.settle ?? 0);
   canvas.dataset.drawMs = (performance.now() - started).toFixed(2);
   canvas.dataset.textureMiB = (
     (renderer.residentBytes + (renderer.framebufferBytes ?? 0)) /
@@ -568,8 +604,7 @@ async function driftTo(to, onArrival) {
     while (age > to) {
       const from = age,
         end = Math.max(to, eraPair(from)[1]);
-      if (!(await renderer.prepare(from, end)) || token !== run) return;
-      renderer.prefetch(Math.max(0, end - 75));
+      renderer.beginDrift(end);
       const clock = driftClock(from, end, segmentDuration);
       const arrived = await new Promise((resolve) => {
         function frame(now) {
@@ -590,11 +625,28 @@ async function driftTo(to, onArrival) {
         requestAnimationFrame(frame);
       });
       if (!arrived || token !== run) return;
-    }
-    if (to > 0) {
-      if (!(await renderer.prepare(to, Math.max(0, to - 75))) || token !== run)
-        return;
-      renderer.prefetch(Math.max(0, to - 150));
+      // The destination is first requested after movement arrives, never shown
+      // underneath the departing continents. Keep the moved landscape on screen
+      // while it loads, then settle at the fixed destination age.
+      if (!(await renderer.loadArrival(age)) || token !== run) return;
+      const settleClock = driftClock(1, 0, 320);
+      const settled = await new Promise((resolve) => {
+        function frame(now) {
+          if (token !== run) {
+            resolve(false);
+            return;
+          }
+          const state = settleClock(now);
+          renderer.settle = 1 - state.age;
+          draw();
+          if (!state.done) requestAnimationFrame(frame);
+          else resolve(true);
+        }
+        requestAnimationFrame(frame);
+      });
+      if (!settled || token !== run) return;
+      renderer.commitArrival();
+      draw();
     }
     const percentile = (a, p) =>
       a.toSorted((a, b) => a - b)[Math.floor((a.length - 1) * p)];
@@ -662,7 +714,7 @@ try {
     await Promise.all(
       [
         "data/paleomap/motion.json",
-        "data/countries.json",
+        "data/paleomap/countries.json",
         "data/modern-countries.json",
         "data/paleomap/territories.json",
         "data/maps/raster-v2/manifest.json",
@@ -691,8 +743,6 @@ try {
     throw Error("Terrain, motion and scoring model mismatch");
   territories.rotations = data.rotations;
   data.territories = territories;
-  for (const c of countries)
-    c.pid = data.placeAssignments.find((a) => a.name === c.name)?.pid;
   renderer = new DriftMap(terrainCanvas, data, manifest, owners);
   water = await (await fetch(manifest.water.url)).json();
   const rawPath = d3.geoPath(d3.geoEqualEarth().scale(1).translate([0, 0]));
@@ -706,15 +756,11 @@ try {
         for (const r of rings) r.reverse();
     f.projectedBounds = rawPath.bounds(f);
   }
-  for (const c of territories.countries)
-    for (const p of c.parts) {
-      if (d3.geoArea({ type: "Polygon", coordinates: p.rings }) > 2 * Math.PI)
-        p.rings = p.rings.map((r) => r.toReversed());
-    }
   // Pins on newly partitioned pieces use the very same model rotations.
   for (const [pid, samples] of Object.entries(territories.rotations))
     if (!data.rotations[pid]) data.rotations[pid] = samples;
-  if (!countries.some(valid)) throw Error("No supported challenges");
+  if (!supportedCountries(countries).length)
+    throw Error("No supported challenges");
   for (const f of data.features) {
     f.rings = renderRings(f.rings);
     if (d3.geoArea({ type: "Polygon", coordinates: f.rings }) > 2 * Math.PI)

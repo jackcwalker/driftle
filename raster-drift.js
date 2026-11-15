@@ -1,4 +1,4 @@
-import { ages, vector, lonlat, rotate } from "./geo.js?v=terrain-game4";
+import { ages, vector, lonlat, rotate } from "./geo.js?v=terrain-game6";
 import { equalEarthRaw } from "./map-projection.js";
 
 export function eraPair(age) {

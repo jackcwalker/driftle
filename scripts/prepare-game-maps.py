@@ -1,13 +1,15 @@
 """Prepare the matching PALEOMAP 2024 game model, territories and raster owners.
 
-Usage: python scripts/prepare-game-maps.py SOURCE_DIRECTORY
+Usage: python scripts/prepare-game-maps.py SOURCE_DIRECTORY COUNTRIES_GEOJSON [--countries-only]
 Inputs and licences: RASTER-MAPS.md. No missing rotation becomes identity.
 Static polygon geometry is a present-day material domain, not an ancient shore.
 """
 import hashlib
 import json
 import math
+import re
 import sys
+import unicodedata
 import zipfile
 from pathlib import Path
 
@@ -74,9 +76,23 @@ supported = {pid for pid in pids if all(rotations[str(pid)])}
 indices = {pid: i+1 for i, pid in enumerate(pids)}
 assert len(pids) < 255, 'Owner PNG uses an 8-bit plate index'
 
-# Partition the same complete modern national geometries as the existing game.
-catalogue = json.loads((ROOT/'data/countries.json').read_text())
-territories = []
+# Opt out: screen every country/territory in the source, without size, difficulty
+# or recognition filters. Full source geometries remain in lazy-loaded bundles.
+country_source = Path(sys.argv[2])
+raw_countries = json.loads(country_source.read_text())['features']
+legacy = {c['name']: c for c in json.loads((ROOT/'data/countries.json').read_text())}
+catalogue, territories = [], []
+for feature in raw_countries:
+    name = feature['properties']['name']
+    slug = re.sub('[^a-z0-9]+', '-', unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode().lower()).strip('-')
+    catalogue.append(dict(id=slug, name=name, geometry=feature['geometry']))
+catalogue.sort(key=lambda c: c['id'])
+assert len({c['id'] for c in catalogue}) == len(catalogue)
+bundles = OUT/'countries'
+bundles.mkdir(exist_ok=True)
+for old in bundles.glob('*.json'):
+    old.unlink()
+report = []
 for country in catalogue:
     geom = country['geometry']
     components = [geom['coordinates']] if geom['type'] == 'Polygon' else geom['coordinates']
@@ -105,17 +121,54 @@ for country in catalogue:
                 break
         unknown += remaining.area
     unsupported = sum(p['area'] for p in parts if p['pid'] not in supported or p['begin'] < 300 or p['end'] > 0)
-    territories.append(dict(name=country['name'], parts=parts, sourceArea=source_area,
+    territory = dict(name=country['name'], parts=parts, sourceArea=source_area,
                             unpartitionedArea=unknown, unsupportedArea=unsupported,
-                            complete=unknown < 1e-9 and not unsupported))
+                            complete=unknown < 1e-9 and not unsupported)
+    # Largest supported material piece supplies a reference point, not a target.
+    viable = [p for p in parts if p['pid'] in supported and p['begin'] >= 300 and p['end'] <= 0]
+    chosen = max(viable, key=lambda p: p['area']) if viable else None
+    if country['name'] in legacy:
+        country['point'] = legacy[country['name']]['point']
+    elif components and source_area > 0:
+        original = shape(chosen['rings']) if chosen else max((shape(c) for c in components), key=lambda g: g.area)
+        p = original.representative_point()
+        country['point'] = [(p.x+180) % 360-180, p.y]
+    else:
+        country['point'] = None
+    fraction = (unknown+unsupported)/source_area if source_area > 0 else 1
+    reasons = []
+    if not source_area > 0:
+        reasons.append('empty-geometry')
+    if source_area > 0 and fraction >= .0001:
+        if unknown/source_area >= .0001:
+            reasons.append('unassigned-territory')
+        if unsupported/source_area >= .0001:
+            reasons.append('unsupported-rotation-or-domain-lifetime')
+        if not reasons:
+            reasons.append('combined-support-gap')
+    if not viable:
+        reasons.append('no-continuously-supported-territory')
+    country['eligible'] = not reasons
+    country['reasons'] = reasons
+    territory['url'] = f'data/paleomap/countries/{country["id"]}.json'
+    territories.append(territory)
+    unsupported_domains = sorted({(p['pid'], p['begin'], p['end']) for p in parts
+                                  if p['pid'] not in supported or p['begin'] < 300 or p['end'] > 0})
+    gaps = [dict(pid=pid, begin=begin, end=end,
+                 missingRotationAges=[a for a, q in zip(TIMES, rotations[str(pid)]) if q is None])
+            for pid, begin, end in unsupported_domains]
+    report.append(dict(id=country['id'], name=country['name'], eligible=not reasons,
+                       reasons=reasons, sourceArea=source_area, unpartitionedArea=unknown,
+                       unsupportedArea=unsupported, unsupportedFraction=fraction, unsupportedDomains=gaps))
     print(country['name'], len(parts), 'parts, unknown/unsupported %',
-          unknown/source_area*100, unsupported/source_area*100, flush=True)
+          unknown/source_area*100 if source_area else None,
+          unsupported/source_area*100 if source_area else None, flush=True)
 
 assignments, references = [], {}
 partition = pg.PlatePartitioner(str(next((SRC/'model2024').glob('*.gpml'))), model)
 for c in catalogue:
-    point = pg.PointOnSphere(c['point'][1], c['point'][0])
-    plate = partition.partition_point(point)
+    point = pg.PointOnSphere(c['point'][1], c['point'][0]) if c['point'] else None
+    plate = partition.partition_point(point) if point else None
     pid = plate.get_feature().get_reconstruction_plate_id() if plate else None
     assignments.append(dict(name=c['name'], pid=pid, valid_time=[300, 0]))
     references[c['name']] = {}
@@ -123,6 +176,28 @@ for c in catalogue:
         r = rotation(pid, a) if pid is not None else None
         latlon = (r*point).to_lat_lon() if r is not None else None
         references[c['name']][str(a)] = [latlon[1], latlon[0]] if latlon else None
+    c['pid'] = pid
+
+country_hash = hashlib.sha256(country_source.read_bytes()).hexdigest()
+pool = []
+for c, t in zip(catalogue, territories):
+    entry = {k: c[k] for k in ['id', 'name', 'point', 'pid', 'eligible', 'reasons']}
+    if c['eligible']:
+        entry['url'] = t['url']
+        payload = dict(model=MODEL, source=SOURCE,
+                       license='CC BY 4.0 + Natural Earth public domain', inputModelSHA256=MODEL_HASH,
+                       inputCountrySHA256=country_hash, country=c, territory=t,
+                       references=references[c['name']])
+        (ROOT/t['url']).write_text(json.dumps(payload, separators=(',', ':'), allow_nan=False))
+    pool.append(entry)
+(OUT/'countries.json').write_text(json.dumps(pool, separators=(',', ':'), allow_nan=False))
+(OUT/'country-support.json').write_text(json.dumps(dict(
+    source='https://github.com/datasets/geo-countries/blob/master/data/countries.geojson',
+    license='Natural Earth public domain / PDDL distribution', inputCountrySHA256=country_hash,
+    model=MODEL, inputModelSHA256=MODEL_HASH, maximumUnsupportedFraction=.0001,
+    areaUnits='locally unwrapped longitude/latitude coordinate area, not physical area',
+    countries=report), indent=2, allow_nan=False))
+print('COUNTRY POOL:', sum(c['eligible'] for c in catalogue), '/', len(catalogue), flush=True)
 
 result = dict(model=MODEL, source=SOURCE, inputModelSHA256=MODEL_HASH, license='CC BY 4.0', times=TIMES,
               domain='Published static domains with source lifetimes and sampled rotation support',
@@ -133,8 +208,12 @@ result = dict(model=MODEL, source=SOURCE, inputModelSHA256=MODEL_HASH, license='
 territory_result = dict(model=MODEL, source=SOURCE, inputModelSHA256=MODEL_HASH,
                        license='CC BY 4.0 + Natural Earth public domain',
                        method='Great-circle edges <=0.05 degrees; locally unwrapped static-domain partition',
-                       times=TIMES, rotationsFrom='motion.json', countries=territories)
+                       times=TIMES, rotationsFrom='motion.json',
+                       countries=[{k: v for k, v in t.items() if k != 'parts'} for c, t in zip(catalogue, territories) if c['eligible']])
 (OUT/'territories.json').write_text(json.dumps(territory_result, separators=(',', ':'), allow_nan=False))
+
+if '--countries-only' in sys.argv:
+    sys.exit(0)
 
 # Each endpoint owner image identifies supported, exposed land. Unassigned land
 # stays in the native endpoint atlas and dissolves during transitions.
