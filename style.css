@@ -214,17 +214,6 @@ header button {
   padding: 5px 8px;
   border-radius: 5px;
 }
-.archive label {
-  color: #a2b9a8;
-}
-.archive input {
-  color: #dce6d5;
-  background: transparent;
-  border: 0;
-  font-size: 11px;
-  width: 112px;
-  color-scheme: dark;
-}
 .archive button {
   padding: 0 5px;
   font-size: 17px;

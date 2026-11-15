@@ -121,3 +121,15 @@ Browser verified a fresh first-round success immediately secured 15,000 while
 the map remained in motion at 297 Ma with Pick disabled and no results overlay.
 After continuous playback reached 0 Ma, results showed one actual pick and four
 explicitly awarded rounds. No Begin button was present.
+
+## Clean controls and winning drift (2026-11-15)
+
+29 automated tests pass. New frame-clock checks cover a full 300→0 Ma win,
+75 Ma miss, endpoint clamping and a backward timestamp without reversing drift.
+Browser verification: a correct 300 Ma Brazil pick awards 15,000, animates to
+0 Ma before showing results, and an immediate reload restarts the unfinished
+winning journey (observed at 285 Ma, then completed at 0). Random reset changed
+Brazil → Czechia → Australia, each at 300 Ma with zero score; no date input
+remains. Result legend and explanatory paragraph are removed.
+Random test rounds do not persist over the daily challenge. Legacy saved arrays
+are migrated; completed winning saves without arrival metadata replay once.

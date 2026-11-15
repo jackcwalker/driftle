@@ -1,3 +1,4 @@
+import { driftClock } from "./drift.js";
 import { challengeOutcome } from "./challenge.js";
 import { zoomAround, panBy, wheelIntent } from "./navigation.js";
 import { rotationAt } from "./vendor/motion.js";
@@ -37,8 +38,7 @@ let data,
   keyboard = [0, 0],
   run = 0;
 const today = new Date().toISOString().slice(0, 10);
-$("date").value = today;
-$("date").max = today;
+let testing = false;
 $("about").onclick = () => $("help").showModal();
 $("close").onclick = () => $("help").close();
 const safeRead = (key) => {
@@ -49,10 +49,11 @@ const safeRead = (key) => {
   }
 };
 function save() {
+  if (testing) return;
   try {
     localStorage.setItem(
-      "driftle-v2-" + $("date").value,
-      JSON.stringify(history),
+      "driftle-v2-" + today,
+      JSON.stringify({ guesses: history, arrived: finished }),
     );
   } catch {
     /* Storage is optional. */
@@ -62,7 +63,9 @@ function valid(c) {
   const t = data.territories?.countries.find((t) => t.name === c.name);
   return t && (t.unpartitionedArea + t.unsupportedArea) / t.sourceArea < 0.0001;
 }
-function start(restore = true) {
+function start(restore = true, randomize = false) {
+  testing = randomize;
+  const previousCountry = country;
   run++;
   busy = false;
   $("feedback").hidden = true;
@@ -71,18 +74,25 @@ function start(restore = true) {
   round = 0;
   age = 300;
   guess = null;
-  const startIndex = dailyIndex($("date").value, countries.length);
+  const startIndex = dailyIndex(today, countries.length);
   country = Array.from(
     { length: countries.length },
     (_, i) => countries[(startIndex + i) % countries.length],
   ).find(valid);
+  if (randomize) {
+    const pool = countries.filter(
+      (c) => valid(c) && c.name !== previousCountry?.name,
+    );
+    country = pool[Math.floor(Math.random() * pool.length)] ?? country;
+  }
   if (!country)
     throw Error("No supported country territory for this challenge");
   $("results").hidden = true;
   $("results").classList.remove("collapsed");
   document.body.classList.remove("finished");
   $("results").replaceChildren();
-  const saved = restore ? safeRead("driftle-v2-" + $("date").value) : null;
+  const stored = restore ? safeRead("driftle-v2-" + today) : null;
+  const saved = Array.isArray(stored) ? stored : stored?.guesses;
   if (
     Array.isArray(saved) &&
     saved.length <= 5 &&
@@ -105,7 +115,21 @@ function start(restore = true) {
   $("country-name").textContent = country.name;
   ui();
   draw();
-  if (finished) reveal();
+  if (
+    finished &&
+    history.some((h) => h.inside) &&
+    !stored?.arrived &&
+    history.at(-1).age > 0
+  ) {
+    finished = false;
+    round = history.length - 1;
+    age = history.at(-1).age;
+    driftTo(0, () => {
+      finished = true;
+      round = 4;
+      reveal();
+    });
+  } else if (finished) reveal();
 }
 function ui() {
   $("round").textContent = finished
@@ -139,7 +163,7 @@ function ui() {
   $("mapstatus").textContent = busy
     ? ""
     : finished
-      ? "GOLD: ANSWER · NUMBERED PINS: YOUR GUESSES"
+      ? ""
       : guess
         ? `${Math.abs(guess[1]).toFixed(1)}° ${guess[1] < 0 ? "S" : "N"} · ${Math.abs(guess[0]).toFixed(1)}° ${guess[0] < 0 ? "W" : "E"}`
         : "";
@@ -476,42 +500,47 @@ $("confirm").onclick = () => {
     reveal();
     return;
   }
+  driftTo(h.inside ? 0 : ages[round + 1], () => {
+    if (h.inside) {
+      finished = true;
+      round = 4;
+      reveal();
+    } else {
+      round++;
+      ui();
+      draw();
+    }
+  });
+};
+function driftTo(to, onArrival) {
   busy = true;
   ui();
   const token = run,
     from = age,
-    to = h.inside ? 0 : ages[round + 1],
-    startTime = performance.now(),
     duration =
       ((from - to) / 75) *
       (matchMedia("(prefers-reduced-motion: reduce)").matches ? 1500 : 4500);
+  const clock = driftClock(from, to, duration);
   let previous = 0;
   function frame(now) {
     if (token !== run) return;
-    const t = Math.min(1, (now - startTime) / duration);
-    age = from + (to - from) * t;
-    if (now - previous > 30 || t === 1) {
+    const state = clock(now);
+    age = state.age;
+    if (now - previous > 30 || state.done) {
       draw();
       $("age").textContent = Math.round(age);
       previous = now;
     }
-    if (t < 1) requestAnimationFrame(frame);
+    if (!state.done) requestAnimationFrame(frame);
     else {
       guess = null;
       busy = false;
-      if (h.inside) {
-        finished = true;
-        round = 4;
-        reveal();
-      } else {
-        round++;
-        ui();
-        draw();
-      }
+      onArrival();
     }
   }
   requestAnimationFrame(frame);
-};
+}
+
 function countryAt(point) {
   return (
     modernCountries?.features.find((f) => d3.geoContains(f, point))?.properties
@@ -519,6 +548,7 @@ function countryAt(point) {
   );
 }
 function reveal() {
+  save();
   const r = $("results");
   document.body.classList.add("finished");
   $("feedback").hidden = true;
@@ -528,7 +558,7 @@ function reveal() {
   const outcome = challengeOutcome(history),
     total = outcome.total;
   r.hidden = false;
-  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">${outcome.solvedRound ? `Found in ${outcome.solvedRound} ${outcome.solvedRound === 1 ? "pick" : "picks"}. ${5 - history.length ? "Remaining rounds awarded full points." : ""}` : "Five picks complete."}<br>Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${outcome.rounds.map((h, i) => `<tr><td>${h.automatic ? "Awarded" : `<b>${i + 1}</b>`} · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${h.automatic ? "No pick needed" : countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.automatic ? "Full points" : h.inside ? "In country" : (h.distance === 0 ? "&lt;1" : h.distance.toLocaleString()) + " km"}</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. In-country picks earn full points. Miss distances are to the nearest country edge at the time of your pick.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
+  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">${outcome.solvedRound ? `Found in ${outcome.solvedRound} ${outcome.solvedRound === 1 ? "pick" : "picks"}. ` : "Five picks complete."}</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${outcome.rounds.map((h, i) => `<tr><td>${h.automatic ? "Awarded" : `<b>${i + 1}</b>`} · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${h.automatic ? "" : countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.automatic ? "Full points" : h.inside ? "In country" : (h.distance === 0 ? "&lt;1" : h.distance.toLocaleString()) + " km"}</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
   $("collapse-results").onclick = () => {
     const collapsed = r.classList.toggle("collapsed");
     $("collapse-results").textContent = collapsed ? "+" : "−";
@@ -540,10 +570,10 @@ function reveal() {
   };
   $("play-again").onclick = () => {
     r.classList.remove("collapsed");
-    start(false);
+    start(false, testing);
   };
   $("share").onclick = async () => {
-    const msg = `Driftle ${$("date").value}\n${outcome.total.toLocaleString()} / 15,000\n${outcome.rounds.map((h) => (h.automatic ? "⭐" : h.inside ? "🟩" : "🟨")).join("")}\ndriftle.games`;
+    const msg = `Driftle ${today}\n${outcome.total.toLocaleString()} / 15,000\n${outcome.rounds.map((h) => (h.automatic ? "⭐" : h.inside ? "🟩" : "🟨")).join("")}\ndriftle.games`;
     try {
       await navigator.clipboard.writeText(msg);
       $("copy-status").textContent = " Copied!";
@@ -552,10 +582,7 @@ function reveal() {
     }
   };
 }
-$("date").onchange = () => {
-  if (/^\d{4}-\d{2}-\d{2}$/.test($("date").value)) start();
-};
-$("restart").onclick = () => start(false);
+$("restart").onclick = () => start(false, true);
 try {
   [data, countries, modernCountries, territories] = await Promise.all(
     [

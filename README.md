@@ -51,8 +51,8 @@ fragments are omitted at older ages rather than assigned invented positions; the
 modern 0 Ma round uses the complete modern country geometry.
 
 Keyboard: focus map, arrows to move by 5°, Shift+arrows by 1°, Enter to select,
-then Tab to confirm. Date change/restart cancels in-flight animation safely.
-Progress is saved locally when storage is available; Restart starts over.
+then Tab to confirm. Reset cancels in-flight animation and selects a different supported country for testing.
+Daily progress is saved locally when storage is available; random testing rounds do not overwrite it. The challenge date is fixed automatically.
 
 **Scientific scope:** reconstructed modern coastlines and plate-partitioned modern
 country territory, not ancient national borders or ancient shorelines. Read
