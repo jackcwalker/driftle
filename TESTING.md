@@ -133,3 +133,29 @@ Brazil → Czechia → Australia, each at 300 Ma with zero score; no date input
 remains. Result legend and explanatory paragraph are removed.
 Random test rounds do not persist over the daily challenge. Legacy saved arrays
 are migrated; completed winning saves without arrival metadata replay once.
+
+
+## Five-endpoint raster proof — 15 November 2026
+
+- All 33 Node tests pass. New checks compare the shader's shared Equal Earth
+  coefficients/reference inverse with D3 at poles and the date line, verify every
+  endpoint asset/hash and registration metadata, reject river-line/name data in
+  the lake overlay, and check all five reconstructed Europe camera views.
+- In-app browser: 1440×900 and 390×844 viewport layouts; every age selected,
+  Europe reference framing, World/reset, zoom control and drag panning checked.
+  All five age labels and pressed states update; no console errors/warnings.
+- Ancient views now have reduced relief smoothing, stronger elevation colours and
+  more directional/local contrast. Modern rivers are removed. Native modern
+  European detail extends westward across France/Britain, rather than stopping
+  at Greenwich. No political boundaries or labels are added.
+- 180-frame horizontal pan benchmark, desktop DPR 1: 8.43 ms mean / 9.30 ms p95
+  frame intervals, 2.30 ms p95 CPU draw submission, estimated 72.5 MiB textures.
+  Narrow viewport, same desktop hardware: 8.33 / 9.20 ms frame intervals,
+  2.50 ms p95 CPU draw submission, 18.1 MiB textures. This is RAF/CPU measurement,
+  not a GPU timing result, continental drift benchmark or physical-phone test.
+- WebGL2-only cartographic proof: no geological animation or gameplay migration
+  in this route. Main game remains unchanged. Context restoration has a handler
+  but forced context-loss recovery has not been tested on physical hardware.
+- Ancient source detail is still coarse and reconstructed; zoom cannot expose
+  survey-quality ancient valleys or rivers. Attribution/reproduction and the
+  integration gate are documented in RASTER-MAPS.md.

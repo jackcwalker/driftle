@@ -1,0 +1,156 @@
+{
+  "version": "raster-v2",
+  "ages": [
+    300,
+    225,
+    150,
+    75,
+    0
+  ],
+  "projection": "geographic EPSG:4326",
+  "registration": "pixel centres, north-to-south, longitude periodic; no duplicate seam column",
+  "snapshots": {
+    "300": {
+      "sourceFile": "300_v23230d.nc",
+      "full": {
+        "url": "data/maps/raster-v2/300-3600.webp",
+        "width": 3600,
+        "height": 1800,
+        "bytes": 186022,
+        "sha256": "ca726f2fe1fe836f7c850c4b4b207cecbb2d65ca1931f9068c3c6c9317b4ba81"
+      },
+      "overview": {
+        "url": "data/maps/raster-v2/300-1800.webp",
+        "width": 1800,
+        "height": 900,
+        "bytes": 57364,
+        "sha256": "dfa990bee27ba4ebed35533ff90e5ad7f79b394311df6f96d92ae1e7ffac1b06"
+      }
+    },
+    "225": {
+      "sourceFile": "225_v23221.nc",
+      "full": {
+        "url": "data/maps/raster-v2/225-3600.webp",
+        "width": 3600,
+        "height": 1800,
+        "bytes": 336854,
+        "sha256": "45f5ba604580be4ba629dd05613f024b61a78ccce2020f4fb37c02653fd44735"
+      },
+      "overview": {
+        "url": "data/maps/raster-v2/225-1800.webp",
+        "width": 1800,
+        "height": 900,
+        "bytes": 117902,
+        "sha256": "428dc9f7e2cddf37cfb3cc14f78b56f9cfe05c29a1becd0b807e634d27bf9b06"
+      }
+    },
+    "150": {
+      "sourceFile": "150_v23220d.nc",
+      "full": {
+        "url": "data/maps/raster-v2/150-3600.webp",
+        "width": 3600,
+        "height": 1800,
+        "bytes": 433926,
+        "sha256": "b78a104c3c856259162bdb1639a1de34b0b884925d5c82cd607300a8fefbfcf3"
+      },
+      "overview": {
+        "url": "data/maps/raster-v2/150-1800.webp",
+        "width": 1800,
+        "height": 900,
+        "bytes": 154354,
+        "sha256": "06fc2d5155f1af34161a5a4597b2d7e262cfa0274044f66409765b9ad1dd1f43"
+      }
+    },
+    "75": {
+      "sourceFile": "075_v24085.nc",
+      "full": {
+        "url": "data/maps/raster-v2/75-3600.webp",
+        "width": 3600,
+        "height": 1800,
+        "bytes": 571534,
+        "sha256": "36b5404f3d905da7577ebd5b6da14fd4ce54a6620af43e4da44c8f58980f16a3"
+      },
+      "overview": {
+        "url": "data/maps/raster-v2/75-1800.webp",
+        "width": 1800,
+        "height": 900,
+        "bytes": 211476,
+        "sha256": "817f22a2f8df6dcd98ad2aca00f8bdd9b3422206df5f12be8ca09d0a629274ca"
+      }
+    },
+    "0": {
+      "sourceFile": "ETOPO_2022_v1_60s, stride 6",
+      "full": {
+        "url": "data/maps/raster-v2/0-3600.webp",
+        "width": 3600,
+        "height": 1800,
+        "bytes": 471570,
+        "sha256": "7c3f9151bb9a22ad1bba999ef203507e28fc4c01dc4373f41559d0a0ef681626"
+      },
+      "overview": {
+        "url": "data/maps/raster-v2/0-1800.webp",
+        "width": 1800,
+        "height": 900,
+        "bytes": 170220,
+        "sha256": "529b977237a26fb2fe52820c1f749e714891e75a9da1a47c398bd69bd0d1afb3"
+      }
+    }
+  },
+  "sources": [
+    {
+      "name": "Scotese et al. (2024), PALEOMAP v24221",
+      "url": "https://zenodo.org/records/10659112",
+      "license": "CC BY 4.0",
+      "changes": "0.1 degree grids resampled at pixel centres; elevation tints and physical multidirectional relief; WebP encoding"
+    },
+    {
+      "name": "NOAA NCEI ETOPO 2022 v1, 60 arc-second ice surface",
+      "url": "https://oceanwatch.pifsc.noaa.gov/erddap/griddap/ETOPO_2022_v1_60s.html",
+      "license": "NOAA freely reusable data; source attribution retained",
+      "changes": "6-minute global subsample; native 1-minute Europe; elevation tints and relief"
+    },
+    {
+      "name": "Made with Natural Earth; Tom Patterson, Nathaniel Vaughn Kelso and contributors",
+      "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "license": "Public domain",
+      "changes": "Natural lakes filtered, simplified, names removed; no river overlay"
+    }
+  ],
+  "europe": {
+    "bounds": [
+      -20,
+      30,
+      50,
+      72
+    ],
+    "texture": {
+      "url": "data/maps/raster-v2/0-europe.webp",
+      "width": 3600,
+      "height": 2160,
+      "bytes": 719514,
+      "sha256": "f321315e05495552dfc50d6ea927fc526e3168f25205ee658d60ebf92d7f0f8b"
+    },
+    "overview": {
+      "url": "data/maps/raster-v2/0-europe-overview.webp",
+      "width": 1800,
+      "height": 1080,
+      "bytes": 237328,
+      "sha256": "c594aa0721b3567c58d57e7820b397cd441a0d0122aaf869ee358f9fde63e4fa"
+    },
+    "sourceFile": "ETOPO_2022_v1_60s, lat indices [7200:9719], lon [20400:21599]+[0:2999]"
+  },
+  "water": {
+    "url": "data/maps/raster-v2/modern-lakes.json",
+    "features": 1056,
+    "bytes": 932309,
+    "sha256": "419e0ea549c827871c370290c8cbaf130d6caaf302ecd9d0b665ae1f207b9ffb"
+  },
+  "inputHashes": {
+    "paleodem-2024.zip": "02750238135c7dd8523b8944ca3e697c3f0295dab5c2fdd6270bad715b98fac3",
+    "etopo-world-6min.nc": "42b75323b80a9444011b239434bbeab19256fbfef2d461fa931d35c32f30d1d4",
+    "etopo-europe-west-1min.nc": "63024916421c00fd9a38338f0826f00f5dece04da0cb2da0002905f928223943",
+    "etopo-europe-east-1min.nc": "17a22203f796a4c546f4dd03aad48a9593346c34528bbdc9987306f5712a4232",
+    "ne-lakes.zip": "0803a06f9c3cb4671d89b68c48b142aad9366ba40f665245e12a913fbc61722a",
+    "paleomap2024-model.zip": "aee07c0d0159864f7a058cbf1591263ae4ee1413ccd2ec96a76cbb60ab7c6079"
+  }
+}

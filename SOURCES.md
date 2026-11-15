@@ -199,4 +199,11 @@ at their first success under the current country-area rule.
 
 ## Experimental terrain route
 
-`terrain.html` uses derived Scotese & Wright (2018) PALEOMAP PaleoDEMs v2, **CC BY 4.0**, https://doi.org/10.5281/zenodo.5460860. See [TERRAIN.md](TERRAIN.md) for exact inputs, transformations, attribution, reproduction and cross-model limitations. These assets are not loaded by the normal game.
+`terrain.html` uses age-specific Scotese, Vérard, Burgener, Elling & Kocsis (2024)
+PALEOMAP v24221 PaleoDEMs, **CC BY 4.0**, https://zenodo.org/records/10659112,
+plus NOAA NCEI ETOPO 2022 modern terrain (freely reusable NOAA data) and public-domain
+Natural Earth natural lakes. Rivers are removed. Full attribution, exact inputs,
+changes, licences, reproduction and limits are in [RASTER-MAPS.md](RASTER-MAPS.md)
+and the generated `data/maps/raster-v2/manifest.json`. These assets are not loaded
+by the normal game. The earlier Scotese & Wright (2018) CC BY 4.0 vector study data
+are retained; their provenance remains in [TERRAIN.md](TERRAIN.md).

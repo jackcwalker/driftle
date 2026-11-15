@@ -1,4 +1,12 @@
-# Terrain experiment
+# Terrain experiments
+
+The active preview at `/terrain.html` now uses five native physical-map snapshots.
+See [RASTER-MAPS.md](RASTER-MAPS.md) for current controls, attribution, reproduction,
+renderer and limitations. The material below documents the superseded vector study;
+its generated data and tests are retained as a baseline. Its old playback controls
+are no longer on the preview page.
+
+# Earlier vector study
 
 Run `npm start` in the repository, then open http://localhost:4173/terrain.html. The regular game remains at `/`. No additional browser dependencies, server, or API. Work lives on `experiment/paleoterrain`.
 

@@ -91,4 +91,4 @@ https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
 
 ### Experimental terrain
 
-Open http://localhost:4173/terrain.html for the isolated 300→225 Ma terrain study and present-day comparison. It reuses existing plate motion; the ancient relief is a fixed 300 Ma snapshot, not evolving elevation. See [TERRAIN.md](TERRAIN.md) for scientific limits, sources and reproduction.
+Open http://localhost:4173/terrain.html?view=europe for the five-age physical-map preview: native 300, 225, 150, 75 Ma elevation maps and detailed modern European relief. This is the cartographic proof; geological animation and game integration await the matched-model validation described in [RASTER-MAPS.md](RASTER-MAPS.md). The normal game remains unchanged. No river overlay or political borders are drawn. Ancient landforms are reconstructed and remain broader than measured modern terrain.
