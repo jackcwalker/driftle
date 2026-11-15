@@ -1,3 +1,4 @@
+import { challengeOutcome } from "./challenge.js";
 import { zoomAround, panBy, wheelIntent } from "./navigation.js";
 import { rotationAt } from "./vendor/motion.js";
 import {
@@ -33,7 +34,6 @@ let data,
   busy = false,
   finished = false,
   history = [],
-  started = false,
   keyboard = [0, 0],
   run = 0;
 const today = new Date().toISOString().slice(0, 10);
@@ -82,7 +82,6 @@ function start(restore = true) {
   $("results").classList.remove("collapsed");
   document.body.classList.remove("finished");
   $("results").replaceChildren();
-  started = false;
   const saved = restore ? safeRead("driftle-v2-" + $("date").value) : null;
   if (
     Array.isArray(saved) &&
@@ -97,63 +96,57 @@ function start(restore = true) {
         h.guess.every(Number.isFinite),
     )
   ) {
-    history = saved.map((h, i) => record(h.guess, i));
+    history = challengeOutcome(saved.map((h, i) => record(h.guess, i))).guesses;
     save(); // Migrate old point-based scores without changing the original guesses.
     round = Math.min(history.length, 4);
     age = ages[round];
-    finished = history.length === 5;
+    finished = challengeOutcome(history).finished;
   }
   $("country-name").textContent = country.name;
-  started = history.length > 0;
   ui();
   draw();
   if (finished) reveal();
 }
 function ui() {
-  $("round").textContent = finished ? "COMPLETE" : `GUESS ${round + 1} / 5`;
+  $("round").textContent = finished
+    ? "COMPLETE"
+    : busy && history.some((h) => h.inside)
+      ? "COUNTRY FOUND · DRIFTING TO TODAY"
+      : `GUESS ${round + 1} / 5`;
   $("age").textContent = Math.round(age);
   $("age-unit").textContent = age === 0 ? "Today" : "million years ago";
-  $("score").textContent = history
-    .reduce((s, h) => s + h.score, 0)
-    .toLocaleString();
-  $("begin").hidden = started || finished;
-  $("begin").disabled = !data;
+  const outcome = challengeOutcome(history);
+  $("score").textContent = outcome.total.toLocaleString();
   $("show-results").hidden = !finished;
-  $("confirm").hidden = !started || finished;
+  $("confirm").hidden = finished;
   $("confirm").disabled = busy || !guess || finished;
   $("confirm").textContent = round === 4 ? "Final pick →" : "Pick →";
   $("timeline").innerHTML = ages
-    .map(
-      (a, i) =>
-        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() + " pts<br>" + (history[i].inside ? "In country" : history[i].distance.toLocaleString() + " km") : "—"}</small></div>`,
-    )
+    .map((a, i) => {
+      const result = outcome.rounds[i];
+      return `<div class="step ${i === round ? "active" : ""} ${result ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${result ? result.score.toLocaleString() + " pts<br>" + (result.automatic ? "Awarded" : result.inside ? "In country" : result.distance.toLocaleString() + " km") : "—"}</small></div>`;
+    })
     .join("");
   $("status").textContent = finished
-    ? `${country.name} · Five guesses complete.`
-    : !started
-      ? `Find ${country.name} through time.`
-      : busy
-        ? "Drifting 75 million years…"
-        : guess
-          ? "Pick this location?"
-          : `Click where ${country.name} was.`;
+    ? `${country.name} · ${outcome.solvedRound ? "Found in " + outcome.solvedRound + (outcome.solvedRound === 1 ? " pick." : " picks.") : "Five guesses complete."}`
+    : busy
+      ? history.some((h) => h.inside)
+        ? "Full points secured. Drifting to today…"
+        : "Drifting 75 million years…"
+      : guess
+        ? "Pick this location?"
+        : `Click where ${country.name} was.`;
   $("mapstatus").textContent = busy
     ? ""
     : finished
       ? "GOLD: ANSWER · NUMBERED PINS: YOUR GUESSES"
       : guess
         ? `${Math.abs(guess[1]).toFixed(1)}° ${guess[1] < 0 ? "S" : "N"} · ${Math.abs(guess[0]).toFixed(1)}° ${guess[0] < 0 ? "W" : "E"}`
-        : !started
-          ? "Five guesses · 300 Ma to today"
-          : "";
+        : "";
 }
 $("show-results").onclick = () => {
   if (!$("results").innerHTML) reveal();
   else $("results").hidden = !$("results").hidden;
-};
-$("begin").onclick = () => {
-  started = true;
-  ui();
 };
 let baseScale,
   baseTranslate,
@@ -410,7 +403,7 @@ function draw() {
   ctx.restore();
 }
 function select(point) {
-  if (!started || busy || finished || !point || !point.every(Number.isFinite))
+  if (!data || busy || finished || !point || !point.every(Number.isFinite))
     return;
   const p = projection(point);
   if (!p || Math.abs(point[1]) > 90) return;
@@ -421,6 +414,7 @@ function select(point) {
   draw();
 }
 canvas.onclick = (e) => {
+  if (!data || !projection || busy || finished) return;
   if (performance.now() < suppressTapUntil) return;
   const b = canvas.getBoundingClientRect(),
     xy = [e.clientX - b.left, e.clientY - b.top],
@@ -431,13 +425,14 @@ canvas.onclick = (e) => {
   }
 };
 canvas.onkeydown = (e) => {
+  if (!data || !projection) return;
   if (["+", "=", "-", "0"].includes(e.key)) {
     e.preventDefault();
     if (e.key === "0") setView(d3.zoomIdentity);
     else d3.select(canvas).call(zoom.scaleBy, e.key === "-" ? 1 / 1.5 : 1.5);
     return;
   }
-  if (!started || busy || finished) return;
+  if (!data || busy || finished) return;
   let step = e.shiftKey ? 1 : 5;
   if (e.key === "ArrowLeft") keyboard[0] -= step;
   else if (e.key === "ArrowRight") keyboard[0] += step;
@@ -485,11 +480,11 @@ $("confirm").onclick = () => {
   ui();
   const token = run,
     from = age,
-    to = ages[round + 1],
+    to = h.inside ? 0 : ages[round + 1],
     startTime = performance.now(),
-    duration = matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? 1500
-      : 4500;
+    duration =
+      ((from - to) / 75) *
+      (matchMedia("(prefers-reduced-motion: reduce)").matches ? 1500 : 4500);
   let previous = 0;
   function frame(now) {
     if (token !== run) return;
@@ -502,11 +497,17 @@ $("confirm").onclick = () => {
     }
     if (t < 1) requestAnimationFrame(frame);
     else {
-      round++;
       guess = null;
       busy = false;
-      ui();
-      draw();
+      if (h.inside) {
+        finished = true;
+        round = 4;
+        reveal();
+      } else {
+        round++;
+        ui();
+        draw();
+      }
     }
   }
   requestAnimationFrame(frame);
@@ -524,9 +525,10 @@ function reveal() {
   age = 0;
   ui();
   draw();
-  const total = history.reduce((s, h) => s + h.score, 0);
+  const outcome = challengeOutcome(history),
+    total = outcome.total;
   r.hidden = false;
-  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${history.map((h, i) => `<tr><td><b>${i + 1}</b> · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.inside ? "In country" : (h.distance === 0 ? "<1" : h.distance.toLocaleString()) + " km"}</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. In-country picks earn full points. Miss distances are to the nearest country edge at the time of your pick.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
+  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">${outcome.solvedRound ? `Found in ${outcome.solvedRound} ${outcome.solvedRound === 1 ? "pick" : "picks"}. ${5 - history.length ? "Remaining rounds awarded full points." : ""}` : "Five picks complete."}<br>Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${outcome.rounds.map((h, i) => `<tr><td>${h.automatic ? "Awarded" : `<b>${i + 1}</b>`} · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${h.automatic ? "No pick needed" : countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.automatic ? "Full points" : h.inside ? "In country" : (h.distance === 0 ? "&lt;1" : h.distance.toLocaleString()) + " km"}</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. In-country picks earn full points. Miss distances are to the nearest country edge at the time of your pick.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
   $("collapse-results").onclick = () => {
     const collapsed = r.classList.toggle("collapsed");
     $("collapse-results").textContent = collapsed ? "+" : "−";
@@ -541,7 +543,7 @@ function reveal() {
     start(false);
   };
   $("share").onclick = async () => {
-    const msg = `Driftle ${$("date").value}\n${history.reduce((s, h) => s + h.score, 0).toLocaleString()} / 15,000\n${history.map((h) => (h.score >= (5 - ages.indexOf(h.age)) * 500 ? "🟩" : "🟨")).join("")}\ndriftle.games`;
+    const msg = `Driftle ${$("date").value}\n${outcome.total.toLocaleString()} / 15,000\n${outcome.rounds.map((h) => (h.automatic ? "⭐" : h.inside ? "🟩" : "🟨")).join("")}\ndriftle.games`;
     try {
       await navigator.clipboard.writeText(msg);
       $("copy-status").textContent = " Copied!";

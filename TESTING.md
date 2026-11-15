@@ -1,6 +1,6 @@
 # Verification — 15 November 2026
 
-`npm test`: 20 tests pass. No dependency installation required.
+`npm test`: 24 tests pass. No dependency installation required.
 
 - Six interior points fall inside their Natural Earth modern-country polygons.
 - Reconstructed points agree with the bundled GPlates coordinate samples at 0,
@@ -103,3 +103,21 @@ Saved-game browser check: today's original five guesses were kept and the total
 changed from 1,277 (old point rule) to 4,464 under nearest-country-edge scoring.
 Exact supported rotation samples are also tested beside an unavailable sample,
 to prevent accidental interpolation into missing geological data.
+
+## Immediate play and early success
+
+Removed Begin; the first map selection is available as soon as the data loads.
+Outcome tests require a first-round success to secure 15,000, a later success to
+preserve previous miss deductions, five misses to finish normally, and legacy
+saved games to stop at their first in-country success. Automatically credited
+rounds carry no coordinates and never create pins.
+
+An early success now plays continuously from the successful age to 0 Ma at the
+normal geological playback speed (18 seconds from 300 Ma; 6 with reduced motion).
+No further picks are accepted while it runs. Results appear only at the end.
+Saved completed wins restore to the final map without replaying the journey.
+
+Browser verified a fresh first-round success immediately secured 15,000 while
+the map remained in motion at 297 Ma with Pick disabled and no results overlay.
+After continuous playback reached 0 Ma, results showed one actual pick and four
+explicitly awarded rounds. No Begin button was present.

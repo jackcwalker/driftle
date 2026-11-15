@@ -16,8 +16,11 @@ reconstruction service is required. Stop the server with Ctrl-C.
 
 ## Play
 
-The country name is shown immediately. Press Begin, click where it was at 300 Ma,
-then Pick. Watch 75 million years of drift and repeat at 225, 150, 75 and 0 Ma.
+The country name is shown immediately. Click where it was at 300 Ma,
+then Pick. A correct pick secures full points for every remaining round, then the drift
+continues smoothly all the way to today before showing final results. No further
+picks are needed during this final journey. Earlier misses keep their original scores. Otherwise watch
+75 million years of drift and try again at 225, 150, 75 and 0 Ma.
 The target country stays the same. Earlier guesses have higher maximum scores.
 Numbered land pins attach to an unambiguous source continental plate and drift
 with it. Ocean/ambiguous clicks stay grey and fixed; the limitation is described in How to play.

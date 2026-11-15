@@ -187,3 +187,12 @@ then falls back to the original continental-piece partition for misses.
 Preparation-tool licences: pyGPlates 1.0.0 is GPLv2; Shapely 2.2.0 is BSD-3-Clause
 (and uses GEOS under its separate LGPL terms). These tools are installed only in
 the development environment and are not copied into the distributable site.
+
+## Early success
+
+A correct country pick secures the win, then playback continues from the current
+age all the way to 0 Ma before showing the final modern map and results.
+All later rounds receive their full maximum as explicitly labelled awarded
+points; these are not extra guesses or reconstructed pin positions. Earlier
+miss deductions are retained. Saved actual guesses are re-scored and truncated
+at their first success under the current country-area rule.
