@@ -7,7 +7,8 @@ A local, responsive daily continental-drift geography game for driftle.games.
 Requires Python 3 and a current browser. No install or build step.
 
 ```sh
-cd /Users/jack/Documents/Codex/2026-11-15/referenced-chatgpt-conversation-this-is-an/outputs/driftle
+git clone https://github.com/jackcwalker/driftle.git
+cd driftle
 python3 -m http.server 4173
 ```
 
@@ -75,8 +76,8 @@ and scoring. Browser verification is recorded in TESTING.md.
 This is an ordinary static site. Use this directory as the output directory,
 with no build command. No Workers, secrets or server are required. Preserve
 LICENSE, SOURCES.md and vendor/D3-LICENSE in the published assets. Add the custom
-domain driftle.games only after explicit authorization. Nothing has been
-purchased, pushed to a remote repository or deployed.
+domain driftle.games only after explicit authorization. The source is versioned in the private GitHub repository
+https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
 
 ## Files
 
