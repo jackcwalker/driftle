@@ -1,3 +1,4 @@
+import { zoomAround, panBy, wheelIntent } from "./navigation.js";
 import { rotationAt } from "./vendor/motion.js";
 import {
   ages,
@@ -143,20 +144,79 @@ $("begin").onclick = () => {
 let baseScale,
   baseTranslate,
   zoomTransform = d3.zoomIdentity;
+let renderQueued = false;
+function requestMapDraw() {
+  if (renderQueued) return;
+  renderQueued = true;
+  requestAnimationFrame(() => {
+    renderQueued = false;
+    draw();
+  });
+}
 const zoom = d3
   .zoom()
   .scaleExtent([1, 8])
-  .filter((e) => !busy && (!e.button || e.type === "wheel"))
+  .filter((e) => !e.button)
+  .touchable(() => true)
+  .clickDistance(8)
+  .tapDistance(12)
   .on("zoom", (e) => {
     zoomTransform = e.transform;
+    $("zoom-level").textContent = Math.round(zoomTransform.k * 100) + "%";
+    $("zoom-in").disabled = zoomTransform.k >= 8;
+    $("zoom-out").disabled = zoomTransform.k <= 1;
     applyZoom();
-    draw();
+    requestMapDraw();
   });
-d3.select(canvas).call(zoom);
+d3.select(canvas).call(zoom).on("wheel.zoom", null);
+function setView(view) {
+  const transform = d3.zoomIdentity.translate(view.x, view.y).scale(view.k);
+  const bounds = [
+    [0, 0],
+    [width, height],
+  ];
+  d3.select(canvas).call(
+    zoom.transform,
+    zoom.constrain()(transform, bounds, zoom.translateExtent()),
+  );
+}
+canvas.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault();
+    const box = canvas.getBoundingClientRect(),
+      anchor = [e.clientX - box.left, e.clientY - box.top];
+    const intent = wheelIntent(e);
+    setView(
+      intent.kind === "zoom"
+        ? zoomAround(zoomTransform, anchor, intent.factor)
+        : panBy(zoomTransform, intent.dx, intent.dy),
+    );
+  },
+  { passive: false },
+);
+// Multi-touch and drags must never become a guessed location on pointer-up.
+let pointerOrigins = new Map(),
+  suppressTapUntil = 0;
+canvas.addEventListener("pointerdown", (e) => {
+  pointerOrigins.set(e.pointerId, [e.clientX, e.clientY]);
+  if (pointerOrigins.size > 1) suppressTapUntil = performance.now() + 800;
+});
+canvas.addEventListener("pointermove", (e) => {
+  const origin = pointerOrigins.get(e.pointerId);
+  if (origin && Math.hypot(e.clientX - origin[0], e.clientY - origin[1]) > 8)
+    suppressTapUntil = performance.now() + 800;
+});
+function releasePointer(e) {
+  if (pointerOrigins.size > 1) suppressTapUntil = performance.now() + 800;
+  pointerOrigins.delete(e.pointerId);
+}
+canvas.addEventListener("pointerup", releasePointer);
+canvas.addEventListener("pointercancel", releasePointer);
+
 $("zoom-in").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1.5);
 $("zoom-out").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1 / 1.5);
-$("zoom-reset").onclick = () =>
-  d3.select(canvas).call(zoom.transform, d3.zoomIdentity);
+$("zoom-reset").onclick = () => setView(d3.zoomIdentity);
 function applyZoom() {
   if (projection && baseTranslate)
     projection
@@ -167,6 +227,10 @@ function applyZoom() {
       ]);
 }
 function resize() {
+  const oldCenter =
+    projection && width && height
+      ? projection.invert([width / 2, height / 2])
+      : null;
   const box = canvas.getBoundingClientRect();
   width = box.width;
   height = box.height;
@@ -186,7 +250,24 @@ function resize() {
     );
   baseScale = projection.scale();
   baseTranslate = projection.translate();
-  applyZoom();
+  const worldBounds = d3.geoPath(projection).bounds({ type: "Sphere" });
+  zoom
+    .extent([
+      [0, 0],
+      [width, height],
+    ])
+    .translateExtent([
+      [worldBounds[0][0] - 40, worldBounds[0][1] - 40],
+      [worldBounds[1][0] + 40, worldBounds[1][1] + 40],
+    ]);
+  if (oldCenter) {
+    const center = projection(oldCenter);
+    setView({
+      k: zoomTransform.k,
+      x: width / 2 - center[0] * zoomTransform.k,
+      y: height / 2 - center[1] * zoomTransform.k,
+    });
+  } else setView(zoomTransform);
   draw();
 }
 function marker(coord, color, r = 5, label = null) {
@@ -271,6 +352,7 @@ function select(point) {
   draw();
 }
 canvas.onclick = (e) => {
+  if (performance.now() < suppressTapUntil) return;
   const b = canvas.getBoundingClientRect(),
     xy = [e.clientX - b.left, e.clientY - b.top],
     p = projection.invert(xy);
@@ -280,6 +362,12 @@ canvas.onclick = (e) => {
   }
 };
 canvas.onkeydown = (e) => {
+  if (["+", "=", "-", "0"].includes(e.key)) {
+    e.preventDefault();
+    if (e.key === "0") setView(d3.zoomIdentity);
+    else d3.select(canvas).call(zoom.scaleBy, e.key === "-" ? 1 / 1.5 : 1.5);
+    return;
+  }
   if (!started || busy || finished) return;
   let step = e.shiftKey ? 1 : 5;
   if (e.key === "ArrowLeft") keyboard[0] -= step;

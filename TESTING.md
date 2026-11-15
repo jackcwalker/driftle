@@ -1,6 +1,6 @@
 # Verification — 15 November 2026
 
-`npm test`: 11 tests pass. No dependency installation required.
+`npm test`: 13 tests pass. No dependency installation required.
 
 - Six interior points fall inside their Natural Earth modern-country polygons.
 - Reconstructed points agree with the bundled GPlates coordinate samples at 0,
@@ -60,3 +60,13 @@ stays visible until the player selects a new location.
 Follow-up verification: after a pick, feedback stayed visible through the drift;
 the map reached 225 Ma and accepted a new location immediately, clearing the old
 feedback. No Next guess control or plate-motion status message remains.
+
+## Map navigation follow-up
+
+Added pure tests for preserving the map location under the pinch/wheel anchor,
+minimum/maximum zoom, two-axis trackpad pan and wheel delta-unit normalization.
+Browser verified 100% → 150% → 225% zoom, responsive resize at 390×844, and an
+actual drag visibly moving the map without enabling Pick or adding a guess.
+Two-finger touch is handled by D3's established pinch gesture implementation,
+with explicit pointer-movement/multitouch suppression of accidental picks.
+Physical phone pinch and physical trackpad hardware have not been tested.

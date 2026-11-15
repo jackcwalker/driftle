@@ -23,8 +23,11 @@ Numbered land pins attach to an unambiguous source continental plate and drift
 with it. Ocean/ambiguous clicks stay grey and fixed with an explicit explanation.
 Overlapping pins have offset labels with leader lines. Each pick shows its distance,
 points, compass hint and improvement from the last pick. After playback the next
-round is immediately ready; selecting a new location clears the previous feedback. Use +/− or wheel/pinch to
-zoom and drag to pan. Reset view with ↺.
+round is immediately ready; selecting a new location clears the previous feedback. Trackpad: two-finger scroll to pan and pinch to zoom around the gesture position.
+Phone: one-finger drag to pan, two-finger pinch to zoom, tap to select. Mouse:
+drag to pan and Ctrl+wheel to zoom. Use +/− or keyboard +/− to zoom, and ↺ or
+keyboard 0 to reset. Pan bounds keep land in reach; window rotation/resizing
+preserves the viewed location. Drags and pinches do not place guesses.
 
 Scores are on the side; instructions and final results use dialogs. The final
 gold marker shows the representative interior point being scored, with distances,

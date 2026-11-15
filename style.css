@@ -444,3 +444,27 @@ td {
     max-width: calc(100% - 190px);
   }
 }
+
+#zoom-level {
+  font-size: 10px;
+  align-self: center;
+  min-width: 34px;
+  color: #c9dbc9;
+}
+.zoom button {
+  min-width: 38px;
+  min-height: 38px;
+  touch-action: manipulation;
+}
+#map:active {
+  cursor: grabbing;
+}
+.zoom {
+  align-items: center;
+}
+@media (pointer: coarse) {
+  .zoom button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
