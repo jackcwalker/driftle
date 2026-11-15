@@ -1,0 +1,22 @@
+{
+  "0": {
+    "sampledLandSitesWithoutPlate": 4,
+    "areaWeightedLandCoverage": 0.9998655698566412
+  },
+  "75": {
+    "sampledLandSitesWithoutPlate": 1239,
+    "areaWeightedLandCoverage": 0.9231693885099045
+  },
+  "150": {
+    "sampledLandSitesWithoutPlate": 1727,
+    "areaWeightedLandCoverage": 0.9037289003403602
+  },
+  "225": {
+    "sampledLandSitesWithoutPlate": 1850,
+    "areaWeightedLandCoverage": 0.922623164615009
+  },
+  "300": {
+    "sampledLandSitesWithoutPlate": 1090,
+    "areaWeightedLandCoverage": 0.9211959842648519
+  }
+}
