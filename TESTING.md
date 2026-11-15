@@ -1,6 +1,6 @@
 # Verification — 15 November 2026
 
-`npm test`: 14 tests pass. No dependency installation required.
+`npm test`: 20 tests pass. No dependency installation required.
 
 - Six interior points fall inside their Natural Earth modern-country polygons.
 - Reconstructed points agree with the bundled GPlates coordinate samples at 0,
@@ -82,3 +82,24 @@ Browser confirmed the final state renders as a normal page region, not a dialog:
 five guess rows, total score, arrival-country names, target-country highlight and
 country boundaries are visible simultaneously. The map remains zoomable and the
 results panel can collapse. No replay slider is present.
+
+## Country-wide scoring correction
+
+The old interior-point scoring rule has been replaced. Regression tests require
+São Paulo, Rio de Janeiro, Porto Alegre and Brasília areas to receive the full
+round maximum at every guessing age, even far from the former target point.
+A separate test reconstructs Czechia's three distinct plates and checks all
+three pieces receive full credit. Tests also cover nearest-edge rather than
+centroid distance, holes, segment endpoints, islands, antimeridian geometry and
+rejection of unsupported historical territory. The existing save-load snapshot
+test now runs under territory scoring.
+
+Browser: on a separate archive challenge (2026-11-09), a 300 Ma Brazil location
+near reconstructed Brasília received exactly 5,000 / 5,000 with Country found /
+In Brazil feedback, and advanced to the next round. Original today's saved guesses
+remain intact and are re-evaluated when loaded.
+
+Saved-game browser check: today's original five guesses were kept and the total
+changed from 1,277 (old point rule) to 4,464 under nearest-country-edge scoring.
+Exact supported rotation samples are also tested beside an unavailable sample,
+to prevent accidental interpolation into missing geological data.

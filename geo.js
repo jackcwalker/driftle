@@ -100,16 +100,131 @@ export function dailyIndex(date, count) {
   return ((day % count) + count) % count;
 }
 
-export function recordGuess(data, country, g, i) {
-  const target = position(data, country, ages[i]);
-  if (!target) throw Error("Unsupported point — challenge unavailable");
-  const km = distance(g, target);
+const cross = (a, b) => [
+  a[1] * b[2] - a[2] * b[1],
+  a[2] * b[0] - a[0] * b[2],
+  a[0] * b[1] - a[1] * b[0],
+];
+const dot = (a, b) => a.reduce((sum, v, i) => sum + v * b[i], 0);
+const unit = (v) => {
+  const length = Math.hypot(...v);
+  return length > 1e-15 ? v.map((x) => x / length) : null;
+};
+const angle = (a, b) =>
+  Math.atan2(Math.hypot(...cross(a, b)), Math.max(-1, Math.min(1, dot(a, b))));
+export function nearestBoundary(point, rings) {
+  const p = vector(point);
+  let best = Infinity,
+    nearest = null;
+  for (const ring of rings)
+    for (let i = 0; i < ring.length - 1; i++) {
+      const a = vector(ring[i]),
+        b = vector(ring[i + 1]);
+      let candidate = a,
+        arc = angle(p, a);
+      const endpoint = angle(p, b);
+      if (endpoint < arc) {
+        arc = endpoint;
+        candidate = b;
+      }
+      const normal = unit(cross(a, b));
+      if (normal) {
+        const foot = unit(p.map((v, j) => v - dot(p, normal) * normal[j]));
+        if (foot && angle(a, foot) + angle(foot, b) <= angle(a, b) + 1e-9) {
+          const d = angle(p, foot);
+          if (d < arc) {
+            arc = d;
+            candidate = foot;
+          }
+        }
+      }
+      if (arc < best) {
+        best = arc;
+        nearest = candidate;
+      }
+    }
+  return { km: best * 6371, point: nearest ? lonlat(nearest) : null };
+}
+export function rotationAvailable(data, pid, age) {
+  const samples = data.rotations[pid];
+  if (!samples) return false;
+  const upper = data.times.findIndex((t) => t >= age);
+  if (upper < 0) return false;
+  if (data.times[upper] === age) return Boolean(samples[upper]);
+  return upper > 0 && Boolean(samples[upper - 1]) && Boolean(samples[upper]);
+}
+export function supportedRotationAt(data, pid, age) {
+  if (!rotationAvailable(data, pid, age))
+    throw Error("Unsupported plate rotation at this age");
+  const index = data.times.indexOf(age);
+  return index >= 0 ? data.rotations[pid][index] : rotationAt(data, pid, age);
+}
+export function territoryAt(data, country, age) {
+  const dataset = data.territories,
+    territory = dataset?.countries.find((c) => c.name === country.name);
+  if (!territory || age < 0 || age > 300) return [];
+  return territory.parts.filter(
+    (p) =>
+      age <= p.begin && age >= p.end && rotationAvailable(dataset, p.pid, age),
+  );
+}
+export function countryDistance(data, country, point, age, contains) {
+  if (!contains) throw Error("Country containment engine is required");
+  if (age === 0) {
+    const geometry = country.geometry;
+    const polygons =
+      geometry.type === "Polygon"
+        ? [geometry.coordinates]
+        : geometry.coordinates;
+    if (contains(geometry, point))
+      return { km: 0, inside: true, point: [...point], attachment: null };
+    let best = { km: Infinity, point: null };
+    for (const rings of polygons) {
+      const d = nearestBoundary(point, rings);
+      if (d.km < best.km) best = d;
+    }
+    return { ...best, inside: best.km <= 0.01 };
+  }
+  let best = { km: Infinity, point: null, inside: false };
+  for (const part of territoryAt(data, country, age)) {
+    const raw = supportedRotationAt(data.territories, part.pid, age),
+      q = raw.map((v) => v / Math.hypot(...raw));
+    const local = lonlat(rotate(vector(point), [q[0], -q[1], -q[2], -q[3]]));
+    const attachment = {
+      pid: part.pid,
+      point: local,
+      begin: part.begin,
+      end: part.end,
+    };
+    if (contains({ type: "Polygon", coordinates: part.rings }, local))
+      return { km: 0, inside: true, point: [...point], attachment };
+    const d = nearestBoundary(local, part.rings);
+    if (d.km < best.km)
+      best = {
+        km: d.km,
+        point: lonlat(rotate(vector(d.point), q)),
+        inside: d.km <= 0.01,
+        attachment: d.km <= 0.01 ? attachment : null,
+      };
+  }
+  if (!Number.isFinite(best.km))
+    throw Error("Country territory is unsupported at this age");
+  if (best.inside) best.km = 0;
+  return best;
+}
+export function recordGuess(data, country, g, i, contains) {
+  const result = countryDistance(data, country, g, ages[i], contains);
+  const km = result.inside ? 0 : result.km;
   return {
     age: ages[i],
     guess: [...g],
     distance: Math.round(km),
+    exactDistance: km,
+    inside: result.inside,
+    countryName: country.name,
     score: points(km, i),
-    bearing: bearing(g, target),
+    bearing: result.inside ? null : bearing(g, result.point),
+    territoryAttachment: result.attachment,
   };
 }
 
@@ -135,18 +250,26 @@ export function attachPin(data, point, age, contains) {
 }
 export function pinPosition(data, record, age) {
   const a = record.attachment;
-  if (!a || age > a.begin || age < a.end)
+  if (
+    !a ||
+    age > a.begin ||
+    age < a.end ||
+    !rotationAvailable(data, a.pid, age)
+  )
     return { point: record.guess, moving: false };
   return {
-    point: lonlat(rotate(vector(a.point), rotationAt(data, a.pid, age))),
+    point: lonlat(
+      rotate(vector(a.point), supportedRotationAt(data, a.pid, age)),
+    ),
     moving: true,
   };
 }
 export function feedback(record, previous) {
   const km = record.distance;
-  const title =
-    km < 250
-      ? "You nailed the drift!"
+  const title = record.inside
+    ? "Country found!"
+    : km < 250
+      ? "Just outside!"
       : km < 750
         ? "Hot on the trail!"
         : km < 1800
@@ -155,9 +278,10 @@ export function feedback(record, previous) {
             ? "A continental detour."
             : "A whole world to explore!";
   const max = (5 - ages.indexOf(record.age)) * 1000;
-  let detail =
-    km < 250
-      ? "That is a remarkably sharp deep-time pick."
+  let detail = record.inside
+    ? `You landed in ${record.countryName}. Full points for this era!`
+    : km < 250
+      ? "Just outside the country. Aim a little closer to its edge."
       : km < 750
         ? "Close enough to feel the tectonic heat."
         : km < 1800
@@ -166,8 +290,8 @@ export function feedback(record, previous) {
             ? "A long trip from the target. Watch how the continents fit together."
             : "The target was on another part of the globe. Try following a familiar continental shape.";
   if (km >= 250 && record.bearing)
-    detail += ` The target lay ${record.bearing} of your pick at ${record.age} Ma.`;
-  if (previous) {
+    detail += ` The nearest border lay ${record.bearing} of your pick at ${record.age} Ma.`;
+  if (previous && !record.inside) {
     const change = previous.distance - km;
     detail +=
       change >= 0

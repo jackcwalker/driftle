@@ -30,19 +30,28 @@ keyboard 0 to reset. Pan bounds keep land in reach; window rotation/resizing
 preserves the viewed location. Drags and pinches do not place guesses.
 
 Scores are on the side; instructions use a dialog. Final results are a non-modal,
-collapsible map overlay, with modern country borders and a gold target country. The final
-gold marker shows the representative interior point being scored, with distances,
-a round-by-round summary and a copyable result. Country silhouettes are retained
-in the data for containment validation, not shown as a mystery clue.
-Daily dates use UTC and can be selected for archive play. Six supported countries
-repeat every six days.
+collapsible map overlay, with modern country borders and a gold target country. The country is the target area: any pick inside its supported reconstruction earns
+that round's full points. Misses use shortest great-circle distance to the nearest
+territory edge, never to a hidden point. Earlier rounds have higher maximum scores.
+The final map highlights the whole modern country in gold. Existing saved guesses
+are re-scored on load; incorrect old target-point scores are not retained.
+
+The daily pool currently supports Brazil, Australia, Central African Republic and
+Czechia. India and USA are omitted because too much territory has unsupported
+300 Ma positions. The original six-entry UTC date rotation is retained, skipping
+unsupported entries forward, so existing Brazil challenge dates remain Brazil.
+Country geometry comes from modern Natural Earth territory partitioned across the
+published model's static plates. This is a rigid-plate educational approximation,
+not ancient political geography or continental deformation. Tiny unsupported
+fragments are omitted at older ages rather than assigned invented positions; the
+modern 0 Ma round uses the complete modern country geometry.
 
 Keyboard: focus map, arrows to move by 5°, Shift+arrows by 1°, Enter to select,
 then Tab to confirm. Date change/restart cancels in-flight animation safely.
 Progress is saved locally when storage is available; Restart starts over.
 
-**Scientific scope:** reconstructed modern coastlines and a supported interior
-point per country, not ancient national borders or ancient shorelines. Read
+**Scientific scope:** reconstructed modern coastlines and plate-partitioned modern
+country territory, not ancient national borders or ancient shorelines. Read
 [SOURCES.md](SOURCES.md) for reuse assessment, attribution, provenance and limits.
 
 ## Verify
@@ -69,8 +78,9 @@ purchased, pushed to a remote repository or deployed.
 ## Files
 
 - app.js: game state, canvas rendering, animation and UI
-- geo.js: supported point reconstruction, spherical geometry and scoring
+- geo.js: plate-partitioned territory containment, nearest-edge scoring and pin motion
 - data/motion.json: attributed published model derivatives
-- data/countries.json: public-domain country geometries (containment validation)
+- data/countries.json: full public-domain modern country geometries
+- data/country-territories.json: attributed model-partitioned scoring areas
 - vendor/: D3 and upstream quaternion/mesh helpers with licences
 - tests/: deterministic geometry and data checks

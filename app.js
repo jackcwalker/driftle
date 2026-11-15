@@ -22,6 +22,7 @@ const $ = (id) => document.getElementById(id),
 let data,
   countries,
   modernCountries,
+  territories,
   country,
   projection,
   width,
@@ -58,7 +59,8 @@ function save() {
   }
 }
 function valid(c) {
-  return ages.every((a) => position(data, c, a) !== null);
+  const t = data.territories?.countries.find((t) => t.name === c.name);
+  return t && (t.unpartitionedArea + t.unsupportedArea) / t.sourceArea < 0.0001;
 }
 function start(restore = true) {
   run++;
@@ -69,7 +71,13 @@ function start(restore = true) {
   round = 0;
   age = 300;
   guess = null;
-  country = countries[dailyIndex($("date").value, countries.length)];
+  const startIndex = dailyIndex($("date").value, countries.length);
+  country = Array.from(
+    { length: countries.length },
+    (_, i) => countries[(startIndex + i) % countries.length],
+  ).find(valid);
+  if (!country)
+    throw Error("No supported country territory for this challenge");
   $("results").hidden = true;
   $("results").classList.remove("collapsed");
   document.body.classList.remove("finished");
@@ -82,12 +90,15 @@ function start(restore = true) {
     saved.every(
       (h, i) =>
         h.age === ages[i] &&
+        (h.countryName === country.name ||
+          (!h.countryName && country.name === countries[startIndex].name)) &&
         Array.isArray(h.guess) &&
         h.guess.length === 2 &&
         h.guess.every(Number.isFinite),
     )
   ) {
     history = saved.map((h, i) => record(h.guess, i));
+    save(); // Migrate old point-based scores without changing the original guesses.
     round = Math.min(history.length, 4);
     age = ages[round];
     finished = history.length === 5;
@@ -114,7 +125,7 @@ function ui() {
   $("timeline").innerHTML = ages
     .map(
       (a, i) =>
-        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() + " pts<br>" + history[i].distance.toLocaleString() + " km" : "—"}</small></div>`,
+        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() + " pts<br>" + (history[i].inside ? "In country" : history[i].distance.toLocaleString() + " km") : "—"}</small></div>`,
     )
     .join("");
   $("status").textContent = finished
@@ -395,7 +406,7 @@ function draw() {
     placed.push(p);
   });
   if (guess) marker(guess, "#f5cc7c", 8);
-  if (finished) marker(position(data, country, age), "#f5c45f", 7);
+
   ctx.restore();
 }
 function select(point) {
@@ -439,9 +450,11 @@ canvas.onkeydown = (e) => {
   select([...keyboard]);
 };
 function record(g, i) {
+  const result = recordGuess(data, country, g, i, d3.geoContains);
   return {
-    ...recordGuess(data, country, g, i),
-    attachment: attachPin(data, g, ages[i], d3.geoContains),
+    ...result,
+    attachment:
+      result.territoryAttachment ?? attachPin(data, g, ages[i], d3.geoContains),
   };
 }
 $("confirm").onclick = () => {
@@ -451,7 +464,11 @@ $("confirm").onclick = () => {
   const f = feedback(h, history.at(-2));
   $("feedback").hidden = false;
   $("verdict").textContent = f.title;
-  $("guess-distance").textContent = h.distance.toLocaleString() + " km away";
+  $("guess-distance").textContent = h.inside
+    ? `In ${country.name}`
+    : (h.distance === 0
+        ? "Less than 1 km"
+        : h.distance.toLocaleString() + " km") + " from border";
   $("earned").textContent = f.earned;
   $("feedback-detail").textContent = f.detail;
   guess = null;
@@ -509,7 +526,7 @@ function reveal() {
   draw();
   const total = history.reduce((s, h) => s + h.score, 0);
   r.hidden = false;
-  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${history.map((h, i) => `<tr><td><b>${i + 1}</b> · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.distance.toLocaleString()} km</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. Distances are from the target point when you picked.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
+  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${history.map((h, i) => `<tr><td><b>${i + 1}</b> · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.inside ? "In country" : (h.distance === 0 ? "<1" : h.distance.toLocaleString()) + " km"}</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. In-country picks earn full points. Miss distances are to the nearest country edge at the time of your pick.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
   $("collapse-results").onclick = () => {
     const collapsed = r.classList.toggle("collapsed");
     $("collapse-results").textContent = collapsed ? "+" : "−";
@@ -538,11 +555,12 @@ $("date").onchange = () => {
 };
 $("restart").onclick = () => start(false);
 try {
-  [data, countries, modernCountries] = await Promise.all(
+  [data, countries, modernCountries, territories] = await Promise.all(
     [
       "data/motion.json",
       "data/countries.json",
       "data/modern-countries.json",
+      "data/country-territories.json",
     ].map(async (url) => {
       const response = await fetch(url);
       if (!response.ok) throw Error(`${url}: ${response.status}`);
@@ -557,8 +575,16 @@ try {
       return r;
     });
   }
-  countries = countries.filter(valid);
-  if (!countries.length) throw Error("No supported challenges");
+  data.territories = territories;
+  for (const c of territories.countries)
+    for (const p of c.parts) {
+      if (d3.geoArea({ type: "Polygon", coordinates: p.rings }) > 2 * Math.PI)
+        p.rings = p.rings.map((r) => r.toReversed());
+    }
+  // Pins on newly partitioned pieces use the very same model rotations.
+  for (const [pid, samples] of Object.entries(territories.rotations))
+    if (!data.rotations[pid]) data.rotations[pid] = samples;
+  if (!countries.some(valid)) throw Error("No supported challenges");
   for (const f of data.features) {
     f.rings = renderRings(f.rings);
     if (d3.geoArea({ type: "Polygon", coordinates: f.rings }) > 2 * Math.PI)

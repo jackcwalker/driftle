@@ -11,7 +11,10 @@ import {
   rotate,
   lonlat,
   renderRings,
-  recordGuess,
+  recordGuess as recordCountryGuess,
+  countryDistance,
+  nearestBoundary,
+  supportedRotationAt,
   attachPin,
   pinPosition,
   feedback,
@@ -33,6 +36,15 @@ vm.runInNewContext(
   scope,
 );
 const d3 = scope.d3;
+data.territories = JSON.parse(
+  fs.readFileSync(new URL("../data/country-territories.json", import.meta.url)),
+);
+for (const c of data.territories.countries)
+  for (const p of c.parts) {
+    if (d3.geoArea({ type: "Polygon", coordinates: p.rings }) > 2 * Math.PI)
+      p.rings = p.rings.map((r) => r.toReversed());
+  }
+const recordGuess = (...args) => recordCountryGuess(...args, d3.geoContains);
 test("country interior points really fall inside modern country polygons", () => {
   for (const c of countries)
     assert.ok(
@@ -184,7 +196,7 @@ test("feedback gives distance-based verdict, score, direction and improvement", 
   assert.match(f.earned, /3,000/);
   assert.match(
     feedback({ distance: 100, score: 4900, age: 300 }).title,
-    /nailed/,
+    /outside/,
   );
 });
 
@@ -208,4 +220,145 @@ test("final modern country overlay contains all six targets and clips without gl
     assert.ok(feature, c.name);
     assert.ok(d3.geoContains(feature, c.point), c.name);
   }
+});
+
+test("Brazil interior picks far from the former target get full points in every era", () => {
+  const brazil = countries.find((c) => c.name === "Brazil");
+  for (const modern of [
+    [-46.63, -23.55],
+    [-43.2, -22.9],
+    [-51.23, -30.03],
+    [-47.9, -15.8],
+  ]) {
+    assert.ok(d3.geoContains(brazil.geometry, modern));
+    for (const [i, age] of [300, 225, 150, 75, 0].entries()) {
+      const pick = lonlat(rotate(vector(modern), rotationAt(data, 201, age)));
+      const result = recordGuess(data, brazil, pick, i);
+      assert.equal(result.inside, true, `${modern} at ${age}`);
+      assert.equal(result.distance, 0);
+      assert.equal(result.score, (5 - i) * 1000);
+    }
+  }
+});
+test("miss distance is to the country edge, not the former interior point", () => {
+  const brazil = countries[0],
+    miss = [-60, -35];
+  const result = countryDistance(data, brazil, miss, 0, d3.geoContains);
+  assert.equal(result.inside, false);
+  assert.ok(result.km > 100 && result.km < 1000);
+  assert.ok(result.km < distance(miss, brazil.point) / 2);
+});
+test("nearest spherical edge handles dateline, segment endpoints and holes", () => {
+  const line = nearestBoundary(
+    [180, 1],
+    [
+      [
+        [179, 0],
+        [-179, 0],
+      ],
+    ],
+  );
+  assert.ok(Math.abs(line.km - 111.195) < 0.01);
+  assert.ok(distance(line.point, [180, 0]) < 0.001);
+  const endpoint = nearestBoundary(
+    [3, 1],
+    [
+      [
+        [0, 0],
+        [1, 0],
+      ],
+    ],
+  );
+  assert.ok(distance(endpoint.point, [1, 0]) < 0.001);
+  const holeCountry = {
+    name: "Fixture",
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [-5, -5],
+          [-5, 5],
+          [5, 5],
+          [5, -5],
+          [-5, -5],
+        ],
+        [
+          [-1, -1],
+          [1, -1],
+          [1, 1],
+          [-1, 1],
+          [-1, -1],
+        ],
+      ],
+    },
+  };
+  const hole = countryDistance(data, holeCountry, [0, 0], 0, d3.geoContains);
+  assert.equal(hole.inside, false);
+  assert.ok(hole.km > 100 && hole.km < 120);
+  assert.equal(
+    countryDistance(data, holeCountry, [3, 0], 0, d3.geoContains).inside,
+    true,
+  );
+});
+test("modern islands and antimeridian territory count; unsupported ages do not fabricate positions", () => {
+  const ringA = [
+      [178, -2],
+      [178, 2],
+      [-178, 2],
+      [-178, -2],
+      [178, -2],
+    ],
+    ringB = [
+      [20, -1],
+      [20, 1],
+      [22, 1],
+      [22, -1],
+      [20, -1],
+    ];
+  const fixture = {
+    name: "Fixture",
+    geometry: { type: "MultiPolygon", coordinates: [[ringA], [ringB]] },
+  };
+  for (const point of [
+    [179, 0],
+    [-179, 0],
+    [21, 0],
+  ])
+    assert.equal(
+      countryDistance(data, fixture, point, 0, d3.geoContains).inside,
+      true,
+    );
+  assert.throws(
+    () => countryDistance(data, fixture, [179, 0], 300, d3.geoContains),
+    /unsupported/,
+  );
+});
+
+test("a country split across three plates is scored across all its moving pieces", () => {
+  const country = countries.find((c) => c.name === "Czechia"),
+    territory = data.territories.countries.find((c) => c.name === country.name),
+    checked = new Set();
+  for (const part of territory.parts) {
+    if (checked.has(part.pid)) continue;
+    const geometry = { type: "Polygon", coordinates: part.rings },
+      modern = d3.geoCentroid(geometry);
+    if (!d3.geoContains(geometry, modern)) continue;
+    const pick = lonlat(
+      rotate(vector(modern), rotationAt(data.territories, part.pid, 300)),
+    );
+    const score = recordGuess(data, country, pick, 0);
+    assert.equal(score.inside, true);
+    assert.equal(score.score, 5000);
+    checked.add(part.pid);
+  }
+  assert.equal(checked.size, 3);
+});
+
+test("an exact supported rotation never interpolates toward an unavailable adjacent sample", () => {
+  const fixture = {
+    times: [0, 75, 150],
+    rotations: { 1: [[1, 0, 0, 0], [1, 0, 0, 0], null] },
+  };
+  assert.deepEqual(supportedRotationAt(fixture, 1, 75), [1, 0, 0, 0]);
+  assert.throws(() => supportedRotationAt(fixture, 1, 100), /Unsupported/);
 });
