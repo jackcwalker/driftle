@@ -234,7 +234,8 @@ export function attachPin(data, point, age, contains) {
   const candidates = [];
   const localByPid = {};
   for (const f of data.features) {
-    if (age > f.begin || age < f.end) continue;
+    if (age > f.begin || age < f.end || !rotationAvailable(data, f.pid, age))
+      continue;
     let local = localByPid[f.pid];
     if (!local) {
       const q = rotationAt(data, f.pid, age);
@@ -263,6 +264,29 @@ export function pinPosition(data, record, age) {
     ),
     moving: true,
   };
+}
+// Historical owner textures need not be resident during reload. Re-score the
+// guess and validate its saved material attachment against the same model;
+// otherwise a restored land pin would silently become a fixed ocean pin.
+export function restoreGuess(data, country, saved, i, contains) {
+  const result = recordGuess(data, country, saved.guess, i, contains);
+  let attachment = result.territoryAttachment ?? null;
+  const old = saved.attachment;
+  if (
+    !attachment &&
+    Array.isArray(old?.point) &&
+    old.point.length === 2 &&
+    old.point.every(Number.isFinite)
+  ) {
+    const candidate = attachPin(data, saved.guess, ages[i], contains);
+    if (
+      candidate &&
+      candidate.pid === old.pid &&
+      distance(candidate.point, old.point) < 0.1
+    )
+      attachment = candidate;
+  }
+  return { ...result, attachment };
 }
 export function feedback(record, previous) {
   const km = record.distance;

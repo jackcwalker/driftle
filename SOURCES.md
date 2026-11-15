@@ -2,20 +2,37 @@
 
 Inspected 15 November 2026. No service account, purchase or deployment was made.
 
+## Active game terrain and reconstruction
+
+The playable game now uses PALEOMAP 2024 v24221 elevation atlases and the matching
+paleogeographic plate bundle, CC BY 4.0. Credit: Christopher R. Scotese, Christian
+Vérard, Landon Burgener, Reece P. Elling and Ádám T. Kocsis (2024),
+*Phanerozoic-scope supplementary material to “The Cretaceous World: Plate Tectonics,
+Paleogeography, and Paleoclimate” from the PALEOMAP project*,
+https://zenodo.org/records/10659112. Modern terrain is NOAA NCEI ETOPO 2022,
+freely reusable under NOAA's service terms; natural lakes and country boundaries
+are public-domain Natural Earth data. No river layer is included.
+
+See [RASTER-MAPS.md](RASTER-MAPS.md) for full source terms, exact inputs and raster
+changes; [GAME-MAP-INTEGRATION.md](GAME-MAP-INTEGRATION.md) for matched-frame
+country partitions, validity screening, transport masks, audit and reproduction.
+The game checks the shared model-archive SHA-256 before play. The retained Müller
+files described below supply regression tests and upstream attribution only.
+
 ## Base assessment
 
 https://github.com/TurtleBotDev/pangea-earth at commit
 `f5ab2bf5e22053e1a90b6864d0d35ad230aa9a32` is suitable as a source of rigid-plate
-motion data and quaternion interpolation for this educational MVP. It is not a
+motion data and quaternion interpolation for the original educational MVP. It is not a
 ready-made country reconstruction dataset or an ancient political map. We reuse
-`motion.json`, `places.json` (verification only), and `motion.js` under their
+`motion.json` and `places.json` (now regression baselines), and `motion.js` under their
 respective terms. The game UI and map renderer are new. The upstream Cesium,
 NASA satellite images, PALEOMAP rasters and fonts are not included or used.
 
 Upstream application code: MIT, copyright (c) 2026 TurtleBotDev. See LICENSE.
 The data is separately CC BY 4.0; MIT does not override that licence.
 
-## Plate model and derived data — CC BY 4.0
+## Retained Müller regression data — CC BY 4.0
 
 Müller, R. D., Flament, N., Cannon, J., Tetley, M. G., Williams, S. E., Cao, X.,
 Bodur, Ö. F., Zahirovic, S. and Merdith, A. (2022), “A tectonic-rules-based mantle
@@ -53,7 +70,7 @@ for rigid reconstruction. They do not represent ancient national borders. The co
 The upstream representative points correspond to Brazil (-55,-15), Australia
 (134,-25), India (78,22), USA (-100,40), Central African Republic (20,8) and Czechia
 (15,50). Tests check containment in modern country geometries and reconstructed
-positions against the separately bundled GPlates place samples. These comparisons
+positions against the separately bundled Müller GPlates place samples in the baseline tests. The active PALEOMAP references are bundled separately in `data/paleomap/motion.json`. These comparisons
 check transformation correctness, not independent scientific model accuracy.
 
 ## Rendering software
@@ -63,9 +80,12 @@ Vendored browser bundle, licence in vendor/D3-LICENSE. No CDN requests at runtim
 
 ## Scientific and gameplay limits
 
-- The map transports **modern continental coastlines** with a published plate
-  model. It does not reconstruct ancient shorelines, sea levels, mountains,
-  deformation, oceanic-crust creation/subduction or complete paleogeography.
+- At each guessing stop, the map uses a native published age-specific elevation
+  atlas with reconstructed shorelines, mountain systems and seas. Between stops,
+  supported raster patches follow plate rotations over a crossfade of the native
+  atlases. Intermediate terrain can show blended/ghosted coastlines; it is display
+  interpolation, not continuous elevation evolution, continental deformation or
+  a reconstruction published at that exact intermediate age.
 - Scoring uses the union of supported reconstructed country pieces: any contained
   click receives the round maximum. Misses use the shortest spherical distance
   to any territory edge. A 10 m numerical boundary tolerance counts edge clicks
@@ -76,9 +96,10 @@ Vendored browser bundle, licence in vendor/D3-LICENSE. No CDN requests at runtim
   no valid reconstruction through all five rounds. Tiny unsupported fragments in
   otherwise supported countries are omitted at older ages, not given guessed
   rotations. See coverage details below.
-- Land pieces disappear outside source validity. There can be overlaps, seams and
-  simplified islands. These are inherited model/geometry limits, not interpolated
-  national boundaries. Finite rotations between 5 Ma samples use shortest-path
+- Unsupported material has no invented rotation. Its appearance dissolves between
+  native endpoint maps. Rigid patches can overlap or separate during transitions;
+  the native atlas crossfade fills behind them. These are inherited model and
+  visual interpolation limits, not ancient national boundaries. Finite rotations between 5 Ma samples use shortest-path
   quaternion interpolation; this is a visual approximation between model samples.
 - D3 performs spherical clipping at the antimeridian and poles before projection;
   scoring uses spherical great-circle distance and wraps longitude naturally.
@@ -102,7 +123,8 @@ Two source polygons contain an exact South Pole vertex, where longitude is
 undefined. To avoid D3 antimeridian clipping filling the world's oceans as land,
 the renderer replaces only that singular vertex with two meridian vertices at
 89.9999° latitude (an approximately 11 m cap), densifies geodesic edges to at most
-2° and tilts the projection by 0.01°. This is numerical display regularization,
+2°. The old Müller baseline also tilted the projection by 0.01°; the raster game
+uses zero rotation to match the inverse GPU projection. This is numerical display regularization,
 not new geological evidence. Original data and scoring coordinates stay intact.
 The regression test checks that no individual feature floods the map at every
 5 Ma sample from 300 to 0 Ma.
@@ -118,9 +140,9 @@ click has no unique source assignment, or its source piece is invalid at the
 displayed age, the pin remains at its original geographic coordinate, in grey.
 These bundled continental pieces are not a complete oceanic plate partition.
 
-Internal source-piece outlines and the latitude/longitude grid are no longer
-drawn. Land is combined in one fill to avoid antialiasing seams. Actual gaps and
-holes in the source remain; they are not digitally painted over. After each guess
+Internal source-piece outlines and the latitude/longitude grid are not drawn.
+The full native raster is shown at each guessing stop. Intermediate rigid patches
+are composited over a native-atlas crossfade, as described in GAME-MAP-INTEGRATION.md. After each guess
 feedback uses great-circle distance and initial compass bearing at the guessed
 age; warmer/colder compares distances to each round's reconstructed country edge.
 
@@ -130,7 +152,7 @@ age; warmer/colder compares distances to each round's reconstructed country edge
 Open Knowledge Foundation country dataset cited above, using spherical chord
 simplification tolerance 0.001 (approximately 6.4 km), retaining small rings where
 simplification would collapse them. This is a modern cartographic display layer,
-shown only after the final 0 Ma pick. It is never projected backwards as ancient
+shown only after the challenge reaches its final results at 0 Ma. It is never projected backwards as ancient
 national borders. The target is highlighted, and pin arrival countries are found
 by modern point-in-polygon containment. Labels at low zoom show the target and
 pin-arrival countries; zooming in reveals other sufficiently large countries.
@@ -140,7 +162,10 @@ retrieved on 15 November 2026 from the previously cited datasets/geo-countries
 source; its SHA-256 is `392a03db8aa3ba82c105852655620129b11182b95dfc34ef046827ea7d0e5b8c`.
 The output inherits Natural Earth's public-domain / package PDDL 1.0 terms.
 
-## Country-wide scoring data and reproduction
+## Retained Müller scoring baseline and reproduction
+
+The active PALEOMAP scoring file is `data/paleomap/territories.json`; see
+GAME-MAP-INTEGRATION.md. The following records the older regression baseline.
 
 `data/country-territories.json` is derived from the full selected Natural Earth
 country geometries and `StaticPolygons/shapes_static_polygons_Merdith_etal.gpml`
@@ -197,7 +222,7 @@ points; these are not extra guesses or reconstructed pin positions. Earlier
 miss deductions are retained. Saved actual guesses are re-scored and truncated
 at their first success under the current country-area rule.
 
-## Experimental terrain route
+## Terrain comparison route
 
 `terrain.html` uses age-specific Scotese, Vérard, Burgener, Elling & Kocsis (2024)
 PALEOMAP v24221 PaleoDEMs, **CC BY 4.0**, https://zenodo.org/records/10659112,

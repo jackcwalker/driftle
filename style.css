@@ -1,7 +1,7 @@
 :root {
   font-family: Arial, Helvetica, sans-serif;
   color: #eef0df;
-  background: #153b3d;
+  background: #112b37;
 }
 * {
   box-sizing: border-box;
@@ -49,7 +49,7 @@ main,
 #mapwrap {
   position: absolute;
   inset: 0;
-  background: #153b3d;
+  background: #112b37;
 }
 #map {
   display: block;
@@ -571,4 +571,32 @@ body.finished .archive {
   #results td {
     padding: 7px 4px;
   }
+}
+
+/* Native terrain beneath the interactive pin/result canvas. */
+#terrain-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#map {
+  position: relative;
+}
+#mapwrap::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 180px;
+  background: linear-gradient(#102a37d9, transparent);
+  pointer-events: none;
+}
+header,
+.time {
+  z-index: 1;
+}
+.map-note {
+  z-index: 1;
+  text-shadow: 0 1px 3px #102a37;
 }

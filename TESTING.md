@@ -159,3 +159,37 @@ are migrated; completed winning saves without arrival metadata replay once.
 - Ancient source detail is still coarse and reconstructed; zoom cannot expose
   survey-quality ancient valleys or rivers. Attribution/reproduction and the
   integration gate are documented in RASTER-MAPS.md.
+
+
+## Playable physical-map integration — 15 November 2026
+
+- All 39 Node tests pass. Active game model, territory and owner files share the
+  exact model-archive hash from the raster manifest. Tests check the four eligible
+  countries at every endpoint against pyGPlates reference coordinates, full-country
+  scores, pin arrivals, inverse texture warps, pole/date-line draw bounds, owner
+  PNG dimensions/checksums and saved missed-pin attachments without resident owner
+  textures. The earlier Müller regressions remain intact.
+- `scripts/audit-game-maps.py` checks 3,000 sampled owner cells per era against the
+  original spherical plate domains with pyGPlates: all 15,000 pass the 0.22°
+  raster-boundary allowance. Polar overfill is excluded during preparation.
+- Browser 1440×900: correct 300 Ma Brazil pick awards 15,000, visibly travels
+  through all four transitions and reveals only at 0 Ma. Separately played five
+  misses through 300/225/150/75/0 Ma: distances and scores update, next picks are
+  automatic, earlier pins remain, and final rows show arrival countries. Modern
+  target highlight is translucent so relief remains visible beneath it.
+- Browser 390×844: page reload, results collapse, zoom, random-country reset,
+  correct first-round Brazil pick and reload midway through the winning drift.
+  Reload restarts the unfinished winning journey at 300 Ma and reaches 0 Ma with
+  one actual pin, 15,000 points and the four awarded rounds. No console errors or
+  warnings in these runs. The old save does not cross reconstruction models.
+- Desktop 75→0 Ma transition: 541 measured frame intervals, mean 8.33 ms,
+  p95 8.80 ms, p95 CPU draw submission 3.80 ms; approximately 127.7 MiB estimated
+  textures plus temporary RGBA layers. Narrow viewport full resumed 300→0 win:
+  2,163 intervals, mean 8.35 ms, p95 10.30 ms, p95 CPU submission 2.40 ms;
+  approximately 32.0 MiB. Same desktop hardware, DPR 1 for both; these are RAF/CPU
+  measurements, not GPU timers or physical-phone performance claims.
+- Native atlases remain exact at guessing stops. Between them, rigid patches and
+  native-atlas crossfades can show blended/ghosted coastlines, particularly in
+  Asia. Intermediate landscapes are cartographic interpolation. No drainage or
+  unsupported plate motion is invented. Forced WebGL context loss and physical
+  phone gestures/performance remain untested.

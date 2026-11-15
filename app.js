@@ -1,27 +1,28 @@
+import { eraPair } from "./raster-drift.js?v=terrain-game4";
+import { DriftMap } from "./drift-map.js?v=terrain-game4";
 import { driftClock } from "./drift.js";
 import { challengeOutcome } from "./challenge.js";
 import { zoomAround, panBy, wheelIntent } from "./navigation.js";
-import { rotationAt } from "./vendor/motion.js";
 import {
   ages,
-  vector,
-  rotate,
-  lonlat,
-  position,
-  distance,
-  points,
   dailyIndex,
   renderRings,
   recordGuess,
+  restoreGuess,
   attachPin,
   pinPosition,
   feedback,
-} from "./geo.js";
+} from "./geo.js?v=terrain-game4";
 const $ = (id) => document.getElementById(id),
   d3 = window.d3,
   canvas = $("map"),
-  ctx = canvas.getContext("2d");
-let data,
+  ctx = canvas.getContext("2d"),
+  terrainCanvas = $("terrain-map");
+let renderer,
+  manifest,
+  owners,
+  water,
+  data,
   countries,
   modernCountries,
   territories,
@@ -52,8 +53,12 @@ function save() {
   if (testing) return;
   try {
     localStorage.setItem(
-      "driftle-v2-" + today,
-      JSON.stringify({ guesses: history, arrived: finished }),
+      "driftle-paleomap-v1-" + today,
+      JSON.stringify({
+        guesses: history,
+        arrived: finished,
+        modelHash: data.inputModelSHA256,
+      }),
     );
   } catch {
     /* Storage is optional. */
@@ -63,7 +68,8 @@ function valid(c) {
   const t = data.territories?.countries.find((t) => t.name === c.name);
   return t && (t.unpartitionedArea + t.unsupportedArea) / t.sourceArea < 0.0001;
 }
-function start(restore = true, randomize = false) {
+async function start(restore = true, randomize = false) {
+  if (!data || !countries || !renderer) return;
   testing = randomize;
   const previousCountry = country;
   run++;
@@ -91,10 +97,11 @@ function start(restore = true, randomize = false) {
   $("results").classList.remove("collapsed");
   document.body.classList.remove("finished");
   $("results").replaceChildren();
-  const stored = restore ? safeRead("driftle-v2-" + today) : null;
+  const stored = restore ? safeRead("driftle-paleomap-v1-" + today) : null;
   const saved = Array.isArray(stored) ? stored : stored?.guesses;
   if (
     Array.isArray(saved) &&
+    (!stored?.modelHash || stored.modelHash === data.inputModelSHA256) &&
     saved.length <= 5 &&
     saved.every(
       (h, i) =>
@@ -106,24 +113,42 @@ function start(restore = true, randomize = false) {
         h.guess.every(Number.isFinite),
     )
   ) {
-    history = challengeOutcome(saved.map((h, i) => record(h.guess, i))).guesses;
-    save(); // Migrate old point-based scores without changing the original guesses.
+    history = challengeOutcome(
+      saved.map((h, i) => restoreGuess(data, country, h, i, d3.geoContains)),
+    ).guesses;
     round = Math.min(history.length, 4);
     age = ages[round];
     finished = challengeOutcome(history).finished;
   }
-  $("country-name").textContent = country.name;
-  ui();
-  draw();
-  if (
+  const replayWin =
     finished &&
     history.some((h) => h.inside) &&
     !stored?.arrived &&
-    history.at(-1).age > 0
-  ) {
+    history.at(-1).age > 0;
+  if (replayWin) {
     finished = false;
     round = history.length - 1;
     age = history.at(-1).age;
+  }
+  $("country-name").textContent = country.name;
+  const token = run;
+  busy = true;
+  ui();
+  $("status").textContent = "Loading map…";
+  try {
+    if (!(await renderer.prepare(age, Math.max(0, age - 75))) || token !== run)
+      return;
+  } catch (e) {
+    if (token !== run) return;
+    $("status").textContent = "Map unavailable. Reset to retry. " + e.message;
+    return;
+  }
+  renderer.prefetch(Math.max(0, age - 150));
+  busy = false;
+  ui();
+  draw();
+  if (!restore) save();
+  if (replayWin) {
     driftTo(0, () => {
       finished = true;
       round = 4;
@@ -139,6 +164,10 @@ function ui() {
       : `GUESS ${round + 1} / 5`;
   $("age").textContent = Math.round(age);
   $("age-unit").textContent = age === 0 ? "Today" : "million years ago";
+  $("map-note").textContent =
+    age === 0
+      ? "NOAA NCEI · ETOPO 2022 · MADE WITH NATURAL EARTH"
+      : "SCOTESE ET AL. · PALEOMAP 2024 · CC BY 4.0";
   const outcome = challengeOutcome(history);
   $("score").textContent = outcome.total.toLocaleString();
   $("show-results").hidden = !finished;
@@ -186,7 +215,7 @@ function requestMapDraw() {
 }
 const zoom = d3
   .zoom()
-  .scaleExtent([1, 8])
+  .scaleExtent([1, 24])
   .filter((e) => !e.button)
   .touchable(() => true)
   .clickDistance(8)
@@ -194,13 +223,14 @@ const zoom = d3
   .on("zoom", (e) => {
     zoomTransform = e.transform;
     $("zoom-level").textContent = Math.round(zoomTransform.k * 100) + "%";
-    $("zoom-in").disabled = zoomTransform.k >= 8;
+    $("zoom-in").disabled = zoomTransform.k >= 24;
     $("zoom-out").disabled = zoomTransform.k <= 1;
     applyZoom();
     requestMapDraw();
   });
 d3.select(canvas).call(zoom).on("wheel.zoom", null);
 function setView(view) {
+  if (!projection) return;
   const transform = d3.zoomIdentity.translate(view.x, view.y).scale(view.k);
   const bounds = [
     [0, 0],
@@ -220,7 +250,7 @@ canvas.addEventListener(
     const intent = wheelIntent(e);
     setView(
       intent.kind === "zoom"
-        ? zoomAround(zoomTransform, anchor, intent.factor)
+        ? zoomAround(zoomTransform, anchor, intent.factor, 1, 24)
         : panBy(zoomTransform, intent.dx, intent.dy),
     );
   },
@@ -265,20 +295,18 @@ function resize() {
   const box = canvas.getBoundingClientRect();
   width = box.width;
   height = box.height;
-  const ratio = Math.min(devicePixelRatio || 1, 2);
+  const ratio = Math.min(devicePixelRatio || 1, width < 650 ? 1.5 : 2);
+  renderer.resize(width, height, ratio);
   canvas.width = width * ratio;
   canvas.height = height * ratio;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  projection = d3
-    .geoEqualEarth()
-    .rotate([0, 0.01])
-    .fitExtent(
-      [
-        [16, 85],
-        [width - 16, height - 95],
-      ],
-      { type: "Sphere" },
-    );
+  projection = d3.geoEqualEarth().fitExtent(
+    [
+      [16, 85],
+      [width - 16, height - 95],
+    ],
+    { type: "Sphere" },
+  );
   baseScale = projection.scale();
   baseTranslate = projection.translate();
   const worldBounds = d3.geoPath(projection).bounds({ type: "Sphere" });
@@ -321,24 +349,42 @@ function marker(coord, color, r = 5, label = null) {
 }
 function draw() {
   if (!data || !projection) return;
+  const started = performance.now();
+  renderer.drawAge(age, {
+    scale: projection.scale(),
+    translate: projection.translate(),
+    k: zoomTransform.k,
+  });
   ctx.clearRect(0, 0, width, height);
   const path = d3.geoPath(projection, ctx);
-  ctx.beginPath();
-  path({ type: "Sphere" });
-  ctx.fillStyle = "#1c4849";
-  ctx.fill();
   ctx.save();
   ctx.beginPath();
   path({ type: "Sphere" });
   ctx.clip();
+  if (age === 0 && water) {
+    const rank = Math.min(9, 1.8 + Math.log2(zoomTransform.k) * 1.65);
+    const scale = projection.scale(),
+      translate = projection.translate();
+    for (const f of water.features) {
+      if (f.properties.rank > rank) continue;
+      const b = f.projectedBounds;
+      if (
+        b[1][0] * scale + translate[0] < 0 ||
+        b[0][0] * scale + translate[0] > width ||
+        b[1][1] * scale + translate[1] < 0 ||
+        b[0][1] * scale + translate[1] > height
+      )
+        continue;
+      ctx.beginPath();
+      path(f);
+      ctx.fillStyle = "#648e9c";
+      ctx.fill();
+    }
+  }
   if (finished && modernCountries) {
     ctx.beginPath();
     path(modernCountries);
-    ctx.fillStyle = "#9eb495";
-    ctx.fill();
-    ctx.beginPath();
-    path(modernCountries);
-    ctx.strokeStyle = "#648474";
+    ctx.strokeStyle = "#cbd6bf70";
     ctx.lineWidth = 0.6;
     ctx.stroke();
     const target = modernCountries.features.find(
@@ -347,7 +393,7 @@ function draw() {
     if (target) {
       ctx.beginPath();
       path(target);
-      ctx.fillStyle = "#edc675";
+      ctx.fillStyle = "#edc67560";
       ctx.fill();
       ctx.strokeStyle = "#ffe4a0";
       ctx.lineWidth = 1.5;
@@ -382,20 +428,6 @@ function draw() {
       ctx.fillStyle = "#f5f0d5";
       ctx.fillText(f.properties.name, ...point);
     }
-  } else {
-    // One land fill avoids outlining internal source-piece seams.
-    ctx.beginPath();
-    const rotations = {};
-    for (const f of data.features) {
-      if (age > f.begin || age < f.end) continue;
-      const q = (rotations[f.pid] ??= rotationAt(data, f.pid, age));
-      path({
-        type: "Polygon",
-        coordinates: f.vectors.map((r) => r.map((v) => lonlat(rotate(v, q)))),
-      });
-    }
-    ctx.fillStyle = "#9eb495";
-    ctx.fill();
   }
   const placed = [];
   history.forEach((h, i) => {
@@ -425,6 +457,13 @@ function draw() {
   if (guess) marker(guess, "#f5cc7c", 8);
 
   ctx.restore();
+  canvas.dataset.age = age.toFixed(3);
+  canvas.dataset.drawMs = (performance.now() - started).toFixed(2);
+  canvas.dataset.textureMiB = (
+    (renderer.residentBytes + (renderer.framebufferBytes ?? 0)) /
+    1048576
+  ).toFixed(1);
+  canvas.dataset.phase = busy ? "drifting" : finished ? "finished" : "picking";
 }
 function select(point) {
   if (!data || busy || finished || !point || !point.every(Number.isFinite))
@@ -473,7 +512,10 @@ function record(g, i) {
   return {
     ...result,
     attachment:
-      result.territoryAttachment ?? attachPin(data, g, ages[i], d3.geoContains),
+      result.territoryAttachment ??
+      (renderer.ownerAt(g, ages[i])
+        ? attachPin(data, g, ages[i], d3.geoContains)
+        : null),
   };
 }
 $("confirm").onclick = () => {
@@ -512,33 +554,65 @@ $("confirm").onclick = () => {
     }
   });
 };
-function driftTo(to, onArrival) {
+async function driftTo(to, onArrival) {
   busy = true;
   ui();
   const token = run,
-    from = age,
-    duration =
-      ((from - to) / 75) *
-      (matchMedia("(prefers-reduced-motion: reduce)").matches ? 1500 : 4500);
-  const clock = driftClock(from, to, duration);
-  let previous = 0;
-  function frame(now) {
+    frames = [],
+    draws = [];
+  let previousFrame;
+  const segmentDuration = matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? 1500
+    : 4500;
+  try {
+    while (age > to) {
+      const from = age,
+        end = Math.max(to, eraPair(from)[1]);
+      if (!(await renderer.prepare(from, end)) || token !== run) return;
+      renderer.prefetch(Math.max(0, end - 75));
+      const clock = driftClock(from, end, segmentDuration);
+      const arrived = await new Promise((resolve) => {
+        function frame(now) {
+          if (token !== run) {
+            resolve(false);
+            return;
+          }
+          const state = clock(now);
+          age = state.age;
+          draw();
+          $("age").textContent = Math.round(age);
+          if (previousFrame !== undefined) frames.push(now - previousFrame);
+          previousFrame = now;
+          draws.push(+canvas.dataset.drawMs);
+          if (!state.done) requestAnimationFrame(frame);
+          else resolve(true);
+        }
+        requestAnimationFrame(frame);
+      });
+      if (!arrived || token !== run) return;
+    }
+    if (to > 0) {
+      if (!(await renderer.prepare(to, Math.max(0, to - 75))) || token !== run)
+        return;
+      renderer.prefetch(Math.max(0, to - 150));
+    }
+    const percentile = (a, p) =>
+      a.toSorted((a, b) => a - b)[Math.floor((a.length - 1) * p)];
+    canvas.dataset.playback = JSON.stringify({
+      frames: frames.length,
+      meanFrameMs: frames.reduce((a, b) => a + b, 0) / frames.length,
+      p95FrameMs: percentile(frames, 0.95),
+      p95CpuDrawMs: percentile(draws, 0.95),
+      textureMiB:
+        (renderer.residentBytes + (renderer.framebufferBytes ?? 0)) / 1048576,
+    });
+    guess = null;
+    busy = false;
+    onArrival();
+  } catch (e) {
     if (token !== run) return;
-    const state = clock(now);
-    age = state.age;
-    if (now - previous > 30 || state.done) {
-      draw();
-      $("age").textContent = Math.round(age);
-      previous = now;
-    }
-    if (!state.done) requestAnimationFrame(frame);
-    else {
-      guess = null;
-      busy = false;
-      onArrival();
-    }
+    $("status").textContent = "Map unavailable. Reset to retry. " + e.message;
   }
-  requestAnimationFrame(frame);
 }
 
 function countryAt(point) {
@@ -584,18 +658,21 @@ function reveal() {
 }
 $("restart").onclick = () => start(false, true);
 try {
-  [data, countries, modernCountries, territories] = await Promise.all(
-    [
-      "data/motion.json",
-      "data/countries.json",
-      "data/modern-countries.json",
-      "data/country-territories.json",
-    ].map(async (url) => {
-      const response = await fetch(url);
-      if (!response.ok) throw Error(`${url}: ${response.status}`);
-      return response.json();
-    }),
-  );
+  [data, countries, modernCountries, territories, manifest, owners] =
+    await Promise.all(
+      [
+        "data/paleomap/motion.json",
+        "data/countries.json",
+        "data/modern-countries.json",
+        "data/paleomap/territories.json",
+        "data/maps/raster-v2/manifest.json",
+        "data/paleomap/owners.json",
+      ].map(async (url) => {
+        const response = await fetch(url, { cache: "no-cache" });
+        if (!response.ok) throw Error(`${url}: ${response.status}`);
+        return response.json();
+      }),
+    );
   for (const f of modernCountries.features) {
     f.geometry.coordinates = f.geometry.coordinates.map((rings) => {
       let r = renderRings(rings);
@@ -604,7 +681,31 @@ try {
       return r;
     });
   }
+  if (
+    data.model !== territories.model ||
+    data.model !== owners.model ||
+    data.inputModelSHA256 !== manifest.inputHashes["paleomap2024-model.zip"] ||
+    data.inputModelSHA256 !== territories.inputModelSHA256 ||
+    data.inputModelSHA256 !== owners.inputModelSHA256
+  )
+    throw Error("Terrain, motion and scoring model mismatch");
+  territories.rotations = data.rotations;
   data.territories = territories;
+  for (const c of countries)
+    c.pid = data.placeAssignments.find((a) => a.name === c.name)?.pid;
+  renderer = new DriftMap(terrainCanvas, data, manifest, owners);
+  water = await (await fetch(manifest.water.url)).json();
+  const rawPath = d3.geoPath(d3.geoEqualEarth().scale(1).translate([0, 0]));
+  for (const f of water.features) {
+    const polygons =
+      f.geometry.type === "Polygon"
+        ? [f.geometry.coordinates]
+        : f.geometry.coordinates;
+    for (const rings of polygons)
+      if (d3.geoArea({ type: "Polygon", coordinates: rings }) > 2 * Math.PI)
+        for (const r of rings) r.reverse();
+    f.projectedBounds = rawPath.bounds(f);
+  }
   for (const c of territories.countries)
     for (const p of c.parts) {
       if (d3.geoArea({ type: "Polygon", coordinates: p.rings }) > 2 * Math.PI)
@@ -618,13 +719,25 @@ try {
     f.rings = renderRings(f.rings);
     if (d3.geoArea({ type: "Polygon", coordinates: f.rings }) > 2 * Math.PI)
       f.rings = f.rings.map((r) => [...r].reverse());
-    f.vectors = f.rings.map((r) => r.map(vector));
   }
   new ResizeObserver(resize).observe(canvas);
   resize();
-  start();
+  await start();
 } catch (error) {
   $("status").textContent =
     "Could not load the reconstruction. Reload to retry. " + error.message;
   $("mapstatus").textContent = "DATA UNAVAILABLE";
 }
+
+terrainCanvas.addEventListener("webglcontextlost", (e) => {
+  e.preventDefault();
+  run++;
+  busy = true;
+  ui();
+  $("status").textContent = "Restoring map…";
+});
+terrainCanvas.addEventListener("webglcontextrestored", async () => {
+  renderer = new DriftMap(terrainCanvas, data, manifest, owners);
+  resize();
+  await start(true, false);
+});

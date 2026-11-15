@@ -1,10 +1,10 @@
 # Physical map preview
 
 Run `npm start`, then open <http://localhost:4173/terrain.html?view=europe>.
-This is the five-endpoint cartographic proof from the implementation plan. The
-regular game at `/` still uses its existing Müller model. This preview does not
-yet animate geological motion or change country scoring. It establishes map
-quality before a separately validated model migration.
+These five endpoint maps are also integrated into the playable game at `/`, with
+matching PALEOMAP motion, country scoring and pins. This route remains a static
+cartographic comparison. See [GAME-MAP-INTEGRATION.md](GAME-MAP-INTEGRATION.md)
+for playback, model validation and integration details.
 
 Choose 300, 225, 150, 75 Ma or Today. Europe follows nine supported European
 reference sites under the accompanying PALEOMAP model, so ancient comparisons
@@ -123,7 +123,7 @@ projected bounds for culling. No external requests occur during play.
 
 WebGL2 is currently required by this experimental route. Unsupported browsers show
 an error rather than an inaccurate fallback. Texture restoration is handled after
-context loss. The main game's canvas renderer remains available at `/`.
+context loss. The integrated game also requires WebGL2 for terrain.
 
 `?view=europe&benchmark=1` runs 180 frames of horizontal panning and reports RAF
 intervals, CPU draw submission time and estimated uncompressed texture storage.
@@ -140,6 +140,6 @@ date line, verify all five assets and hashes, assert river-free unnamed water
 geometry, and check reconstructed Europe camera samples. Existing game scoring,
 motion and date-line tests remain in place. See TESTING.md for browser checks.
 
-Promotion into gameplay still needs the plan's matched-model country partition,
-registration tests and transition milestone. The PALEOMAP textures must not simply
-be placed under Müller's ancient country positions.
+The maps are now in gameplay with the matched PALEOMAP country partition and
+transition renderer described in GAME-MAP-INTEGRATION.md. Müller remains a
+regression baseline; its ancient country coordinates are not used under these maps.

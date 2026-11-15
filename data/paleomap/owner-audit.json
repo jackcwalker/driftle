@@ -1,0 +1,27 @@
+{
+  "300": {
+    "samples": 3000,
+    "invalidBeyond022Degrees": 0,
+    "examples": []
+  },
+  "225": {
+    "samples": 3000,
+    "invalidBeyond022Degrees": 0,
+    "examples": []
+  },
+  "150": {
+    "samples": 3000,
+    "invalidBeyond022Degrees": 0,
+    "examples": []
+  },
+  "75": {
+    "samples": 3000,
+    "invalidBeyond022Degrees": 0,
+    "examples": []
+  },
+  "0": {
+    "samples": 3000,
+    "invalidBeyond022Degrees": 0,
+    "examples": []
+  }
+}

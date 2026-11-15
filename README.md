@@ -4,7 +4,7 @@ A local, responsive daily continental-drift geography game for driftle.games.
 
 ## Run
 
-Requires Python 3 and a current browser. No install or build step.
+Requires Python 3 and a current browser with WebGL2. No install or build step.
 
 ```sh
 git clone https://github.com/jackcwalker/driftle.git
@@ -37,8 +37,9 @@ Scores are on the side; instructions use a dialog. Final results are a non-modal
 collapsible map overlay, with modern country borders and a gold target country. The country is the target area: any pick inside its supported reconstruction earns
 that round's full points. Misses use shortest great-circle distance to the nearest
 territory edge, never to a hidden point. Earlier rounds have higher maximum scores.
-The final map highlights the whole modern country in gold. Existing saved guesses
-are re-scored on load; incorrect old target-point scores are not retained.
+The final map highlights the whole modern country in gold over the terrain.
+Saved progress is versioned by reconstruction model; the terrain integration
+starts a fresh daily save instead of applying old Müller guesses to a new map.
 
 The daily pool currently supports Brazil, Australia, Central African Republic and
 Czechia. India and USA are omitted because too much territory has unsupported
@@ -54,9 +55,15 @@ Keyboard: focus map, arrows to move by 5°, Shift+arrows by 1°, Enter to select
 then Tab to confirm. Reset cancels in-flight animation and selects a different supported country for testing.
 Daily progress is saved locally when storage is available; random testing rounds do not overwrite it. The challenge date is fixed automatically.
 
-**Scientific scope:** reconstructed modern coastlines and plate-partitioned modern
-country territory, not ancient national borders or ancient shorelines. Read
-[SOURCES.md](SOURCES.md) for reuse assessment, attribution, provenance and limits.
+**Scientific scope:** native published PALEOMAP 2024 terrain at the four ancient
+stops, NOAA ETOPO 2022 modern relief, and modern country territory partitioned and
+rotated with the matching PALEOMAP model. Between stops, supported land moves on
+its plates over a crossfade of the native atlases. These are cartographic visual
+transitions, not continuous paleoelevation or deforming-land simulations. Ancient
+features are broad reconstructions; only modern Europe has the finer terrain inset.
+There are no political boundaries during guessing and no river overlay. Read
+[SOURCES.md](SOURCES.md) and [GAME-MAP-INTEGRATION.md](GAME-MAP-INTEGRATION.md)
+for attribution, model checks, reproduction and limitations.
 
 ## Verify
 
@@ -75,20 +82,25 @@ and scoring. Browser verification is recorded in TESTING.md.
 
 This is an ordinary static site. Use this directory as the output directory,
 with no build command. No Workers, secrets or server are required. Preserve
-LICENSE, SOURCES.md and vendor/D3-LICENSE in the published assets. Add the custom
+LICENSE, SOURCES.md, RASTER-MAPS.md and vendor/D3-LICENSE in the published assets. Add the custom
 domain driftle.games only after explicit authorization. The source is versioned in the private GitHub repository
 https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
 
 ## Files
 
-- app.js: game state, canvas rendering, animation and UI
+- app.js: game state, pin/result canvas, animation and UI
+- drift-map.js / map-renderer.js: georeferenced WebGL2 terrain and plate-warped transitions
 - geo.js: plate-partitioned territory containment, nearest-edge scoring and pin motion
-- data/motion.json: attributed published model derivatives
+- data/paleomap/: matched motion, scoring territory, transport masks and audit
+- data/maps/raster-v2/: five elevation-tinted, relief-shaded endpoint atlases
 - data/countries.json: full public-domain modern country geometries
-- data/country-territories.json: attributed model-partitioned scoring areas
+- data/motion.json and data/country-territories.json: preserved Müller regression baseline
 - vendor/: D3 and upstream quaternion/mesh helpers with licences
 - tests/: deterministic geometry and data checks
 
 ### Experimental terrain
 
-Open http://localhost:4173/terrain.html?view=europe for the five-age physical-map preview: native 300, 225, 150, 75 Ma elevation maps and detailed modern European relief. This is the cartographic proof; geological animation and game integration await the matched-model validation described in [RASTER-MAPS.md](RASTER-MAPS.md). The normal game remains unchanged. No river overlay or political borders are drawn. Ancient landforms are reconstructed and remain broader than measured modern terrain.
+Open http://localhost:4173/terrain.html?view=europe for the static comparison view
+of the same five maps now used by the game. Source baking and cartography are
+documented in [RASTER-MAPS.md](RASTER-MAPS.md). The earlier vector study remains
+documented in TERRAIN.md as a regression baseline.

@@ -4,20 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Driftle</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=terrain-game4" />
     <script src="vendor/d3.min.js"></script>
   </head>
   <body>
     <main>
       <div id="mapwrap">
+        <canvas id="terrain-map" aria-hidden="true"></canvas>
         <canvas
           id="map"
           tabindex="0"
           role="application"
           aria-label="World map. Click to select a guess. Use arrow keys to move the crosshair and Enter to select."
         ></canvas
-        ><span class="map-note"
-          >MÜLLER 2022 · RECONSTRUCTED MODERN COASTLINES</span
+        ><span class="map-note" id="map-note"
+          >SCOTESE ET AL. · PALEOMAP 2024 · CC BY 4.0</span
         >
       </div>
       <header>
@@ -105,16 +106,17 @@
           makes smaller steps.
         </p>
         <p>
-          These are reconstructed modern coastlines, not ancient shorelines.
+          The terrain shows published reconstructed elevation and shorelines.
           Modern countries did not exist at these ages. The game follows modern
           territory split across the model's plates, without continental
-          deformation. Only countries with at least 99.99% model-supported area
-          across all rounds enter the daily pool. Tiny unsupported fragments are
-          omitted at older ages; they are not assigned invented positions.
+          deformation. Only countries with at least 99.99% model-supported
+          territory across all rounds enter the daily pool. Tiny unsupported
+          fragments are omitted at older ages; they are not assigned invented
+          positions.
         </p>
         <a href="SOURCES.md">Sources, licences and limitations</a>
       </dialog>
-      <script type="module" src="app.js?v=20261115-cleanup3"></script>
+      <script type="module" src="app.js?v=terrain-game5"></script>
     </main>
   </body>
 </html>

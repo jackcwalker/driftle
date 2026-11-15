@@ -4,8 +4,8 @@ import {
 } from "./map-projection.js";
 const { A1, A2, A3, A4, M } = EQUAL_EARTH_COEFFICIENTS;
 // Static georeferenced raster drawing. Geographic detail is independent of mesh size.
-const vertex = `#version 300 es
-in vec2 aPosition;out vec2 vUV;void main(){vUV=aPosition*.5+.5;gl_Position=vec4(aPosition,0,1);}`;
+export const mapVertex = `#version 300 es
+layout(location=0) in vec2 aPosition;out vec2 vUV;void main(){vUV=aPosition*.5+.5;gl_Position=vec4(aPosition,0,1);}`;
 const fragment = `#version 300 es
 precision highp float;
 in vec2 vUV;out vec4 outColor;
@@ -25,7 +25,7 @@ void main(){
  float edge=smoothstep(0.,.02,min(min(eu.x,1.-eu.x),min(eu.y,1.-eu.y)));
  outColor=mix(base,texture(uEurope,clamp(eu,0.,1.)),uDetail*edge);
 }`;
-function shader(gl, type, source) {
+export function shader(gl, type, source) {
   const s = gl.createShader(type);
   gl.shaderSource(s, source);
   gl.compileShader(s);
@@ -43,7 +43,7 @@ export class RasterMap {
     }));
     if (!gl) throw Error("WebGL2 is unavailable in this browser");
     const p = (this.program = gl.createProgram());
-    gl.attachShader(p, shader(gl, gl.VERTEX_SHADER, vertex));
+    gl.attachShader(p, shader(gl, gl.VERTEX_SHADER, mapVertex));
     gl.attachShader(p, shader(gl, gl.FRAGMENT_SHADER, fragment));
     gl.linkProgram(p);
     if (!gl.getProgramParameter(p, gl.LINK_STATUS))
@@ -74,7 +74,24 @@ export class RasterMap {
     this.residentBytes = 0;
     this.ticket = 0;
     this.loading = new Map();
+    this.downloads = new Map();
     this.requests = 0;
+  }
+  blob(url) {
+    if (!this.downloads.has(url))
+      this.downloads.set(
+        url,
+        fetch(url)
+          .then((r) => {
+            if (!r.ok) throw Error(`${url}: ${r.status}`);
+            return r.blob();
+          })
+          .catch((e) => {
+            this.downloads.delete(url);
+            throw e;
+          }),
+      );
+    return this.downloads.get(url);
   }
   async texture(url) {
     if (this.cache.has(url)) {
@@ -93,27 +110,67 @@ export class RasterMap {
     }
   }
   async uploadTexture(url) {
-    const r = await fetch(url);
-    if (!r.ok) throw Error(`${url}: ${r.status}`);
-    const image = await createImageBitmap(await r.blob());
+    const mask = url.includes("owners-");
+    const image = await createImageBitmap(await this.blob(url), {
+      colorSpaceConversion: "none",
+    });
     const gl = this.gl,
       t = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, t);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+    let pixels;
+    if (mask) {
+      const c = new OffscreenCanvas(image.width, image.height);
+      const ctx = c.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(image, 0, 0);
+      const rgba = ctx.getImageData(0, 0, image.width, image.height).data;
+      pixels = new Uint8Array(image.width * image.height);
+      for (let i = 0; i < pixels.length; i++) pixels[i] = rgba[i * 4];
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.R8,
+        image.width,
+        image.height,
+        0,
+        gl.RED,
+        gl.UNSIGNED_BYTE,
+        pixels,
+      );
+      c.width = c.height = 1;
+    } else
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        image,
+      );
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.LINEAR_MIPMAP_LINEAR,
+      mask ? gl.NEAREST : gl.LINEAR_MIPMAP_LINEAR,
     );
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(
+      gl.TEXTURE_2D,
+      gl.TEXTURE_MAG_FILTER,
+      mask ? gl.NEAREST : gl.LINEAR,
+    );
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_WRAP_S,
       url.includes("europe") ? gl.CLAMP_TO_EDGE : gl.REPEAT,
     );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.generateMipmap(gl.TEXTURE_2D);
-    const v = { texture: t, bytes: (image.width * image.height * 4 * 4) / 3 };
+    if (!mask) gl.generateMipmap(gl.TEXTURE_2D);
+    const v = {
+      texture: t,
+      width: image.width,
+      height: image.height,
+      pixels,
+      bytes: image.width * image.height * (mask ? 1 : 16 / 3),
+    };
     image.close();
     this.cache.set(url, v);
     this.residentBytes += v.bytes;
@@ -167,6 +224,8 @@ export class RasterMap {
     if (!this.base) return;
     const gl = this.gl,
       u = this.uniforms;
+    gl.disable(gl.SCISSOR_TEST);
+    gl.disable(gl.BLEND);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(this.program);
