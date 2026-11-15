@@ -368,3 +368,79 @@ td {
 #map {
   touch-action: none;
 }
+
+#feedback {
+  max-width: 430px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+#feedback[hidden] {
+  display: none;
+}
+#verdict {
+  font-size: 19px;
+  color: #f3cf82;
+}
+.feedback-numbers {
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0 8px;
+}
+#guess-distance {
+  font-size: 23px;
+  font-weight: bold;
+  color: #fff2c9;
+}
+#earned {
+  font-size: 12px;
+  color: #f1cf87;
+  white-space: nowrap;
+}
+#feedback-detail {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d2dfcc;
+  margin: 0 0 8px;
+}
+.step small {
+  text-align: right;
+  line-height: 1.5;
+}
+.control-panel:has(#feedback:not([hidden])) {
+  width: 470px;
+}
+#feedback:not([hidden]) ~ #status {
+  font-size: 11px;
+  margin-top: 9px;
+}
+@media (max-width: 600px) {
+  .control-panel:has(#feedback:not([hidden])) {
+    width: calc(100% - 32px);
+    bottom: 65px;
+  }
+  #verdict {
+    font-size: 16px;
+  }
+  #guess-distance {
+    font-size: 20px;
+  }
+  #feedback-detail {
+    font-size: 11px;
+  }
+  .score-panel {
+    width: 110px;
+  }
+  .step {
+    margin-top: 9px;
+  }
+}
+@media (min-width: 601px) {
+  .control-panel:has(#feedback:not([hidden])) {
+    left: 26px;
+    transform: none;
+    width: 360px;
+    max-width: calc(100% - 190px);
+  }
+}

@@ -104,3 +104,20 @@ the renderer replaces only that singular vertex with two meridian vertices at
 not new geological evidence. Original data and scoring coordinates stay intact.
 The regression test checks that no individual feature floods the map at every
 5 Ma sample from 300 to 0 Ma.
+
+## Guess pin motion and feedback
+
+For land clicks, the guessed-age quaternion is inverted to map the click back to
+modern source coordinates. Point-in-polygon tests against valid source continental
+pieces assign a plate only if the match is unambiguous. The pin is then rotated
+from that same source coordinate on each animation frame. This does not attach
+all clicks to the target country's plate or invent ocean-floor movement. If the
+click has no unique source assignment, or its source piece is invalid at the
+displayed age, the pin remains at its original geographic coordinate, in grey.
+These bundled continental pieces are not a complete oceanic plate partition.
+
+Internal source-piece outlines and the latitude/longitude grid are no longer
+drawn. Land is combined in one fill to avoid antialiasing seams. Actual gaps and
+holes in the source remain; they are not digitally painted over. After each guess
+feedback uses great-circle distance and initial compass bearing at the guessed
+age; warmer/colder compares the distances from each round's own target position.

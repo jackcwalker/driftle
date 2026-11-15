@@ -10,6 +10,9 @@ import {
   dailyIndex,
   renderRings,
   recordGuess,
+  attachPin,
+  pinPosition,
+  feedback,
 } from "./geo.js";
 const $ = (id) => document.getElementById(id),
   d3 = window.d3,
@@ -58,6 +61,7 @@ function valid(c) {
 function start(restore = true) {
   run++;
   busy = false;
+  $("feedback").hidden = true;
   finished = false;
   history = [];
   round = 0;
@@ -106,7 +110,7 @@ function ui() {
   $("timeline").innerHTML = ages
     .map(
       (a, i) =>
-        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() : "—"}</small></div>`,
+        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() + " pts<br>" + history[i].distance.toLocaleString() + " km" : "—"}</small></div>`,
     )
     .join("");
   $("status").textContent = finished
@@ -128,7 +132,10 @@ function ui() {
           ? "Five guesses · 300 Ma to today"
           : "";
 }
-$("show-results").onclick = () => $("results").showModal();
+$("show-results").onclick = () => {
+  if (!$("results").innerHTML) reveal();
+  else $("results").showModal();
+};
 $("begin").onclick = () => {
   started = true;
   ui();
@@ -212,28 +219,22 @@ function draw() {
   ctx.beginPath();
   path({ type: "Sphere" });
   ctx.clip();
+  // Draw all land in one fill: source plate seams are not coastlines.
   ctx.beginPath();
-  path(d3.geoGraticule10());
-  ctx.strokeStyle = "#36605b";
-  ctx.lineWidth = 0.5;
-  ctx.stroke();
   const rotations = {};
   for (const f of data.features) {
     if (age > f.begin || age < f.end) continue;
     const q = (rotations[f.pid] ??= rotationAt(data, f.pid, age));
     const rings = f.vectors.map((r) => r.map((v) => lonlat(rotate(v, q))));
-    ctx.beginPath();
     path({ type: "Polygon", coordinates: rings });
-    ctx.fillStyle = "#9eb495";
-    ctx.fill();
-    ctx.strokeStyle = "#5b8071";
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
   }
+  ctx.fillStyle = "#9eb495";
+  ctx.fill();
   const placed = [];
   history.forEach((h, i) => {
-    const p = projection(h.guess);
-    let coord = h.guess;
+    const pin = pinPosition(data, h, age);
+    const p = projection(pin.point);
+    let coord = pin.point;
     const nearby = placed.some(
       (q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 25,
     );
@@ -251,7 +252,7 @@ function draw() {
         coord = shifted;
       }
     }
-    marker(coord, "#a9c2b4", 9, String(i + 1));
+    marker(coord, pin.moving ? "#a9c2b4" : "#a6aab2", 9, String(i + 1));
     placed.push(p);
   });
   if (guess) marker(guess, "#f5cc7c", 8);
@@ -263,6 +264,7 @@ function select(point) {
     return;
   const p = projection(point);
   if (!p || Math.abs(point[1]) > 90) return;
+  $("feedback").hidden = true;
   guess = point;
   keyboard = [...point];
   ui();
@@ -291,11 +293,21 @@ canvas.onkeydown = (e) => {
   select([...keyboard]);
 };
 function record(g, i) {
-  return recordGuess(data, country, g, i);
+  return {
+    ...recordGuess(data, country, g, i),
+    attachment: attachPin(data, g, ages[i], d3.geoContains),
+  };
 }
 $("confirm").onclick = () => {
   if (busy || !guess || finished) return;
-  history.push(record(guess, round));
+  const h = record(guess, round);
+  history.push(h);
+  const f = feedback(h, history.at(-2));
+  $("feedback").hidden = false;
+  $("verdict").textContent = f.title;
+  $("guess-distance").textContent = h.distance.toLocaleString() + " km away";
+  $("earned").textContent = f.earned;
+  $("feedback-detail").textContent = f.detail;
   guess = null;
   save();
   if (round === 4) {

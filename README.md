@@ -19,8 +19,11 @@ reconstruction service is required. Stop the server with Ctrl-C.
 The country name is shown immediately. Press Begin, click where it was at 300 Ma,
 then Pick. Watch 75 million years of drift and repeat at 225, 150, 75 and 0 Ma.
 The target country stays the same. Earlier guesses have higher maximum scores.
-Numbered previous pins remain on the map, at the geographic coordinates clicked.
-Overlapping pins have offset labels with leader lines. Use +/− or wheel/pinch to
+Numbered land pins attach to an unambiguous source continental plate and drift
+with it. Ocean/ambiguous clicks stay grey and fixed with an explicit explanation.
+Overlapping pins have offset labels with leader lines. Each pick shows its distance,
+points, compass hint and improvement from the last pick. After playback the next
+round is immediately ready; selecting a new location clears the previous feedback. Use +/− or wheel/pinch to
 zoom and drag to pan. Reset view with ↺.
 
 Scores are on the side; instructions and final results use dialogs. The final

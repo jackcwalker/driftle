@@ -1,6 +1,6 @@
 # Verification — 15 November 2026
 
-`npm test`: 9 tests pass. No dependency installation required.
+`npm test`: 11 tests pass. No dependency installation required.
 
 - Six interior points fall inside their Natural Earth modern-country polygons.
 - Reconstructed points agree with the bundled GPlates coordinate samples at 0,
@@ -44,3 +44,19 @@ points; whole-country territory reconstruction is outside this MVP.
 The revised flow also checks that moving a later keyboard pin cannot mutate an
 earlier recorded guess. Saved scores were verified unchanged after reload
 (400 + 238 = 638 for the first two browser test guesses).
+
+## Follow-up: seams, moving pins and round feedback
+
+Removed source-piece strokes and the coordinate grid. Land renders in one fill.
+Added tests that inverse-partition a 300 Ma South American land click, verify the
+plate assignment, reconstruct the pin at multiple ages through today, and check
+that it travels over 1,000 km. Verified ocean fallback stays fixed. Feedback tests
+cover verdict, earned score, compass bearing across the date line and improvement.
+Browser testing confirmed a 300 Ma land pick 9 km from the target earned 4,974 pts,
+showed immediate feedback, and reached 225 Ma with a plate-attached pin. The next
+round starts automatically after the drift, without a Next guess step. Feedback
+stays visible until the player selects a new location.
+
+Follow-up verification: after a pick, feedback stayed visible through the drift;
+the map reached 225 Ma and accepted a new location immediately, clearing the old
+feedback. No Next guess control or plate-motion status message remains.

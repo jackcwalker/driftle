@@ -109,5 +109,99 @@ export function recordGuess(data, country, g, i) {
     guess: [...g],
     distance: Math.round(km),
     score: points(km, i),
+    bearing: bearing(g, target),
   };
+}
+
+// Undo the finite rotation at the clicking age before testing modern source
+// continental pieces. Only an unambiguous plate is allowed to carry a pin.
+export function attachPin(data, point, age, contains) {
+  const candidates = [];
+  const localByPid = {};
+  for (const f of data.features) {
+    if (age > f.begin || age < f.end) continue;
+    let local = localByPid[f.pid];
+    if (!local) {
+      const q = rotationAt(data, f.pid, age);
+      local = lonlat(rotate(vector(point), [q[0], -q[1], -q[2], -q[3]]));
+      localByPid[f.pid] = local;
+    }
+    if (contains({ type: "Polygon", coordinates: f.rings }, local))
+      candidates.push({ pid: f.pid, point: local, begin: f.begin, end: f.end });
+  }
+  const pids = new Set(candidates.map((c) => c.pid));
+  if (pids.size !== 1) return null;
+  return candidates.find((c) => c.begin >= 300 && c.end <= 0) ?? candidates[0];
+}
+export function pinPosition(data, record, age) {
+  const a = record.attachment;
+  if (!a || age > a.begin || age < a.end)
+    return { point: record.guess, moving: false };
+  return {
+    point: lonlat(rotate(vector(a.point), rotationAt(data, a.pid, age))),
+    moving: true,
+  };
+}
+export function feedback(record, previous) {
+  const km = record.distance;
+  const title =
+    km < 250
+      ? "You nailed the drift!"
+      : km < 750
+        ? "Hot on the trail!"
+        : km < 1800
+          ? "Getting warm!"
+          : km < 4000
+            ? "A continental detour."
+            : "A whole world to explore!";
+  const max = (5 - ages.indexOf(record.age)) * 1000;
+  let detail =
+    km < 250
+      ? "That is a remarkably sharp deep-time pick."
+      : km < 750
+        ? "Close enough to feel the tectonic heat."
+        : km < 1800
+          ? "In the neighbourhood — keep tracking the moving land."
+          : km < 4000
+            ? "A long trip from the target. Watch how the continents fit together."
+            : "The target was on another part of the globe. Try following a familiar continental shape.";
+  if (km >= 250 && record.bearing)
+    detail += ` The target lay ${record.bearing} of your pick at ${record.age} Ma.`;
+  if (previous) {
+    const change = previous.distance - km;
+    detail +=
+      change >= 0
+        ? ` ${change.toLocaleString()} km closer than your last pick!`
+        : ` ${Math.abs(change).toLocaleString()} km farther than your last pick — time for a course correction.`;
+  }
+  return {
+    title,
+    detail,
+    earned: `+${record.score.toLocaleString()} / ${max.toLocaleString()} pts`,
+  };
+}
+
+export function bearing(from, to) {
+  const rad = Math.PI / 180,
+    dl = (to[0] - from[0]) * rad,
+    a = from[1] * rad,
+    b = to[1] * rad;
+  const angle =
+    (Math.atan2(
+      Math.sin(dl) * Math.cos(b),
+      Math.cos(a) * Math.sin(b) - Math.sin(a) * Math.cos(b) * Math.cos(dl),
+    ) /
+      rad +
+      360) %
+    360;
+  return [
+    "north",
+    "northeast",
+    "east",
+    "southeast",
+    "south",
+    "southwest",
+    "west",
+    "northwest",
+  ][Math.round(angle / 45) % 8];
 }

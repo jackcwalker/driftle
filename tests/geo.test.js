@@ -12,6 +12,10 @@ import {
   lonlat,
   renderRings,
   recordGuess,
+  attachPin,
+  pinPosition,
+  feedback,
+  bearing,
 } from "../geo.js";
 import { rotationAt, slerp } from "../vendor/motion.js";
 const data = JSON.parse(
@@ -136,4 +140,50 @@ test("recorded guesses are immutable snapshots and reload recomputes identical s
   assert.deepEqual(first.guess, [0, 0]);
   const loaded = JSON.parse(JSON.stringify(first));
   assert.deepEqual(recordGuess(data, countries[0], loaded.guess, 0), first);
+});
+
+test("land pin is inverse-partitioned at 300 Ma and follows the correct plate to today", () => {
+  const model = structuredClone(data);
+  for (const f of model.features) {
+    f.rings = renderRings(f.rings);
+    if (d3.geoArea({ type: "Polygon", coordinates: f.rings }) > 2 * Math.PI)
+      f.rings = f.rings.map((r) => r.toReversed());
+  }
+  const c = countries[0],
+    clicked = position(model, c, 300);
+  const attachment = attachPin(model, clicked, 300, d3.geoContains);
+  assert.ok(attachment);
+  assert.equal(attachment.pid, c.pid);
+  const pin = { guess: clicked, attachment };
+  for (const a of [300, 275, 225, 150, 75, 0])
+    assert.ok(
+      distance(pinPosition(model, pin, a).point, position(model, c, a)) < 0.001,
+    );
+  assert.ok(
+    distance(
+      pinPosition(model, pin, 300).point,
+      pinPosition(model, pin, 0).point,
+    ) > 1000,
+  );
+  assert.equal(attachPin(model, [0, 0], 0, d3.geoContains), null);
+  assert.deepEqual(
+    pinPosition(model, { guess: [0, 0], attachment: null }, 75),
+    { point: [0, 0], moving: false },
+  );
+});
+test("feedback gives distance-based verdict, score, direction and improvement", () => {
+  assert.equal(bearing([0, 0], [10, 0]), "east");
+  assert.equal(bearing([179, 0], [-179, 0]), "east");
+  const f = feedback(
+    { distance: 500, score: 3000, age: 225, bearing: "east" },
+    { distance: 900 },
+  );
+  assert.match(f.title, /trail/);
+  assert.match(f.detail, /400 km closer/);
+  assert.match(f.detail, /east/);
+  assert.match(f.earned, /3,000/);
+  assert.match(
+    feedback({ distance: 100, score: 4900, age: 300 }).title,
+    /nailed/,
+  );
 });

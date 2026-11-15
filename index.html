@@ -44,6 +44,13 @@
         <div id="timeline"></div>
       </aside>
       <div class="control-panel">
+        <div id="feedback" hidden aria-live="polite">
+          <strong id="verdict"></strong>
+          <div class="feedback-numbers">
+            <span id="guess-distance"></span><span id="earned"></span>
+          </div>
+          <p id="feedback-detail"></p>
+        </div>
         <p id="status" role="status" aria-live="polite">
           Loading reconstruction…
         </p>
@@ -82,9 +89,11 @@
           scale).
         </p>
         <p>
-          Previous guess pins stay at the geographic coordinates where you
-          clicked. Their numbers identify the guessing round. They do not follow
-          a plate — a click on the ocean has no plate assignment.
+          Numbered pins on continental land travel with their source plate.
+          Ocean clicks or ambiguous plate overlaps have no supported drift
+          assignment; those pins are grey and stay fixed. Each pick shows your
+          distance from the target, points earned, and how you did compared with
+          the last pick.
         </p>
         <p>
           Zoom with +/−, wheel or pinch; drag to pan. Keyboard: focus map,
