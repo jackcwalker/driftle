@@ -1,0 +1,388 @@
+import { rotationAt } from "./vendor/motion.js";
+import {
+  ages,
+  vector,
+  rotate,
+  lonlat,
+  position,
+  distance,
+  points,
+  dailyIndex,
+  renderRings,
+  recordGuess,
+} from "./geo.js";
+const $ = (id) => document.getElementById(id),
+  d3 = window.d3,
+  canvas = $("map"),
+  ctx = canvas.getContext("2d");
+let data,
+  countries,
+  country,
+  projection,
+  width,
+  height,
+  round = 0,
+  age = 300,
+  guess = null,
+  busy = false,
+  finished = false,
+  history = [],
+  started = false,
+  keyboard = [0, 0],
+  run = 0;
+const today = new Date().toISOString().slice(0, 10);
+$("date").value = today;
+$("date").max = today;
+$("about").onclick = () => $("help").showModal();
+$("close").onclick = () => $("help").close();
+const safeRead = (key) => {
+  try {
+    return JSON.parse(localStorage.getItem(key));
+  } catch {
+    return null;
+  }
+};
+function save() {
+  try {
+    localStorage.setItem(
+      "driftle-v2-" + $("date").value,
+      JSON.stringify(history),
+    );
+  } catch {
+    /* Storage is optional. */
+  }
+}
+function valid(c) {
+  return ages.every((a) => position(data, c, a) !== null);
+}
+function start(restore = true) {
+  run++;
+  busy = false;
+  finished = false;
+  history = [];
+  round = 0;
+  age = 300;
+  guess = null;
+  country = countries[dailyIndex($("date").value, countries.length)];
+  $("results").close();
+  $("results").replaceChildren();
+  started = false;
+  const saved = restore ? safeRead("driftle-v2-" + $("date").value) : null;
+  if (
+    Array.isArray(saved) &&
+    saved.length <= 5 &&
+    saved.every(
+      (h, i) =>
+        h.age === ages[i] &&
+        Array.isArray(h.guess) &&
+        h.guess.length === 2 &&
+        h.guess.every(Number.isFinite),
+    )
+  ) {
+    history = saved.map((h, i) => record(h.guess, i));
+    round = Math.min(history.length, 4);
+    age = ages[round];
+    finished = history.length === 5;
+  }
+  $("country-name").textContent = country.name;
+  started = history.length > 0;
+  ui();
+  draw();
+  if (finished) reveal();
+}
+function ui() {
+  $("round").textContent = finished ? "COMPLETE" : `GUESS ${round + 1} / 5`;
+  $("age").textContent = Math.round(age);
+  $("age-unit").textContent = age === 0 ? "Today" : "million years ago";
+  $("score").textContent = history
+    .reduce((s, h) => s + h.score, 0)
+    .toLocaleString();
+  $("begin").hidden = started || finished;
+  $("begin").disabled = !data;
+  $("show-results").hidden = !finished;
+  $("confirm").hidden = !started || finished;
+  $("confirm").disabled = busy || !guess || finished;
+  $("confirm").textContent = round === 4 ? "Final pick →" : "Pick →";
+  $("timeline").innerHTML = ages
+    .map(
+      (a, i) =>
+        `<div class="step ${i === round ? "active" : ""} ${i < history.length ? "done" : ""}">${a === 0 ? "Today" : a + " Ma"}<small>${history[i] ? history[i].score.toLocaleString() : "—"}</small></div>`,
+    )
+    .join("");
+  $("status").textContent = finished
+    ? `${country.name} · Five guesses complete.`
+    : !started
+      ? `Find ${country.name} through time.`
+      : busy
+        ? "Drifting 75 million years…"
+        : guess
+          ? "Pick this location?"
+          : `Click where ${country.name} was.`;
+  $("mapstatus").textContent = busy
+    ? ""
+    : finished
+      ? "GOLD: ANSWER · NUMBERED PINS: YOUR GUESSES"
+      : guess
+        ? `${Math.abs(guess[1]).toFixed(1)}° ${guess[1] < 0 ? "S" : "N"} · ${Math.abs(guess[0]).toFixed(1)}° ${guess[0] < 0 ? "W" : "E"}`
+        : !started
+          ? "Five guesses · 300 Ma to today"
+          : "";
+}
+$("show-results").onclick = () => $("results").showModal();
+$("begin").onclick = () => {
+  started = true;
+  ui();
+};
+let baseScale,
+  baseTranslate,
+  zoomTransform = d3.zoomIdentity;
+const zoom = d3
+  .zoom()
+  .scaleExtent([1, 8])
+  .filter((e) => !busy && (!e.button || e.type === "wheel"))
+  .on("zoom", (e) => {
+    zoomTransform = e.transform;
+    applyZoom();
+    draw();
+  });
+d3.select(canvas).call(zoom);
+$("zoom-in").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1.5);
+$("zoom-out").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1 / 1.5);
+$("zoom-reset").onclick = () =>
+  d3.select(canvas).call(zoom.transform, d3.zoomIdentity);
+function applyZoom() {
+  if (projection && baseTranslate)
+    projection
+      .scale(baseScale * zoomTransform.k)
+      .translate([
+        baseTranslate[0] * zoomTransform.k + zoomTransform.x,
+        baseTranslate[1] * zoomTransform.k + zoomTransform.y,
+      ]);
+}
+function resize() {
+  const box = canvas.getBoundingClientRect();
+  width = box.width;
+  height = box.height;
+  const ratio = Math.min(devicePixelRatio || 1, 2);
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  projection = d3
+    .geoEqualEarth()
+    .rotate([0, 0.01])
+    .fitExtent(
+      [
+        [16, 85],
+        [width - 16, height - 95],
+      ],
+      { type: "Sphere" },
+    );
+  baseScale = projection.scale();
+  baseTranslate = projection.translate();
+  applyZoom();
+  draw();
+}
+function marker(coord, color, r = 5, label = null) {
+  const p = projection(coord);
+  if (!p) return;
+  ctx.beginPath();
+  ctx.arc(...p, r, 0, 2 * Math.PI);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = "#fff8d5";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  if (label !== null) {
+    ctx.font = "bold 10px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#153b3d";
+    ctx.fillText(label, p[0], p[1] + 0.5);
+  }
+}
+function draw() {
+  if (!data || !projection) return;
+  ctx.clearRect(0, 0, width, height);
+  const path = d3.geoPath(projection, ctx);
+  ctx.beginPath();
+  path({ type: "Sphere" });
+  ctx.fillStyle = "#1c4849";
+  ctx.fill();
+  ctx.save();
+  ctx.beginPath();
+  path({ type: "Sphere" });
+  ctx.clip();
+  ctx.beginPath();
+  path(d3.geoGraticule10());
+  ctx.strokeStyle = "#36605b";
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+  const rotations = {};
+  for (const f of data.features) {
+    if (age > f.begin || age < f.end) continue;
+    const q = (rotations[f.pid] ??= rotationAt(data, f.pid, age));
+    const rings = f.vectors.map((r) => r.map((v) => lonlat(rotate(v, q))));
+    ctx.beginPath();
+    path({ type: "Polygon", coordinates: rings });
+    ctx.fillStyle = "#9eb495";
+    ctx.fill();
+    ctx.strokeStyle = "#5b8071";
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+  const placed = [];
+  history.forEach((h, i) => {
+    const p = projection(h.guess);
+    let coord = h.guess;
+    const nearby = placed.some(
+      (q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 25,
+    );
+    if (nearby) {
+      const angle = i * 2.4,
+        offset = [p[0] + Math.cos(angle) * 24, p[1] + Math.sin(angle) * 24];
+      const shifted = projection.invert(offset);
+      if (shifted) {
+        ctx.beginPath();
+        ctx.moveTo(...p);
+        ctx.lineTo(...offset);
+        ctx.strokeStyle = "#d0deca";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        coord = shifted;
+      }
+    }
+    marker(coord, "#a9c2b4", 9, String(i + 1));
+    placed.push(p);
+  });
+  if (guess) marker(guess, "#f5cc7c", 8);
+  if (finished) marker(position(data, country, age), "#f5c45f", 7);
+  ctx.restore();
+}
+function select(point) {
+  if (!started || busy || finished || !point || !point.every(Number.isFinite))
+    return;
+  const p = projection(point);
+  if (!p || Math.abs(point[1]) > 90) return;
+  guess = point;
+  keyboard = [...point];
+  ui();
+  draw();
+}
+canvas.onclick = (e) => {
+  const b = canvas.getBoundingClientRect(),
+    xy = [e.clientX - b.left, e.clientY - b.top],
+    p = projection.invert(xy);
+  if (p) {
+    const back = projection(p);
+    if (Math.hypot(back[0] - xy[0], back[1] - xy[1]) < 2) select(p);
+  }
+};
+canvas.onkeydown = (e) => {
+  if (!started || busy || finished) return;
+  let step = e.shiftKey ? 1 : 5;
+  if (e.key === "ArrowLeft") keyboard[0] -= step;
+  else if (e.key === "ArrowRight") keyboard[0] += step;
+  else if (e.key === "ArrowUp") keyboard[1] = Math.min(89, keyboard[1] + step);
+  else if (e.key === "ArrowDown")
+    keyboard[1] = Math.max(-89, keyboard[1] - step);
+  else if (e.key !== "Enter") return;
+  e.preventDefault();
+  keyboard[0] = ((keyboard[0] + 540) % 360) - 180;
+  select([...keyboard]);
+};
+function record(g, i) {
+  return recordGuess(data, country, g, i);
+}
+$("confirm").onclick = () => {
+  if (busy || !guess || finished) return;
+  history.push(record(guess, round));
+  guess = null;
+  save();
+  if (round === 4) {
+    finished = true;
+    guess = null;
+    ui();
+    draw();
+    reveal();
+    return;
+  }
+  busy = true;
+  ui();
+  const token = run,
+    from = age,
+    to = ages[round + 1],
+    startTime = performance.now(),
+    duration = matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 1500
+      : 4500;
+  let previous = 0;
+  function frame(now) {
+    if (token !== run) return;
+    const t = Math.min(1, (now - startTime) / duration);
+    age = from + (to - from) * t;
+    if (now - previous > 30 || t === 1) {
+      draw();
+      $("age").textContent = Math.round(age);
+      previous = now;
+    }
+    if (t < 1) requestAnimationFrame(frame);
+    else {
+      round++;
+      guess = null;
+      busy = false;
+      ui();
+      draw();
+    }
+  }
+  requestAnimationFrame(frame);
+};
+function reveal() {
+  const r = $("results");
+  r.innerHTML = `<button id="dismiss-results">Close ×</button><h2>${country.name}</h2><p>The gold dot is its representative interior point today (${country.point.join(", ")}). These are point reconstructions, not reconstructed national borders.</p><table><thead><tr><th>Age</th><th>Distance from target</th><th>Points</th></tr></thead><tbody>${history.map((h) => `<tr><td>${h.age} Ma</td><td>${h.distance.toLocaleString()} km</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p>Replay geological time: <input id="replay" aria-label="Replay age in million years" type="range" min="0" max="300" value="0" step="0.5"></p><button id="share">Copy result</button><span id="copy-status" role="status"></span>`;
+  $("dismiss-results").onclick = () => r.close();
+  r.showModal();
+  $("replay").oninput = (e) => {
+    age = +e.target.value;
+    $("age").textContent = Math.round(age);
+    $("age-unit").textContent = age === 0 ? "Today" : "million years ago";
+    $("mapstatus").textContent = `${Math.round(age)} Ma · ANSWER IN GOLD`;
+    draw();
+  };
+  $("share").onclick = async () => {
+    const msg = `Driftle ${$("date").value}\n${history.reduce((s, h) => s + h.score, 0).toLocaleString()} / 15,000\n${history.map((h) => (h.score >= (5 - ages.indexOf(h.age)) * 500 ? "🟩" : "🟨")).join("")}\ndriftle.games`;
+    try {
+      await navigator.clipboard.writeText(msg);
+      $("copy-status").textContent = " Copied!";
+    } catch {
+      $("copy-status").textContent = msg;
+    }
+  };
+}
+$("date").onchange = () => {
+  if (/^\d{4}-\d{2}-\d{2}$/.test($("date").value)) start();
+};
+$("restart").onclick = () => start(false);
+try {
+  [data, countries] = await Promise.all(
+    ["data/motion.json", "data/countries.json"].map(async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) throw Error(`${url}: ${response.status}`);
+      return response.json();
+    }),
+  );
+  countries = countries.filter(valid);
+  if (!countries.length) throw Error("No supported challenges");
+  for (const f of data.features) {
+    f.rings = renderRings(f.rings);
+    if (d3.geoArea({ type: "Polygon", coordinates: f.rings }) > 2 * Math.PI)
+      f.rings = f.rings.map((r) => [...r].reverse());
+    f.vectors = f.rings.map((r) => r.map(vector));
+  }
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+  start();
+} catch (error) {
+  $("status").textContent =
+    "Could not load the reconstruction. Reload to retry. " + error.message;
+  $("mapstatus").textContent = "DATA UNAVAILABLE";
+}

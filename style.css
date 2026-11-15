@@ -1,0 +1,370 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #eef0df;
+  background: #153b3d;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  color: inherit;
+  background: #234e47;
+  border: 1px solid #638171;
+  border-radius: 6px;
+  padding: 10px 16px;
+}
+button:hover {
+  background: #356453;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+button:focus-visible,
+input:focus-visible,
+canvas:focus-visible {
+  outline: 2px solid #f1c466;
+  outline-offset: 3px;
+}
+button[hidden] {
+  display: none;
+}
+a {
+  color: inherit;
+}
+main,
+#mapwrap {
+  width: 100%;
+  height: 100dvh;
+  min-height: 500px;
+}
+#mapwrap {
+  position: absolute;
+  inset: 0;
+  background: #153b3d;
+}
+#map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+.map-note {
+  position: absolute;
+  bottom: 16px;
+  left: 22px;
+  font-size: 8px;
+  color: #9db9a9;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+header {
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  right: 26px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  pointer-events: none;
+}
+header > * {
+  pointer-events: auto;
+}
+.brand {
+  font-size: 30px;
+  letter-spacing: -1.5px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.country {
+  padding-left: 28px;
+  border-left: 1px solid #627f71;
+}
+.country small {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #b0c2b0;
+}
+h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 5px 0 0;
+}
+header button {
+  margin-left: auto;
+  background: #183f3bea;
+}
+.time {
+  position: absolute;
+  left: 26px;
+  top: 108px;
+  pointer-events: none;
+  text-shadow: 0 2px 9px #153b3d;
+}
+.time > span:first-child {
+  font-size: 38px;
+  font-weight: 500;
+}
+.time small {
+  display: block;
+  color: #b2c5b3;
+  font-size: 12px;
+  margin-top: 2px;
+}
+#round {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-top: 12px;
+  color: #d0d7bc;
+}
+.score-panel {
+  position: absolute;
+  right: 26px;
+  top: 108px;
+  width: 132px;
+  background: #153b3de8;
+  border: 1px solid #547767;
+  border-radius: 8px;
+  padding: 16px;
+}
+.score-title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #b7c8b5;
+}
+.score-title strong {
+  display: block;
+  font-size: 26px;
+  color: #f4d48b;
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+.score-title small {
+  font-size: 10px;
+  letter-spacing: 0;
+}
+.step {
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  color: #95ae9e;
+}
+.step small {
+  font-size: 10px;
+}
+.step.active {
+  color: #f4d48b;
+}
+.step.done {
+  color: #d4deca;
+}
+.control-panel {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: #153b3de8;
+  border: 1px solid #547767;
+  border-radius: 9px;
+  padding: 14px 22px;
+  max-width: calc(100% - 32px);
+  min-width: 280px;
+}
+#status {
+  font-size: 12px;
+  margin: 0 0 12px;
+  color: #d0dcca;
+}
+#mapstatus {
+  font-size: 9px;
+  display: block;
+  margin-top: 9px;
+  color: #9fb9a6;
+}
+.controls button {
+  background: #edc675;
+  color: #173d36;
+  border-color: #edc675;
+  min-width: 130px;
+  font-weight: bold;
+}
+.archive {
+  position: absolute;
+  bottom: 16px;
+  right: 22px;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 10px;
+  background: #153b3de8;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+.archive label {
+  color: #a2b9a8;
+}
+.archive input {
+  color: #dce6d5;
+  background: transparent;
+  border: 0;
+  font-size: 11px;
+  width: 112px;
+  color-scheme: dark;
+}
+.archive button {
+  padding: 0 5px;
+  font-size: 17px;
+  border: 0;
+}
+.archive a {
+  font-size: 9px;
+  color: #aec2af;
+}
+dialog {
+  max-width: 540px;
+  max-height: 85dvh;
+  overflow: auto;
+  background: #f0f1e6;
+  color: #21473e;
+  border: 1px solid #6d8c78;
+  border-radius: 12px;
+  padding: 28px;
+}
+dialog::backdrop {
+  background: #09292bb0;
+}
+dialog button {
+  background: #dce5d3;
+  color: #21473e;
+  float: right;
+}
+dialog h2 {
+  font-size: 25px;
+  font-weight: 500;
+}
+dialog p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #c6d0be;
+}
+#results button {
+  float: none;
+  margin-right: 8px;
+}
+#copy-status {
+  font-size: 11px;
+}
+@media (max-width: 600px) {
+  header {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    gap: 15px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .country {
+    padding-left: 14px;
+    max-width: 50%;
+  }
+  .country small {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 16px;
+  }
+  header button {
+    font-size: 10px;
+    padding: 9px;
+  }
+  .time {
+    left: 16px;
+    top: 98px;
+  }
+  .time > span:first-child {
+    font-size: 29px;
+  }
+  .time small {
+    font-size: 10px;
+  }
+  .score-panel {
+    right: 16px;
+    top: 100px;
+    width: 104px;
+    padding: 11px;
+  }
+  .score-title strong {
+    font-size: 21px;
+  }
+  .step {
+    margin-top: 12px;
+    font-size: 9px;
+  }
+  .step small {
+    font-size: 9px;
+  }
+  .control-panel {
+    bottom: 80px;
+    width: calc(100% - 32px);
+    padding: 12px;
+  }
+  .map-note {
+    bottom: 57px;
+    left: 16px;
+    font-size: 6px;
+  }
+  .archive {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    justify-content: center;
+  }
+  #status {
+    font-size: 11px;
+  }
+  dialog {
+    max-width: calc(100% - 24px);
+    padding: 22px;
+  }
+}
+
+.zoom {
+  display: flex;
+  gap: 5px;
+  margin-top: 18px;
+  pointer-events: auto;
+}
+.zoom button {
+  padding: 4px 10px;
+  background: #153b3de8;
+  font-size: 17px;
+}
+#map {
+  touch-action: none;
+}
