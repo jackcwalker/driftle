@@ -121,3 +121,19 @@ drawn. Land is combined in one fill to avoid antialiasing seams. Actual gaps and
 holes in the source remain; they are not digitally painted over. After each guess
 feedback uses great-circle distance and initial compass bearing at the guessed
 age; warmer/colder compares the distances from each round's own target position.
+
+## Final modern country layer
+
+`data/modern-countries.json` generalizes the same public-domain Natural Earth /
+Open Knowledge Foundation country dataset cited above, using spherical chord
+simplification tolerance 0.001 (approximately 6.4 km), retaining small rings where
+simplification would collapse them. This is a modern cartographic display layer,
+shown only after the final 0 Ma pick. It is never projected backwards as ancient
+national borders. The target is highlighted, and pin arrival countries are found
+by modern point-in-polygon containment. Labels at low zoom show the target and
+pin-arrival countries; zooming in reveals other sufficiently large countries.
+
+Rebuild using `python3 scripts/prepare-countries.py INPUT.geojson`. The input was
+retrieved on 15 November 2026 from the previously cited datasets/geo-countries
+source; its SHA-256 is `392a03db8aa3ba82c105852655620129b11182b95dfc34ef046827ea7d0e5b8c`.
+The output inherits Natural Earth's public-domain / package PDDL 1.0 terms.

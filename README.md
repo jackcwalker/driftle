@@ -20,7 +20,7 @@ The country name is shown immediately. Press Begin, click where it was at 300 Ma
 then Pick. Watch 75 million years of drift and repeat at 225, 150, 75 and 0 Ma.
 The target country stays the same. Earlier guesses have higher maximum scores.
 Numbered land pins attach to an unambiguous source continental plate and drift
-with it. Ocean/ambiguous clicks stay grey and fixed with an explicit explanation.
+with it. Ocean/ambiguous clicks stay grey and fixed; the limitation is described in How to play.
 Overlapping pins have offset labels with leader lines. Each pick shows its distance,
 points, compass hint and improvement from the last pick. After playback the next
 round is immediately ready; selecting a new location clears the previous feedback. Trackpad: two-finger scroll to pan and pinch to zoom around the gesture position.
@@ -29,9 +29,10 @@ drag to pan and Ctrl+wheel to zoom. Use +/− or keyboard +/− to zoom, and ↺
 keyboard 0 to reset. Pan bounds keep land in reach; window rotation/resizing
 preserves the viewed location. Drags and pinches do not place guesses.
 
-Scores are on the side; instructions and final results use dialogs. The final
+Scores are on the side; instructions use a dialog. Final results are a non-modal,
+collapsible map overlay, with modern country borders and a gold target country. The final
 gold marker shows the representative interior point being scored, with distances,
-a geological replay slider and a copyable result. Country silhouettes are retained
+a round-by-round summary and a copyable result. Country silhouettes are retained
 in the data for containment validation, not shown as a mystery clue.
 Daily dates use UTC and can be selected for archive play. Six supported countries
 repeat every six days.

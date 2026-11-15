@@ -21,6 +21,7 @@ const $ = (id) => document.getElementById(id),
   ctx = canvas.getContext("2d");
 let data,
   countries,
+  modernCountries,
   country,
   projection,
   width,
@@ -69,7 +70,9 @@ function start(restore = true) {
   age = 300;
   guess = null;
   country = countries[dailyIndex($("date").value, countries.length)];
-  $("results").close();
+  $("results").hidden = true;
+  $("results").classList.remove("collapsed");
+  document.body.classList.remove("finished");
   $("results").replaceChildren();
   started = false;
   const saved = restore ? safeRead("driftle-v2-" + $("date").value) : null;
@@ -135,7 +138,7 @@ function ui() {
 }
 $("show-results").onclick = () => {
   if (!$("results").innerHTML) reveal();
-  else $("results").showModal();
+  else $("results").hidden = !$("results").hidden;
 };
 $("begin").onclick = () => {
   started = true;
@@ -300,17 +303,72 @@ function draw() {
   ctx.beginPath();
   path({ type: "Sphere" });
   ctx.clip();
-  // Draw all land in one fill: source plate seams are not coastlines.
-  ctx.beginPath();
-  const rotations = {};
-  for (const f of data.features) {
-    if (age > f.begin || age < f.end) continue;
-    const q = (rotations[f.pid] ??= rotationAt(data, f.pid, age));
-    const rings = f.vectors.map((r) => r.map((v) => lonlat(rotate(v, q))));
-    path({ type: "Polygon", coordinates: rings });
+  if (finished && modernCountries) {
+    ctx.beginPath();
+    path(modernCountries);
+    ctx.fillStyle = "#9eb495";
+    ctx.fill();
+    ctx.beginPath();
+    path(modernCountries);
+    ctx.strokeStyle = "#648474";
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+    const target = modernCountries.features.find(
+      (f) => f.properties.name === country.name,
+    );
+    if (target) {
+      ctx.beginPath();
+      path(target);
+      ctx.fillStyle = "#edc675";
+      ctx.fill();
+      ctx.strokeStyle = "#ffe4a0";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+    const arrivals = new Set(
+      history.map((h) => countryAt(pinPosition(data, h, 0).point)),
+    );
+    for (const f of modernCountries.features) {
+      if (
+        f.properties.name !== country.name &&
+        !arrivals.has(f.properties.name) &&
+        !(zoomTransform.k >= 2.5 && d3.geoPath(projection).area(f) > 550)
+      )
+        continue;
+      const point = projection(d3.geoCentroid(f));
+      if (
+        !point ||
+        point[0] < 0 ||
+        point[0] > width ||
+        point[1] < 80 ||
+        point[1] > height - 55
+      )
+        continue;
+      ctx.font =
+        f.properties.name === country.name ? "bold 14px Arial" : "11px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.strokeStyle = "#173d36";
+      ctx.lineWidth = 3;
+      ctx.strokeText(f.properties.name, ...point);
+      ctx.fillStyle = "#f5f0d5";
+      ctx.fillText(f.properties.name, ...point);
+    }
+  } else {
+    // One land fill avoids outlining internal source-piece seams.
+    ctx.beginPath();
+    const rotations = {};
+    for (const f of data.features) {
+      if (age > f.begin || age < f.end) continue;
+      const q = (rotations[f.pid] ??= rotationAt(data, f.pid, age));
+      path({
+        type: "Polygon",
+        coordinates: f.vectors.map((r) => r.map((v) => lonlat(rotate(v, q)))),
+      });
+    }
+    ctx.fillStyle = "#9eb495";
+    ctx.fill();
   }
-  ctx.fillStyle = "#9eb495";
-  ctx.fill();
   const placed = [];
   history.forEach((h, i) => {
     const pin = pinPosition(data, h, age);
@@ -436,17 +494,34 @@ $("confirm").onclick = () => {
   }
   requestAnimationFrame(frame);
 };
+function countryAt(point) {
+  return (
+    modernCountries?.features.find((f) => d3.geoContains(f, point))?.properties
+      .name ?? "Ocean"
+  );
+}
 function reveal() {
   const r = $("results");
-  r.innerHTML = `<button id="dismiss-results">Close ×</button><h2>${country.name}</h2><p>The gold dot is its representative interior point today (${country.point.join(", ")}). These are point reconstructions, not reconstructed national borders.</p><table><thead><tr><th>Age</th><th>Distance from target</th><th>Points</th></tr></thead><tbody>${history.map((h) => `<tr><td>${h.age} Ma</td><td>${h.distance.toLocaleString()} km</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p>Replay geological time: <input id="replay" aria-label="Replay age in million years" type="range" min="0" max="300" value="0" step="0.5"></p><button id="share">Copy result</button><span id="copy-status" role="status"></span>`;
-  $("dismiss-results").onclick = () => r.close();
-  r.showModal();
-  $("replay").oninput = (e) => {
-    age = +e.target.value;
-    $("age").textContent = Math.round(age);
-    $("age-unit").textContent = age === 0 ? "Today" : "million years ago";
-    $("mapstatus").textContent = `${Math.round(age)} Ma · ANSWER IN GOLD`;
-    draw();
+  document.body.classList.add("finished");
+  $("feedback").hidden = true;
+  age = 0;
+  ui();
+  draw();
+  const total = history.reduce((s, h) => s + h.score, 0);
+  r.hidden = false;
+  r.innerHTML = `<div class="results-heading"><div><small>DAILY RESULTS</small><h2>${country.name}</h2></div><button id="collapse-results" aria-label="Collapse results" aria-expanded="true">−</button></div><div class="results-content"><div class="final-score">${total.toLocaleString()} <small>/ 15,000</small></div><p class="map-legend">Gold: ${country.name} · Numbers: your picks</p><table><thead><tr><th>Pick</th><th>Distance</th><th>Points</th></tr></thead><tbody>${history.map((h, i) => `<tr><td><b>${i + 1}</b> · ${h.age === 0 ? "Today" : h.age + " Ma"}<small>${countryAt(pinPosition(data, h, 0).point)}</small></td><td>${h.distance.toLocaleString()} km</td><td>${h.score.toLocaleString()}</td></tr>`).join("")}</tbody></table><p class="results-note">Country names show where your pins end up today. Distances are from the target point when you picked.</p><div class="results-actions"><button id="share">Copy result</button><button id="play-again">Play again</button></div><span id="copy-status" role="status"></span></div>`;
+  $("collapse-results").onclick = () => {
+    const collapsed = r.classList.toggle("collapsed");
+    $("collapse-results").textContent = collapsed ? "+" : "−";
+    $("collapse-results").setAttribute("aria-expanded", String(!collapsed));
+    $("collapse-results").setAttribute(
+      "aria-label",
+      collapsed ? "Expand results" : "Collapse results",
+    );
+  };
+  $("play-again").onclick = () => {
+    r.classList.remove("collapsed");
+    start(false);
   };
   $("share").onclick = async () => {
     const msg = `Driftle ${$("date").value}\n${history.reduce((s, h) => s + h.score, 0).toLocaleString()} / 15,000\n${history.map((h) => (h.score >= (5 - ages.indexOf(h.age)) * 500 ? "🟩" : "🟨")).join("")}\ndriftle.games`;
@@ -463,13 +538,25 @@ $("date").onchange = () => {
 };
 $("restart").onclick = () => start(false);
 try {
-  [data, countries] = await Promise.all(
-    ["data/motion.json", "data/countries.json"].map(async (url) => {
+  [data, countries, modernCountries] = await Promise.all(
+    [
+      "data/motion.json",
+      "data/countries.json",
+      "data/modern-countries.json",
+    ].map(async (url) => {
       const response = await fetch(url);
       if (!response.ok) throw Error(`${url}: ${response.status}`);
       return response.json();
     }),
   );
+  for (const f of modernCountries.features) {
+    f.geometry.coordinates = f.geometry.coordinates.map((rings) => {
+      let r = renderRings(rings);
+      if (d3.geoArea({ type: "Polygon", coordinates: r }) > 2 * Math.PI)
+        r = r.map((ring) => ring.toReversed());
+      return r;
+    });
+  }
   countries = countries.filter(valid);
   if (!countries.length) throw Error("No supported challenges");
   for (const f of data.features) {

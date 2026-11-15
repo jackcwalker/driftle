@@ -1,6 +1,6 @@
 # Verification — 15 November 2026
 
-`npm test`: 13 tests pass. No dependency installation required.
+`npm test`: 14 tests pass. No dependency installation required.
 
 - Six interior points fall inside their Natural Earth modern-country polygons.
 - Reconstructed points agree with the bundled GPlates coordinate samples at 0,
@@ -70,3 +70,15 @@ actual drag visibly moving the map without enabling Pick or adding a guess.
 Two-finger touch is handled by D3's established pinch gesture implementation,
 with explicit pointer-movement/multitouch suppression of accidental picks.
 Physical phone pinch and physical trackpad hardware have not been tested.
+
+## Final results overlay
+
+Removed the results dialog and replay slider. The final modern country layer is
+tested for target-point containment and pathological global polygon fill. Results
+show a total and per-guess distance, points and modern arrival country; distances
+remain measured at the guessed age, not at the modern arrival.
+
+Browser confirmed the final state renders as a normal page region, not a dialog:
+five guess rows, total score, arrival-country names, target-country highlight and
+country boundaries are visible simultaneously. The map remains zoomable and the
+results panel can collapse. No replay slider is present.

@@ -187,3 +187,25 @@ test("feedback gives distance-based verdict, score, direction and improvement", 
     /nailed/,
   );
 });
+
+test("final modern country overlay contains all six targets and clips without global fill", () => {
+  const world = JSON.parse(
+    fs.readFileSync(new URL("../data/modern-countries.json", import.meta.url)),
+  );
+  const path = d3.geoPath(d3.geoEqualEarth().rotate([0, 0.01]).scale(100));
+  const area = path.area({ type: "Sphere" });
+  for (const f of world.features) {
+    f.geometry.coordinates = f.geometry.coordinates.map((rings) => {
+      let r = renderRings(rings);
+      if (d3.geoArea({ type: "Polygon", coordinates: r }) > 2 * Math.PI)
+        r = r.map((ring) => ring.toReversed());
+      return r;
+    });
+    assert.ok(path.area(f) < area * 0.7, f.properties.name);
+  }
+  for (const c of countries) {
+    const feature = world.features.find((f) => f.properties.name === c.name);
+    assert.ok(feature, c.name);
+    assert.ok(d3.geoContains(feature, c.point), c.name);
+  }
+});
