@@ -28,15 +28,13 @@ limits. Missing paths return 404 instead of the game HTML.
 
 ## Friend playtest
 
-The initial demo uses a direct upload of the verified `dist/` files to a free
-`workers.dev` address. No custom domain or GitHub application connection is
-needed for this playtest. To update it, rebuild and upload the new `dist/` archive
-to the same Worker, or use the authenticated manual publishing command below.
-Automatic GitHub updates are optional and can be connected later.
+The demo is https://driftle.xjackwalker.workers.dev/. Its existing Worker is now
+connected to `jackcwalker/driftle`; pushes to `main` run the tests, build the public
+assets and deploy automatically. No ZIP upload is needed for future changes.
 
-## Optional GitHub integration
+## GitHub integration
 
-In Cloudflare **Workers & Pages → Create application → GitHub**:
+In Cloudflare **Workers & Pages → driftle → Settings → Builds**:
 
 | Setting | Value |
 | --- | --- |
@@ -54,7 +52,9 @@ currently requests read/write repository administration, contents, checks,
 deployments and pull requests, plus read-only metadata; it listens to push and
 pull-request events. Its installation therefore needs explicit approval even
 though its scope can be restricted to this one repository. Cloudflare manages
-its build credential; no token belongs in the repository. Preview branches should
+its build credential; no token belongs in the repository. The native Workers
+Builds integration uses a user API token with account-wide permissions; this
+separate credential grant was explicitly approved during setup. Preview branches should
 not change production.
 
 Manual publishing, after `wrangler login` or an appropriately scoped Cloudflare
@@ -95,5 +95,5 @@ the canvas-based game.
 - https://developers.cloudflare.com/workers/ci-cd/builds/configuration/
 - https://developers.cloudflare.com/workers/configuration/routing/custom-domains/
 
-Live account, integration, deployment and domain status are recorded only after
-they have been verified; this file by itself is not proof of deployment.
+The repository connection and build settings were verified in the Cloudflare
+dashboard on 2026-11-15. No custom domain or paid plan was configured.

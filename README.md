@@ -92,9 +92,9 @@ recommendation for new static sites. The game stays entirely browser-based. Run
 `npm run preview` serves the exact package locally. The build keeps only the game,
 active scientific data and required attribution documents in ignored `dist/`.
 
-Play the demo at https://driftle.xjackwalker.workers.dev/. GitHub
-automatic deployments and future custom-domain setup are documented
-in [HOSTING.md](HOSTING.md). Only verified live status is recorded there. Source
+Play the demo at https://driftle.xjackwalker.workers.dev/. Pushing to `main`
+automatically runs tests and publishes through Cloudflare. Hosting settings and
+future custom-domain setup are documented in [HOSTING.md](HOSTING.md). Source
 is versioned at https://github.com/jackcwalker/driftle.
 
 ## Files
