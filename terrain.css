@@ -1,0 +1,152 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #e8eadb;
+  background: #102f34;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+canvas {
+  width: 100vw;
+  height: 100dvh;
+  display: block;
+  touch-action: none;
+}
+header,
+aside,
+nav,
+footer {
+  position: fixed;
+}
+header {
+  top: 22px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+header a:first-child {
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+header a:last-child {
+  margin-left: auto;
+  font-size: 12px;
+  text-decoration: underline;
+  color: #aabdb4;
+}
+header span {
+  font-size: 12px;
+  color: #aabdb4;
+}
+aside {
+  top: 90px;
+  left: 28px;
+  pointer-events: none;
+}
+aside strong {
+  display: block;
+  font-size: 40px;
+  font-weight: 450;
+}
+small {
+  display: block;
+  max-width: 250px;
+  color: #b9c8b9;
+  font-size: 12px;
+  line-height: 1.5;
+}
+nav {
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #103237eb;
+  border: 1px solid #56736b;
+  padding: 12px;
+  border-radius: 12px;
+  max-width: calc(100vw - 24px);
+  white-space: nowrap;
+}
+button {
+  border: 1px solid #66867c;
+  border-radius: 6px;
+  padding: 9px 12px;
+  background: #234c4b;
+  color: #eef0df;
+  cursor: pointer;
+}
+button:hover {
+  background: #386760;
+}
+input {
+  accent-color: #d2bc83;
+}
+label {
+  font-size: 13px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+footer {
+  bottom: 12px;
+  left: 20px;
+  right: 20px;
+  text-align: center;
+  color: #9bb3a9;
+  font-size: 11px;
+  pointer-events: none;
+}
+#time {
+  width: 170px;
+}
+@media (max-width: 650px) {
+  header {
+    left: 16px;
+    right: 16px;
+    gap: 12px;
+  }
+  header span {
+    display: none;
+  }
+  aside {
+    left: 16px;
+    top: 76px;
+  }
+  aside strong {
+    font-size: 32px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 390px;
+    gap: 8px;
+  }
+  #time {
+    order: 5;
+    width: 100%;
+  }
+  button {
+    padding: 8px;
+    font-size: 12px;
+  }
+  footer {
+    font-size: 9px;
+    bottom: 8px;
+  }
+  small {
+    max-width: 200px;
+  }
+}

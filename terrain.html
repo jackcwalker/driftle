@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Driftle · terrain study</title
+  ><link rel="stylesheet" href="terrain.css" />
+  <script src="vendor/d3.min.js"></script>
+  <body>
+    <canvas
+      id="map"
+      aria-label="Terrain reconstruction. Drag to pan, pinch to zoom."
+    ></canvas>
+    <header>
+      <a href="./">driftle</a><span>Terrain study</span
+      ><a href="TERRAIN.md">About this experiment</a>
+    </header>
+    <aside>
+      <strong id="age">300 Ma</strong
+      ><small id="snapshot"
+        >300 Ma terrain snapshot · carried with plates</small
+      >
+    </aside>
+    <nav aria-label="Terrain preview">
+      <button id="play">Play 300 → 225 Ma</button
+      ><input
+        id="time"
+        aria-label="Geological age"
+        type="range"
+        min="225"
+        max="300"
+        value="300"
+        step="0.1"
+      /><button id="ancient">300 Ma</button><button id="today">Today</button
+      ><label><input id="terrain" type="checkbox" checked /> Terrain</label
+      ><button id="zoom-in" aria-label="Zoom in">+</button>
+      <button id="zoom-out" aria-label="Zoom out">−</button>
+      <button id="reset" aria-label="Reset zoom">↺</button>
+    </nav>
+    <footer id="status">Loading published terrain…</footer>
+    <script type="module" src="terrain.js"></script>
+  </body>
+</html>

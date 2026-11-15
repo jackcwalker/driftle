@@ -88,3 +88,7 @@ https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
 - data/country-territories.json: attributed model-partitioned scoring areas
 - vendor/: D3 and upstream quaternion/mesh helpers with licences
 - tests/: deterministic geometry and data checks
+
+### Experimental terrain
+
+Open http://localhost:4173/terrain.html for the isolated 300→225 Ma terrain study and present-day comparison. It reuses existing plate motion; the ancient relief is a fixed 300 Ma snapshot, not evolving elevation. See [TERRAIN.md](TERRAIN.md) for scientific limits, sources and reproduction.

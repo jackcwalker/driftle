@@ -196,3 +196,7 @@ All later rounds receive their full maximum as explicitly labelled awarded
 points; these are not extra guesses or reconstructed pin positions. Earlier
 miss deductions are retained. Saved actual guesses are re-scored and truncated
 at their first success under the current country-area rule.
+
+## Experimental terrain route
+
+`terrain.html` uses derived Scotese & Wright (2018) PALEOMAP PaleoDEMs v2, **CC BY 4.0**, https://doi.org/10.5281/zenodo.5460860. See [TERRAIN.md](TERRAIN.md) for exact inputs, transformations, attribution, reproduction and cross-model limitations. These assets are not loaded by the normal game.
