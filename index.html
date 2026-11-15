@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Driftle</title>
-    <link rel="stylesheet" href="style.css?v=terrain-game4" />
+    <link rel="stylesheet" href="style.css?v=compact1" />
     <script src="vendor/d3.min.js"></script>
   </head>
   <body>
@@ -47,11 +47,9 @@
       </aside>
       <div class="control-panel">
         <div id="feedback" hidden aria-live="polite">
-          <strong id="verdict"></strong>
           <div class="feedback-numbers">
             <span id="guess-distance"></span><span id="earned"></span>
           </div>
-          <p id="feedback-detail"></p>
         </div>
         <p id="status" role="status" aria-live="polite">
           Loading reconstruction…
@@ -60,7 +58,7 @@
           <button id="confirm" disabled hidden>Pick →</button
           ><button id="show-results" hidden>Results</button>
         </div>
-        <span id="mapstatus"></span>
+        <span id="mapstatus" hidden></span>
       </div>
       <div class="archive">
         <button
@@ -95,8 +93,7 @@
           Numbered pins on continental land travel with their source plate.
           Ocean clicks or ambiguous plate overlaps have no supported drift
           assignment; those pins are grey and stay fixed. Each pick shows your
-          distance from the target, points earned, and how you did compared with
-          the last pick.
+          distance from the target and points earned.
         </p>
         <p>
           Trackpad: two-finger scroll to pan, pinch to zoom. Phone: one-finger
@@ -116,7 +113,7 @@
         </p>
         <a href="SOURCES.md">Sources, licences and limitations</a>
       </dialog>
-      <script type="module" src="app.js?v=terrain-game6"></script>
+      <script type="module" src="app.js?v=compact1"></script>
     </main>
   </body>
 </html>

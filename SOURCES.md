@@ -1,6 +1,7 @@
 # Driftle: sources, reuse assessment and scientific limits
 
-Inspected 15 November 2026. No service account, purchase or deployment was made.
+Inspected 15 November 2026. A free public playtest is hosted on Cloudflare at
+https://driftle.xjackwalker.workers.dev/. No domain or paid service was purchased.
 
 ## Active game terrain and reconstruction
 
@@ -64,8 +65,12 @@ https://github.com/datasets/geo-countries/blob/master/data/countries.geojson
 https://github.com/datasets/geo-countries/blob/master/README.md
 https://opendatacommons.org/licenses/pddl/1.0/
 
-All 258 country/territory features are now screened automatically, with 116
-technically supported entries shipped as lazy-loaded target bundles. Source modern
+All 258 source features are classified automatically: 247 countries/territories
+are reconstruction candidates, with 109 supported targets shipped as lazy-loaded
+bundles. Leases and uncoded indeterminate features such as ice fields are excluded
+from the target universe. Natural Earth Admin 0 Countries v5.1.1 `TYPE` metadata
+(public domain) supplies this classification; data/country-kinds.json preserves
+its archive checksum and COUNTRY-POOL.md records the rule. Source modern
 coordinates are preserved. The original six-country file remains a regression
 baseline. Full input SHA-256, coverage fractions and exclusion reasons are in
 `data/paleomap/country-support.json`; see COUNTRY-POOL.md. Modern geometries define modern territory and are split by source static plate polygons
@@ -94,8 +99,8 @@ Vendored browser bundle, licence in vendor/D3-LICENSE. No CDN requests at runtim
   to any territory edge. A 10 m numerical boundary tolerance counts edge clicks
   as inside; it is not a claim about geological accuracy. Modern 0 Ma scoring
   uses the full original country geometry, including islands and holes.
-- Every source country/territory is audited; 116 pass and 142 fail technical
-  reconstruction checks. No size or difficulty exclusions are applied. Tiny
+- Every source country/territory is audited; 109 pass and 138 fail technical
+  reconstruction checks. Eleven other source features are outside the target scope. No size or difficulty exclusions are applied. Tiny
   unsupported fragments in otherwise eligible countries are omitted at older
   ages, without guessed rotations. See COUNTRY-POOL.md and the generated report.
 - Unsupported departure material fades out during the first 5.5% of a transition
@@ -110,7 +115,7 @@ Vendored browser bundle, licence in vendor/D3-LICENSE. No CDN requests at runtim
 - Reduced-motion preference shortens the transition to a 1.5 s duration
   instead of 4.5 s (motion still occurs to preserve the game mechanic).
 - Daily selection uses UTC epoch-day modulo the full eligible pool in stable ID
-  order. Every eligible entry appears once per 116-day cycle. It is deterministic,
+  order. Every eligible entry appears once per 109-day cycle. It is deterministic,
   not secret. A page left open across midnight keeps its selected day until reload.
 - Client-side game data is inspectable. Local history is optional and editable;
   there is no trusted leaderboard, anti-cheat, backend, analytics or account.

@@ -1,16 +1,32 @@
 # Country pool
 
-The game screens **all 258 country/territory features** in the bundled preparation
-source, Natural Earth via [datasets/geo-countries](https://github.com/datasets/geo-countries/blob/master/data/countries.geojson).
-There is no hand-picked allowlist, minimum size, difficulty filter, continent quota
-or recognition test. This follows the source's geographic units, including
-territories and disputed areas; it is not a list of sovereign states.
+The pool contains **countries and territories**, as selected for this game. The
+source file contains 258 features, including administrative units, leases and
+indeterminate geographic fragments. The published Natural Earth `TYPE` metadata
+and source ISO codes distinguish these before reconstruction checks:
 
-**116 pass; 142 fail technical checks** against PALEOMAP 2024 v24221.
-The daily challenge cycles evenly through eligible entries in stable ASCII ID
-order, using the UTC epoch day. Random reset selects a different eligible entry
-and does not write over the daily save. Saves use a new `paleomap-v2` namespace
-and validate the country ID as well as the model archive hash.
+- Country, sovereign-country, sovereignty, dependency and disputed administrative
+  units remain candidates.
+- Leases are excluded. Indeterminate features need their own assigned ISO code.
+  This retains Palestine and Western Sahara while removing the ice fields,
+  glaciers, reefs, river-island fragments and other uncoded features.
+- Territories such as Greenland, Aland, Aruba and Ashmore/Cartier remain candidates.
+  This is not a sovereign-state-only roster.
+
+**247 source units are countries/territories. 109 pass the reconstruction audit;
+138 fail technical checks. Eleven other source features are not game targets.**
+There is no hand-picked country allowlist, minimum size or difficulty filter.
+
+The [support report](data/paleomap/country-support.json) records all 258 source
+features, their target-unit classification and separate reconstruction results.
+[data/country-kinds.json](data/country-kinds.json) preserves the publisher's
+administrative metadata and archive checksum. This corrects the earlier mistake
+of treating every feature in an admin-0 file as a country/territory.
+
+Daily selection cycles evenly through eligible targets in stable ID order. Random
+reset selects a different target and does not overwrite the daily save. Saves
+validate country ID and model hash, so a changed pool cannot reinterpret another
+country's guesses.
 
 ## Eligibility
 
@@ -39,6 +55,7 @@ every source entry, exact fractions and exclusion reason codes:
 | `combined-support-gap` | Individually small gaps exceed the threshold when combined. |
 | `no-continuously-supported-territory` | No material piece can be followed through the whole game. |
 | `empty-geometry` | No positive source geometry is available. |
+| `non-country-feature` | A lease or uncoded indeterminate geographic feature, outside the chosen target scope. |
 
 Examples retained include Brazil, Czechia, Belgium, Greenland, Vietnam, Monaco,
 Vatican and the United Kingdom. India and the USA still fail the technical audit.
@@ -55,6 +72,7 @@ The independent pyGPlates reference coordinates cover every source entry.
 From the scientific preparation environment in GAME-MAP-INTEGRATION.md:
 
 ```sh
+python scripts/prepare-country-kinds.py NE_ADMIN_COUNTRIES_ZIP
 python scripts/prepare-game-maps.py SOURCE_DIRECTORY COUNTRIES_GEOJSON --countries-only
 npm test
 ```
@@ -63,3 +81,9 @@ Input SHA-256: `392a03db8aa3ba82c105852655620129b11182b95dfc34ef046827ea7d0e5b8c
 Natural Earth coordinates retain their public-domain/PDDL terms. Derived plate
 partitions and rotations retain PALEOMAP's CC BY 4.0 terms and Scotese, Vérard,
 Burgener, Elling and Kocsis attribution. See SOURCES.md for full notices.
+
+Administrative metadata: Natural Earth Admin 0 Countries v5.1.1, public domain,
+https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/.
+Archive SHA-256: `ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6`.
+Only classification attributes are added; existing country geometries and
+geological rotations are unchanged.

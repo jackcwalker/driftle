@@ -25,3 +25,38 @@ test("Every audited country enters the daily rotation equally; exclusions have a
     assert.ok(entry, `${name} must not be excluded for size`);
   }
 });
+
+test("Countries and territories remain targets; geographic fragments and leases do not", () => {
+  const pool = supportedCountries(catalogue);
+  for (const name of [
+    "Greenland",
+    "Aland",
+    "Aruba",
+    "Ashmore and Cartier Islands",
+    "Palestine",
+    "Vatican",
+  ])
+    assert.ok(
+      pool.some((c) => c.name === name),
+      name,
+    );
+  for (const name of [
+    "Southern Patagonian Ice Field",
+    "Siachen Glacier",
+    "Baykonur Cosmodrome",
+    "Scarborough Reef",
+    "Spratly Islands",
+    "Brazilian Island",
+    "Bir Tawil",
+  ]) {
+    const c = catalogue.find((c) => c.name === name);
+    assert.equal(c.targetUnit, false, name);
+    assert.equal(c.eligible, false, name);
+    assert.ok(c.reasons.includes("non-country-feature"), name);
+    assert.equal(
+      pool.some((p) => p.name === name),
+      false,
+      name,
+    );
+  }
+});

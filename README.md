@@ -26,7 +26,7 @@ The target country stays the same. Earlier guesses have higher maximum scores.
 Numbered land pins attach to an unambiguous source continental plate and drift
 with it. Ocean/ambiguous clicks stay grey and fixed; the limitation is described in How to play.
 Overlapping pins have offset labels with leader lines. Each pick shows its distance,
-points, compass hint and improvement from the last pick. After playback the next
+and points earned. After playback the next
 round is immediately ready; selecting a new location clears the previous feedback. Trackpad: two-finger scroll to pan and pinch to zoom around the gesture position.
 Phone: one-finger drag to pan, two-finger pinch to zoom, tap to select. Mouse:
 drag to pan and Ctrl+wheel to zoom. Use +/− or keyboard +/− to zoom, and ↺ or
@@ -42,8 +42,10 @@ Saved progress is versioned by reconstruction model; the terrain integration
 starts a fresh daily save instead of applying old Müller guesses to a new map.
 
 The pool is opt-out: all 258 country/territory features in the Natural Earth source
-are audited, and 116 currently pass the reconstruction checks. Entries are excluded
-only for unsupported domain lifetimes, rotations or territorial coverage, with no
+are classified: 247 are countries/territories, and 109 pass the reconstruction
+checks. Leases and uncoded indeterminate features such as ice fields are outside
+the target scope. Country/territory exclusions then reflect unsupported domain
+lifetimes, rotations or territorial coverage, with no
 size or difficulty filter. See [COUNTRY-POOL.md](COUNTRY-POOL.md) and the generated
 support report for every inclusion and exclusion. Daily selection cycles evenly
 through all eligible entries; detailed geometry loads only for the selected country.
@@ -82,13 +84,18 @@ continuous supported ages, unsupported plate rejection, quaternion sign handling
 date-line distances, antipodes, spherical projection clipping, daily selection
 and scoring. Browser verification is recorded in TESTING.md.
 
-## Future Cloudflare Pages setup (not deployed)
+## Cloudflare hosting
 
-This is an ordinary static site. Use this directory as the output directory,
-with no build command. No Workers, secrets or server are required. Preserve
-LICENSE, SOURCES.md, RASTER-MAPS.md and vendor/D3-LICENSE in the published assets. Add the custom
-domain driftle.games only after explicit authorization. The source is versioned in the private GitHub repository
-https://github.com/jackcwalker/driftle. Nothing has been purchased or deployed.
+The publishing target is Cloudflare Workers Static Assets, Cloudflare's current
+recommendation for new static sites. The game stays entirely browser-based. Run
+`npm ci`, `npm test`, then `npm run deploy:check` to validate the public package.
+`npm run preview` serves the exact package locally. The build keeps only the game,
+active scientific data and required attribution documents in ignored `dist/`.
+
+Play the demo at https://driftle.xjackwalker.workers.dev/. GitHub
+automatic deployments and future custom-domain setup are documented
+in [HOSTING.md](HOSTING.md). Only verified live status is recorded there. Source
+is versioned at https://github.com/jackcwalker/driftle.
 
 ## Files
 

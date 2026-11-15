@@ -236,3 +236,35 @@ crossfade described above. All 42 Node tests pass.
   Unassigned departure material fades rather than receiving a guessed rotation.
   Rigid-piece gaps/overlaps remain a visible scientific/display limitation.
   Physical-phone gestures/performance and forced context loss remain untested.
+
+## Cloudflare playtest packaging and target-kind correction
+
+- Workers Static Assets configuration and a clean publishing build are added.
+  The package includes the actual game module graph, active map/model assets and
+  source notices. Scientific preparation tools, Git metadata, dependencies and
+  old terrain experiments are omitted. Cloudflare's dry run passes.
+- The exact package was served through Wrangler locally. All 23 scientific image/
+  water assets, all target bundles and source notices return 200; published hashes
+  agree. Git configuration, package metadata, node_modules and missing assets
+  return 404. Atlas/mask responses have a one-day cache; HTML/JSON/modules revalidate.
+- Corrected a source-classification error: Natural Earth's admin-0 file includes
+  leases and indeterminate geographic features as well as countries/territories.
+  Published TYPE metadata and the source's own ISO codes now define the target
+  universe before reconstruction checks. Countries/dependencies/disputed territories
+  remain; leases and uncoded indeterminate features do not. Greenland, Aland,
+  Aruba, Ashmore/Cartier and Palestine remain. Ice fields, glaciers, reef fragments,
+  disputed river-island fragments and the spaceport lease cannot become targets.
+- No 195-state sovereign-only roster was applied. The user explicitly selected
+  countries **and territories**. The reconstruction threshold remains unchanged.
+- Sharing now uses the live page's base URL instead of the unpurchased domain.
+  Public playtest hosting uses direct asset uploads; no GitHub integration or
+  custom domain is required.
+
+## Mobile feedback and public playtest (2026-11-15)
+
+- All 43 automated checks pass after the country/territory classification fix.
+- Browser checked at 319 × 760: no opening prompt or empty pick card; selecting a
+  location shows only Pick. A miss shows distance and earned points without a
+  headline, paragraph, direction hint or confirmation question.
+- Mobile shows a compact score total; the five-round breakdown remains in final
+  results. The map stays interactive and missed guesses advance automatically.

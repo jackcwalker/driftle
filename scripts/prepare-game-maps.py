@@ -80,12 +80,20 @@ assert len(pids) < 255, 'Owner PNG uses an 8-bit plate index'
 # or recognition filters. Full source geometries remain in lazy-loaded bundles.
 country_source = Path(sys.argv[2])
 raw_countries = json.loads(country_source.read_text())['features']
+kinds = json.loads((ROOT/'data/country-kinds.json').read_text())
 legacy = {c['name']: c for c in json.loads((ROOT/'data/countries.json').read_text())}
 catalogue, territories = [], []
 for feature in raw_countries:
     name = feature['properties']['name']
     slug = re.sub('[^a-z0-9]+', '-', unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode().lower()).strip('-')
-    catalogue.append(dict(id=slug, name=name, geometry=feature['geometry']))
+    unit_type = kinds['units'][name]['type']
+    iso3 = feature['properties']['ISO3166-1-Alpha-3']
+    # Keep countries and dependencies/disputed territories. Indeterminate units
+    # need their own source ISO code; leases and uncoded geographic fragments
+    # (ice fields, glaciers, reefs, river islands) are not separate game targets.
+    target_unit = unit_type != 'Lease' and (unit_type != 'Indeterminate' or iso3 != '-99')
+    catalogue.append(dict(id=slug, name=name, geometry=feature['geometry'],
+                          iso3=iso3, unitType=unit_type, targetUnit=target_unit))
 catalogue.sort(key=lambda c: c['id'])
 assert len({c['id'] for c in catalogue}) == len(catalogue)
 bundles = OUT/'countries'
@@ -148,6 +156,9 @@ for country in catalogue:
             reasons.append('combined-support-gap')
     if not viable:
         reasons.append('no-continuously-supported-territory')
+    reconstruction_supported = not reasons
+    if not country['targetUnit']:
+        reasons.append('non-country-feature')
     country['eligible'] = not reasons
     country['reasons'] = reasons
     territory['url'] = f'data/paleomap/countries/{country["id"]}.json'
@@ -158,6 +169,8 @@ for country in catalogue:
                  missingRotationAges=[a for a, q in zip(TIMES, rotations[str(pid)]) if q is None])
             for pid, begin, end in unsupported_domains]
     report.append(dict(id=country['id'], name=country['name'], eligible=not reasons,
+                       targetUnit=country['targetUnit'], unitType=country['unitType'], iso3=country['iso3'],
+                       reconstructionSupported=reconstruction_supported,
                        reasons=reasons, sourceArea=source_area, unpartitionedArea=unknown,
                        unsupportedArea=unsupported, unsupportedFraction=fraction, unsupportedDomains=gaps))
     print(country['name'], len(parts), 'parts, unknown/unsupported %',
@@ -181,7 +194,7 @@ for c in catalogue:
 country_hash = hashlib.sha256(country_source.read_bytes()).hexdigest()
 pool = []
 for c, t in zip(catalogue, territories):
-    entry = {k: c[k] for k in ['id', 'name', 'point', 'pid', 'eligible', 'reasons']}
+    entry = {k: c[k] for k in ['id', 'name', 'point', 'pid', 'eligible', 'reasons', 'targetUnit', 'unitType', 'iso3']}
     if c['eligible']:
         entry['url'] = t['url']
         payload = dict(model=MODEL, source=SOURCE,
@@ -195,6 +208,8 @@ for c, t in zip(catalogue, territories):
     source='https://github.com/datasets/geo-countries/blob/master/data/countries.geojson',
     license='Natural Earth public domain / PDDL distribution', inputCountrySHA256=country_hash,
     model=MODEL, inputModelSHA256=MODEL_HASH, maximumUnsupportedFraction=.0001,
+    administrativeMetadataSHA256=kinds['inputSHA256'],
+    targetScope='Countries and territories; excludes leases and uncoded indeterminate geographic features',
     areaUnits='locally unwrapped longitude/latitude coordinate area, not physical area',
     countries=report), indent=2, allow_nan=False))
 print('COUNTRY POOL:', sum(c['eligible'] for c in catalogue), '/', len(catalogue), flush=True)

@@ -17,7 +17,6 @@ import {
   supportedRotationAt,
   attachPin,
   pinPosition,
-  feedback,
   bearing,
 } from "../geo.js";
 import { rotationAt, slerp } from "../vendor/motion.js";
@@ -183,21 +182,9 @@ test("land pin is inverse-partitioned at 300 Ma and follows the correct plate to
     { point: [0, 0], moving: false },
   );
 });
-test("feedback gives distance-based verdict, score, direction and improvement", () => {
+test("bearings take the short route across the date line", () => {
   assert.equal(bearing([0, 0], [10, 0]), "east");
   assert.equal(bearing([179, 0], [-179, 0]), "east");
-  const f = feedback(
-    { distance: 500, score: 3000, age: 225, bearing: "east" },
-    { distance: 900 },
-  );
-  assert.match(f.title, /trail/);
-  assert.match(f.detail, /400 km closer/);
-  assert.match(f.detail, /east/);
-  assert.match(f.earned, /3,000/);
-  assert.match(
-    feedback({ distance: 100, score: 4900, age: 300 }).title,
-    /outside/,
-  );
 });
 
 test("final modern country overlay contains all six targets and clips without global fill", () => {

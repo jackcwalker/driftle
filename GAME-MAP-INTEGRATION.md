@@ -29,9 +29,9 @@ The territory file references the motion file's rotations to avoid duplicating
 their download and decoded memory.
 
 The pool now audits every one of the 258 country/territory features in the source,
-using the existing 0.01% unsupported/unknown coordinate-area threshold. 116 pass;
-142 are excluded for technical support gaps. No size, difficulty or recognition
-filter is applied. `country-support.json` records the exact fractions and reasons;
+using the existing 0.01% unsupported/unknown coordinate-area threshold. 247 are countries/territories under the source classification; 109 pass and
+138 fail technical support checks. Eleven leases/uncoded indeterminate features
+are outside the target scope. No size or difficulty filter is applied. `country-support.json` records the exact fractions and reasons;
 COUNTRY-POOL.md describes the policy. Each eligible country's original full geometry
 and partition are stored in a separate bundle; only the selected bundle downloads.
 Modern 0 Ma scoring still uses the complete modern country, including islands and
@@ -42,7 +42,7 @@ Saves use `driftle-paleomap-v2-<UTC date>`. The earlier Müller save is retained
 browser storage but is not reinterpreted under a different model. Saved missed-guess
 pin attachments are validated against the matching model on reload, independently
 of which owner textures are currently resident. Daily selection
-cycles evenly through the 116 eligible entries in stable ID order. Saves also check
+cycles evenly through the 109 eligible entries in stable ID order. Saves also check
 the selected country ID, so a changed pool cannot reinterpret another target's picks. Random testing does not overwrite
 the daily save.
 

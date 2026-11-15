@@ -358,27 +358,19 @@ td {
   touch-action: none;
 }
 
-#feedback {
-  max-width: 430px;
-  text-align: left;
-  margin-bottom: 12px;
-}
 #feedback[hidden] {
   display: none;
 }
-#verdict {
-  font-size: 19px;
-  color: #f3cf82;
+#feedback {
+  text-align: left;
 }
 .feedback-numbers {
   display: flex;
-  gap: 18px;
-  justify-content: space-between;
   align-items: center;
-  margin: 12px 0 8px;
+  gap: 16px;
 }
 #guess-distance {
-  font-size: 23px;
+  font-size: 14px;
   font-weight: bold;
   color: #fff2c9;
 }
@@ -387,50 +379,60 @@ td {
   color: #f1cf87;
   white-space: nowrap;
 }
-#feedback-detail {
-  font-size: 12px;
-  line-height: 1.5;
-  color: #d2dfcc;
-  margin: 0 0 8px;
-}
 .step small {
   text-align: right;
   line-height: 1.5;
 }
-.control-panel:has(#feedback:not([hidden])) {
-  width: 470px;
+.control-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  width: max-content;
+  min-width: 0;
+  padding: 10px 14px;
 }
-#feedback:not([hidden]) ~ #status {
+.control-panel:not(:has(#feedback:not([hidden]))):not(:has(button:not([hidden]))):has(#status[hidden]) {
+  display: none;
+}
+#status {
+  margin: 0;
   font-size: 11px;
-  margin-top: 9px;
+}
+#status[hidden] {
+  display: none;
+}
+.controls:has(button:not([hidden])) button {
+  min-width: 88px;
+  min-height: 44px;
 }
 @media (max-width: 600px) {
-  .control-panel:has(#feedback:not([hidden])) {
-    width: calc(100% - 32px);
-    bottom: 65px;
-  }
-  #verdict {
-    font-size: 16px;
-  }
-  #guess-distance {
-    font-size: 20px;
-  }
-  #feedback-detail {
-    font-size: 11px;
+  .control-panel {
+    bottom: 58px;
+    max-width: calc(100% - 24px);
+    padding: 8px 12px;
   }
   .score-panel {
-    width: 110px;
+    width: auto;
+    min-width: 82px;
+    padding: 9px 12px;
   }
-  .step {
-    margin-top: 9px;
+  .score-title strong {
+    margin-top: 4px;
   }
-}
-@media (min-width: 601px) {
-  .control-panel:has(#feedback:not([hidden])) {
-    left: 26px;
-    transform: none;
-    width: 360px;
-    max-width: calc(100% - 190px);
+  #timeline {
+    display: none;
+  }
+  .archive {
+    left: auto;
+    right: 12px;
+    bottom: 12px;
+  }
+  .map-note {
+    left: 12px;
+    bottom: 15px;
+    max-width: calc(100% - 110px);
   }
 }
 

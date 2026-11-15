@@ -288,47 +288,6 @@ export function restoreGuess(data, country, saved, i, contains) {
   }
   return { ...result, attachment };
 }
-export function feedback(record, previous) {
-  const km = record.distance;
-  const title = record.inside
-    ? "Country found!"
-    : km < 250
-      ? "Just outside!"
-      : km < 750
-        ? "Hot on the trail!"
-        : km < 1800
-          ? "Getting warm!"
-          : km < 4000
-            ? "A continental detour."
-            : "A whole world to explore!";
-  const max = (5 - ages.indexOf(record.age)) * 1000;
-  let detail = record.inside
-    ? `You landed in ${record.countryName}. Full points for this era!`
-    : km < 250
-      ? "Just outside the country. Aim a little closer to its edge."
-      : km < 750
-        ? "Close enough to feel the tectonic heat."
-        : km < 1800
-          ? "In the neighbourhood — keep tracking the moving land."
-          : km < 4000
-            ? "A long trip from the target. Watch how the continents fit together."
-            : "The target was on another part of the globe. Try following a familiar continental shape.";
-  if (km >= 250 && record.bearing)
-    detail += ` The nearest border lay ${record.bearing} of your pick at ${record.age} Ma.`;
-  if (previous && !record.inside) {
-    const change = previous.distance - km;
-    detail +=
-      change >= 0
-        ? ` ${change.toLocaleString()} km closer than your last pick!`
-        : ` ${Math.abs(change).toLocaleString()} km farther than your last pick — time for a course correction.`;
-  }
-  return {
-    title,
-    detail,
-    earned: `+${record.score.toLocaleString()} / ${max.toLocaleString()} pts`,
-  };
-}
-
 export function bearing(from, to) {
   const rad = Math.PI / 180,
     dl = (to[0] - from[0]) * rad,

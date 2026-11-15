@@ -14,7 +14,6 @@ import {
   restoreGuess,
   attachPin,
   pinPosition,
-  feedback,
 } from "./geo.js?v=terrain-game6";
 const $ = (id) => document.getElementById(id),
   d3 = window.d3,
@@ -202,7 +201,7 @@ function ui() {
   const outcome = challengeOutcome(history);
   $("score").textContent = outcome.total.toLocaleString();
   $("show-results").hidden = !finished;
-  $("confirm").hidden = finished;
+  $("confirm").hidden = finished || busy || !guess;
   $("confirm").disabled = busy || !guess || finished;
   $("confirm").textContent = round === 4 ? "Final pick →" : "Pick →";
   $("timeline").innerHTML = ages
@@ -215,18 +214,11 @@ function ui() {
     ? `${country.name} · ${outcome.solvedRound ? "Found in " + outcome.solvedRound + (outcome.solvedRound === 1 ? " pick." : " picks.") : "Five guesses complete."}`
     : busy
       ? history.some((h) => h.inside)
-        ? "Full points secured. Drifting to today…"
-        : "Drifting 75 million years…"
-      : guess
-        ? "Pick this location?"
-        : `Click where ${country.name} was.`;
-  $("mapstatus").textContent = busy
-    ? ""
-    : finished
-      ? ""
-      : guess
-        ? `${Math.abs(guess[1]).toFixed(1)}° ${guess[1] < 0 ? "S" : "N"} · ${Math.abs(guess[0]).toFixed(1)}° ${guess[0] < 0 ? "W" : "E"}`
-        : "";
+        ? "Drifting to today…"
+        : "Drifting…"
+      : "";
+  $("status").hidden = !$("status").textContent;
+
 }
 $("show-results").onclick = () => {
   if (!$("results").innerHTML) reveal();
@@ -558,16 +550,13 @@ $("confirm").onclick = () => {
   if (busy || !guess || finished) return;
   const h = record(guess, round);
   history.push(h);
-  const f = feedback(h, history.at(-2));
   $("feedback").hidden = false;
-  $("verdict").textContent = f.title;
   $("guess-distance").textContent = h.inside
     ? `In ${country.name}`
     : (h.distance === 0
         ? "Less than 1 km"
         : h.distance.toLocaleString() + " km") + " from border";
-  $("earned").textContent = f.earned;
-  $("feedback-detail").textContent = f.detail;
+  $("earned").textContent = `+${h.score.toLocaleString()} pts`;
   guess = null;
   save();
   if (round === 4) {
@@ -699,7 +688,7 @@ function reveal() {
     start(false, testing);
   };
   $("share").onclick = async () => {
-    const msg = `Driftle ${today}\n${outcome.total.toLocaleString()} / 15,000\n${outcome.rounds.map((h) => (h.automatic ? "⭐" : h.inside ? "🟩" : "🟨")).join("")}\ndriftle.games`;
+    const msg = `Driftle ${today}\n${outcome.total.toLocaleString()} / 15,000\n${outcome.rounds.map((h) => (h.automatic ? "⭐" : h.inside ? "🟩" : "🟨")).join("")}\n${new URL("./", location.href).href}`;
     try {
       await navigator.clipboard.writeText(msg);
       $("copy-status").textContent = " Copied!";

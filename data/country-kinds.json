@@ -1,0 +1,1041 @@
+{
+  "source": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/",
+  "archive": "https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_0_countries.zip",
+  "version": "5.1.1",
+  "license": "Natural Earth public domain",
+  "inputSHA256": "ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+  "units": {
+    "Afghanistan": {
+      "type": "Sovereign country",
+      "sovereign": "Afghanistan"
+    },
+    "Akrotiri Sovereign Base Area": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Aland": {
+      "type": "Country",
+      "sovereign": "Finland"
+    },
+    "Albania": {
+      "type": "Sovereign country",
+      "sovereign": "Albania"
+    },
+    "Algeria": {
+      "type": "Sovereign country",
+      "sovereign": "Algeria"
+    },
+    "American Samoa": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "Andorra": {
+      "type": "Sovereign country",
+      "sovereign": "Andorra"
+    },
+    "Angola": {
+      "type": "Sovereign country",
+      "sovereign": "Angola"
+    },
+    "Anguilla": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Antarctica": {
+      "type": "Indeterminate",
+      "sovereign": "Antarctica"
+    },
+    "Antigua and Barbuda": {
+      "type": "Sovereign country",
+      "sovereign": "Antigua and Barbuda"
+    },
+    "Argentina": {
+      "type": "Sovereign country",
+      "sovereign": "Argentina"
+    },
+    "Armenia": {
+      "type": "Sovereign country",
+      "sovereign": "Armenia"
+    },
+    "Aruba": {
+      "type": "Country",
+      "sovereign": "Netherlands"
+    },
+    "Ashmore and Cartier Islands": {
+      "type": "Dependency",
+      "sovereign": "Australia"
+    },
+    "Australia": {
+      "type": "Country",
+      "sovereign": "Australia"
+    },
+    "Austria": {
+      "type": "Sovereign country",
+      "sovereign": "Austria"
+    },
+    "Azerbaijan": {
+      "type": "Sovereign country",
+      "sovereign": "Azerbaijan"
+    },
+    "Bahrain": {
+      "type": "Sovereign country",
+      "sovereign": "Bahrain"
+    },
+    "Bajo Nuevo Bank (Petrel Is.)": {
+      "type": "Indeterminate",
+      "sovereign": "Bajo Nuevo Bank (Petrel Is.)"
+    },
+    "Bangladesh": {
+      "type": "Sovereign country",
+      "sovereign": "Bangladesh"
+    },
+    "Barbados": {
+      "type": "Sovereign country",
+      "sovereign": "Barbados"
+    },
+    "Baykonur Cosmodrome": {
+      "type": "Lease",
+      "sovereign": "Kazakhstan"
+    },
+    "Belarus": {
+      "type": "Sovereign country",
+      "sovereign": "Belarus"
+    },
+    "Belgium": {
+      "type": "Sovereign country",
+      "sovereign": "Belgium"
+    },
+    "Belize": {
+      "type": "Sovereign country",
+      "sovereign": "Belize"
+    },
+    "Benin": {
+      "type": "Sovereign country",
+      "sovereign": "Benin"
+    },
+    "Bermuda": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Bhutan": {
+      "type": "Sovereign country",
+      "sovereign": "Bhutan"
+    },
+    "Bir Tawil": {
+      "type": "Indeterminate",
+      "sovereign": "Bir Tawil"
+    },
+    "Bolivia": {
+      "type": "Sovereign country",
+      "sovereign": "Bolivia"
+    },
+    "Bosnia and Herzegovina": {
+      "type": "Sovereign country",
+      "sovereign": "Bosnia and Herzegovina"
+    },
+    "Botswana": {
+      "type": "Sovereign country",
+      "sovereign": "Botswana"
+    },
+    "Brazil": {
+      "type": "Sovereign country",
+      "sovereign": "Brazil"
+    },
+    "Brazilian Island": {
+      "type": "Indeterminate",
+      "sovereign": "Brazilian Island"
+    },
+    "British Indian Ocean Territory": {
+      "type": "Disputed",
+      "sovereign": "United Kingdom"
+    },
+    "British Virgin Islands": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Brunei": {
+      "type": "Sovereign country",
+      "sovereign": "Brunei"
+    },
+    "Bulgaria": {
+      "type": "Sovereign country",
+      "sovereign": "Bulgaria"
+    },
+    "Burkina Faso": {
+      "type": "Sovereign country",
+      "sovereign": "Burkina Faso"
+    },
+    "Burundi": {
+      "type": "Sovereign country",
+      "sovereign": "Burundi"
+    },
+    "Cabo Verde": {
+      "type": "Sovereign country",
+      "sovereign": "Cabo Verde"
+    },
+    "Cambodia": {
+      "type": "Sovereign country",
+      "sovereign": "Cambodia"
+    },
+    "Cameroon": {
+      "type": "Sovereign country",
+      "sovereign": "Cameroon"
+    },
+    "Canada": {
+      "type": "Sovereign country",
+      "sovereign": "Canada"
+    },
+    "Cayman Islands": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Central African Republic": {
+      "type": "Sovereign country",
+      "sovereign": "Central African Republic"
+    },
+    "Chad": {
+      "type": "Sovereign country",
+      "sovereign": "Chad"
+    },
+    "Chile": {
+      "type": "Sovereign country",
+      "sovereign": "Chile"
+    },
+    "China": {
+      "type": "Country",
+      "sovereign": "China"
+    },
+    "Clipperton Island": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Colombia": {
+      "type": "Sovereign country",
+      "sovereign": "Colombia"
+    },
+    "Comoros": {
+      "type": "Sovereign country",
+      "sovereign": "Comoros"
+    },
+    "Cook Islands": {
+      "type": "Dependency",
+      "sovereign": "New Zealand"
+    },
+    "Coral Sea Islands": {
+      "type": "Dependency",
+      "sovereign": "Australia"
+    },
+    "Costa Rica": {
+      "type": "Sovereign country",
+      "sovereign": "Costa Rica"
+    },
+    "Croatia": {
+      "type": "Sovereign country",
+      "sovereign": "Croatia"
+    },
+    "Cuba": {
+      "type": "Sovereignty",
+      "sovereign": "Cuba"
+    },
+    "Curaçao": {
+      "type": "Country",
+      "sovereign": "Netherlands"
+    },
+    "Cyprus": {
+      "type": "Sovereign country",
+      "sovereign": "Cyprus"
+    },
+    "Cyprus No Mans Area": {
+      "type": "Indeterminate",
+      "sovereign": "Cyprus No Mans Area"
+    },
+    "Czechia": {
+      "type": "Sovereign country",
+      "sovereign": "Czechia"
+    },
+    "Democratic Republic of the Congo": {
+      "type": "Sovereign country",
+      "sovereign": "Democratic Republic of the Congo"
+    },
+    "Denmark": {
+      "type": "Country",
+      "sovereign": "Denmark"
+    },
+    "Dhekelia Sovereign Base Area": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Djibouti": {
+      "type": "Sovereign country",
+      "sovereign": "Djibouti"
+    },
+    "Dominica": {
+      "type": "Sovereign country",
+      "sovereign": "Dominica"
+    },
+    "Dominican Republic": {
+      "type": "Sovereign country",
+      "sovereign": "Dominican Republic"
+    },
+    "East Timor": {
+      "type": "Sovereign country",
+      "sovereign": "East Timor"
+    },
+    "Ecuador": {
+      "type": "Sovereign country",
+      "sovereign": "Ecuador"
+    },
+    "Egypt": {
+      "type": "Sovereign country",
+      "sovereign": "Egypt"
+    },
+    "El Salvador": {
+      "type": "Sovereign country",
+      "sovereign": "El Salvador"
+    },
+    "Equatorial Guinea": {
+      "type": "Sovereign country",
+      "sovereign": "Equatorial Guinea"
+    },
+    "Eritrea": {
+      "type": "Sovereign country",
+      "sovereign": "Eritrea"
+    },
+    "Estonia": {
+      "type": "Sovereign country",
+      "sovereign": "Estonia"
+    },
+    "Ethiopia": {
+      "type": "Sovereign country",
+      "sovereign": "Ethiopia"
+    },
+    "Falkland Islands": {
+      "type": "Disputed",
+      "sovereign": "United Kingdom"
+    },
+    "Faroe Islands": {
+      "type": "Dependency",
+      "sovereign": "Denmark"
+    },
+    "Federated States of Micronesia": {
+      "type": "Sovereign country",
+      "sovereign": "Federated States of Micronesia"
+    },
+    "Fiji": {
+      "type": "Sovereign country",
+      "sovereign": "Fiji"
+    },
+    "Finland": {
+      "type": "Country",
+      "sovereign": "Finland"
+    },
+    "France": {
+      "type": "Country",
+      "sovereign": "France"
+    },
+    "French Polynesia": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "French Southern and Antarctic Lands": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Gabon": {
+      "type": "Sovereign country",
+      "sovereign": "Gabon"
+    },
+    "Gambia": {
+      "type": "Sovereign country",
+      "sovereign": "Gambia"
+    },
+    "Georgia": {
+      "type": "Sovereign country",
+      "sovereign": "Georgia"
+    },
+    "Germany": {
+      "type": "Sovereign country",
+      "sovereign": "Germany"
+    },
+    "Ghana": {
+      "type": "Sovereign country",
+      "sovereign": "Ghana"
+    },
+    "Gibraltar": {
+      "type": "Disputed",
+      "sovereign": "United Kingdom"
+    },
+    "Greece": {
+      "type": "Sovereign country",
+      "sovereign": "Greece"
+    },
+    "Greenland": {
+      "type": "Country",
+      "sovereign": "Denmark"
+    },
+    "Grenada": {
+      "type": "Sovereign country",
+      "sovereign": "Grenada"
+    },
+    "Guam": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "Guatemala": {
+      "type": "Sovereign country",
+      "sovereign": "Guatemala"
+    },
+    "Guernsey": {
+      "type": "Country",
+      "sovereign": "United Kingdom"
+    },
+    "Guinea": {
+      "type": "Sovereign country",
+      "sovereign": "Guinea"
+    },
+    "Guinea-Bissau": {
+      "type": "Sovereign country",
+      "sovereign": "Guinea-Bissau"
+    },
+    "Guyana": {
+      "type": "Sovereign country",
+      "sovereign": "Guyana"
+    },
+    "Haiti": {
+      "type": "Sovereign country",
+      "sovereign": "Haiti"
+    },
+    "Heard Island and McDonald Islands": {
+      "type": "Dependency",
+      "sovereign": "Australia"
+    },
+    "Honduras": {
+      "type": "Sovereign country",
+      "sovereign": "Honduras"
+    },
+    "Hong Kong S.A.R.": {
+      "type": "Country",
+      "sovereign": "China"
+    },
+    "Hungary": {
+      "type": "Sovereign country",
+      "sovereign": "Hungary"
+    },
+    "Iceland": {
+      "type": "Sovereign country",
+      "sovereign": "Iceland"
+    },
+    "India": {
+      "type": "Sovereign country",
+      "sovereign": "India"
+    },
+    "Indian Ocean Territories": {
+      "type": "Dependency",
+      "sovereign": "Australia"
+    },
+    "Indonesia": {
+      "type": "Sovereign country",
+      "sovereign": "Indonesia"
+    },
+    "Iran": {
+      "type": "Sovereign country",
+      "sovereign": "Iran"
+    },
+    "Iraq": {
+      "type": "Sovereign country",
+      "sovereign": "Iraq"
+    },
+    "Ireland": {
+      "type": "Sovereign country",
+      "sovereign": "Ireland"
+    },
+    "Isle of Man": {
+      "type": "Country",
+      "sovereign": "United Kingdom"
+    },
+    "Israel": {
+      "type": "Disputed",
+      "sovereign": "Israel"
+    },
+    "Italy": {
+      "type": "Sovereign country",
+      "sovereign": "Italy"
+    },
+    "Ivory Coast": {
+      "type": "Sovereign country",
+      "sovereign": "Ivory Coast"
+    },
+    "Jamaica": {
+      "type": "Sovereign country",
+      "sovereign": "Jamaica"
+    },
+    "Japan": {
+      "type": "Sovereign country",
+      "sovereign": "Japan"
+    },
+    "Jersey": {
+      "type": "Country",
+      "sovereign": "United Kingdom"
+    },
+    "Jordan": {
+      "type": "Sovereign country",
+      "sovereign": "Jordan"
+    },
+    "Kazakhstan": {
+      "type": "Sovereignty",
+      "sovereign": "Kazakhstan"
+    },
+    "Kenya": {
+      "type": "Sovereign country",
+      "sovereign": "Kenya"
+    },
+    "Kiribati": {
+      "type": "Sovereign country",
+      "sovereign": "Kiribati"
+    },
+    "Kosovo": {
+      "type": "Disputed",
+      "sovereign": "Kosovo"
+    },
+    "Kuwait": {
+      "type": "Sovereign country",
+      "sovereign": "Kuwait"
+    },
+    "Kyrgyzstan": {
+      "type": "Sovereign country",
+      "sovereign": "Kyrgyzstan"
+    },
+    "Laos": {
+      "type": "Sovereign country",
+      "sovereign": "Laos"
+    },
+    "Latvia": {
+      "type": "Sovereign country",
+      "sovereign": "Latvia"
+    },
+    "Lebanon": {
+      "type": "Sovereign country",
+      "sovereign": "Lebanon"
+    },
+    "Lesotho": {
+      "type": "Sovereign country",
+      "sovereign": "Lesotho"
+    },
+    "Liberia": {
+      "type": "Sovereign country",
+      "sovereign": "Liberia"
+    },
+    "Libya": {
+      "type": "Sovereign country",
+      "sovereign": "Libya"
+    },
+    "Liechtenstein": {
+      "type": "Sovereign country",
+      "sovereign": "Liechtenstein"
+    },
+    "Lithuania": {
+      "type": "Sovereign country",
+      "sovereign": "Lithuania"
+    },
+    "Luxembourg": {
+      "type": "Sovereign country",
+      "sovereign": "Luxembourg"
+    },
+    "Macao S.A.R": {
+      "type": "Country",
+      "sovereign": "China"
+    },
+    "Madagascar": {
+      "type": "Sovereign country",
+      "sovereign": "Madagascar"
+    },
+    "Malawi": {
+      "type": "Sovereign country",
+      "sovereign": "Malawi"
+    },
+    "Malaysia": {
+      "type": "Sovereign country",
+      "sovereign": "Malaysia"
+    },
+    "Maldives": {
+      "type": "Sovereign country",
+      "sovereign": "Maldives"
+    },
+    "Mali": {
+      "type": "Sovereign country",
+      "sovereign": "Mali"
+    },
+    "Malta": {
+      "type": "Sovereign country",
+      "sovereign": "Malta"
+    },
+    "Marshall Islands": {
+      "type": "Sovereign country",
+      "sovereign": "Marshall Islands"
+    },
+    "Mauritania": {
+      "type": "Sovereign country",
+      "sovereign": "Mauritania"
+    },
+    "Mauritius": {
+      "type": "Sovereign country",
+      "sovereign": "Mauritius"
+    },
+    "Mexico": {
+      "type": "Sovereign country",
+      "sovereign": "Mexico"
+    },
+    "Moldova": {
+      "type": "Sovereign country",
+      "sovereign": "Moldova"
+    },
+    "Monaco": {
+      "type": "Sovereign country",
+      "sovereign": "Monaco"
+    },
+    "Mongolia": {
+      "type": "Sovereign country",
+      "sovereign": "Mongolia"
+    },
+    "Montenegro": {
+      "type": "Sovereign country",
+      "sovereign": "Montenegro"
+    },
+    "Montserrat": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Morocco": {
+      "type": "Sovereign country",
+      "sovereign": "Morocco"
+    },
+    "Mozambique": {
+      "type": "Sovereign country",
+      "sovereign": "Mozambique"
+    },
+    "Myanmar": {
+      "type": "Sovereign country",
+      "sovereign": "Myanmar"
+    },
+    "Namibia": {
+      "type": "Sovereign country",
+      "sovereign": "Namibia"
+    },
+    "Nauru": {
+      "type": "Sovereign country",
+      "sovereign": "Nauru"
+    },
+    "Nepal": {
+      "type": "Sovereign country",
+      "sovereign": "Nepal"
+    },
+    "Netherlands": {
+      "type": "Country",
+      "sovereign": "Netherlands"
+    },
+    "New Caledonia": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "New Zealand": {
+      "type": "Country",
+      "sovereign": "New Zealand"
+    },
+    "Nicaragua": {
+      "type": "Sovereign country",
+      "sovereign": "Nicaragua"
+    },
+    "Niger": {
+      "type": "Sovereign country",
+      "sovereign": "Niger"
+    },
+    "Nigeria": {
+      "type": "Sovereign country",
+      "sovereign": "Nigeria"
+    },
+    "Niue": {
+      "type": "Dependency",
+      "sovereign": "New Zealand"
+    },
+    "Norfolk Island": {
+      "type": "Dependency",
+      "sovereign": "Australia"
+    },
+    "North Korea": {
+      "type": "Sovereign country",
+      "sovereign": "North Korea"
+    },
+    "North Macedonia": {
+      "type": "Sovereign country",
+      "sovereign": "North Macedonia"
+    },
+    "Northern Cyprus": {
+      "type": "Sovereign country",
+      "sovereign": "Northern Cyprus"
+    },
+    "Northern Mariana Islands": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "Norway": {
+      "type": "Sovereign country",
+      "sovereign": "Norway"
+    },
+    "Oman": {
+      "type": "Sovereign country",
+      "sovereign": "Oman"
+    },
+    "Pakistan": {
+      "type": "Sovereign country",
+      "sovereign": "Pakistan"
+    },
+    "Palau": {
+      "type": "Sovereign country",
+      "sovereign": "Palau"
+    },
+    "Palestine": {
+      "type": "Indeterminate",
+      "sovereign": "Israel"
+    },
+    "Panama": {
+      "type": "Sovereign country",
+      "sovereign": "Panama"
+    },
+    "Papua New Guinea": {
+      "type": "Sovereign country",
+      "sovereign": "Papua New Guinea"
+    },
+    "Paraguay": {
+      "type": "Sovereign country",
+      "sovereign": "Paraguay"
+    },
+    "Peru": {
+      "type": "Sovereign country",
+      "sovereign": "Peru"
+    },
+    "Philippines": {
+      "type": "Sovereign country",
+      "sovereign": "Philippines"
+    },
+    "Pitcairn Islands": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Poland": {
+      "type": "Sovereign country",
+      "sovereign": "Poland"
+    },
+    "Portugal": {
+      "type": "Sovereign country",
+      "sovereign": "Portugal"
+    },
+    "Puerto Rico": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "Qatar": {
+      "type": "Sovereign country",
+      "sovereign": "Qatar"
+    },
+    "Republic of Serbia": {
+      "type": "Sovereign country",
+      "sovereign": "Republic of Serbia"
+    },
+    "Republic of the Congo": {
+      "type": "Sovereign country",
+      "sovereign": "Republic of the Congo"
+    },
+    "Romania": {
+      "type": "Sovereign country",
+      "sovereign": "Romania"
+    },
+    "Russia": {
+      "type": "Sovereign country",
+      "sovereign": "Russia"
+    },
+    "Rwanda": {
+      "type": "Sovereign country",
+      "sovereign": "Rwanda"
+    },
+    "Saint Barthelemy": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Saint Helena": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Saint Kitts and Nevis": {
+      "type": "Sovereign country",
+      "sovereign": "Saint Kitts and Nevis"
+    },
+    "Saint Lucia": {
+      "type": "Sovereign country",
+      "sovereign": "Saint Lucia"
+    },
+    "Saint Martin": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Saint Pierre and Miquelon": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Saint Vincent and the Grenadines": {
+      "type": "Sovereign country",
+      "sovereign": "Saint Vincent and the Grenadines"
+    },
+    "Samoa": {
+      "type": "Sovereign country",
+      "sovereign": "Samoa"
+    },
+    "San Marino": {
+      "type": "Sovereign country",
+      "sovereign": "San Marino"
+    },
+    "Saudi Arabia": {
+      "type": "Sovereign country",
+      "sovereign": "Saudi Arabia"
+    },
+    "Scarborough Reef": {
+      "type": "Indeterminate",
+      "sovereign": "Scarborough Reef"
+    },
+    "Senegal": {
+      "type": "Sovereign country",
+      "sovereign": "Senegal"
+    },
+    "Serranilla Bank": {
+      "type": "Indeterminate",
+      "sovereign": "Serranilla Bank"
+    },
+    "Seychelles": {
+      "type": "Sovereign country",
+      "sovereign": "Seychelles"
+    },
+    "Siachen Glacier": {
+      "type": "Indeterminate",
+      "sovereign": "Kashmir"
+    },
+    "Sierra Leone": {
+      "type": "Sovereign country",
+      "sovereign": "Sierra Leone"
+    },
+    "Singapore": {
+      "type": "Sovereign country",
+      "sovereign": "Singapore"
+    },
+    "Sint Maarten": {
+      "type": "Country",
+      "sovereign": "Netherlands"
+    },
+    "Slovakia": {
+      "type": "Sovereign country",
+      "sovereign": "Slovakia"
+    },
+    "Slovenia": {
+      "type": "Sovereign country",
+      "sovereign": "Slovenia"
+    },
+    "Solomon Islands": {
+      "type": "Sovereign country",
+      "sovereign": "Solomon Islands"
+    },
+    "Somalia": {
+      "type": "Sovereign country",
+      "sovereign": "Somalia"
+    },
+    "Somaliland": {
+      "type": "Sovereign country",
+      "sovereign": "Somaliland"
+    },
+    "South Africa": {
+      "type": "Sovereign country",
+      "sovereign": "South Africa"
+    },
+    "South Georgia and the Islands": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "South Korea": {
+      "type": "Sovereign country",
+      "sovereign": "South Korea"
+    },
+    "South Sudan": {
+      "type": "Sovereign country",
+      "sovereign": "South Sudan"
+    },
+    "Southern Patagonian Ice Field": {
+      "type": "Indeterminate",
+      "sovereign": "Southern Patagonian Ice Field"
+    },
+    "Spain": {
+      "type": "Sovereign country",
+      "sovereign": "Spain"
+    },
+    "Spratly Islands": {
+      "type": "Indeterminate",
+      "sovereign": "Spratly Islands"
+    },
+    "Sri Lanka": {
+      "type": "Sovereign country",
+      "sovereign": "Sri Lanka"
+    },
+    "Sudan": {
+      "type": "Sovereign country",
+      "sovereign": "Sudan"
+    },
+    "Suriname": {
+      "type": "Sovereign country",
+      "sovereign": "Suriname"
+    },
+    "Sweden": {
+      "type": "Sovereign country",
+      "sovereign": "Sweden"
+    },
+    "Switzerland": {
+      "type": "Sovereign country",
+      "sovereign": "Switzerland"
+    },
+    "Syria": {
+      "type": "Sovereign country",
+      "sovereign": "Syria"
+    },
+    "São Tomé and Principe": {
+      "type": "Sovereign country",
+      "sovereign": "São Tomé and Principe"
+    },
+    "Taiwan": {
+      "type": "Sovereign country",
+      "sovereign": "Taiwan"
+    },
+    "Tajikistan": {
+      "type": "Sovereign country",
+      "sovereign": "Tajikistan"
+    },
+    "Thailand": {
+      "type": "Sovereign country",
+      "sovereign": "Thailand"
+    },
+    "The Bahamas": {
+      "type": "Sovereign country",
+      "sovereign": "The Bahamas"
+    },
+    "Togo": {
+      "type": "Sovereign country",
+      "sovereign": "Togo"
+    },
+    "Tonga": {
+      "type": "Sovereign country",
+      "sovereign": "Tonga"
+    },
+    "Trinidad and Tobago": {
+      "type": "Sovereign country",
+      "sovereign": "Trinidad and Tobago"
+    },
+    "Tunisia": {
+      "type": "Sovereign country",
+      "sovereign": "Tunisia"
+    },
+    "Turkey": {
+      "type": "Sovereign country",
+      "sovereign": "Turkey"
+    },
+    "Turkmenistan": {
+      "type": "Sovereign country",
+      "sovereign": "Turkmenistan"
+    },
+    "Turks and Caicos Islands": {
+      "type": "Dependency",
+      "sovereign": "United Kingdom"
+    },
+    "Tuvalu": {
+      "type": "Sovereign country",
+      "sovereign": "Tuvalu"
+    },
+    "US Naval Base Guantanamo Bay": {
+      "type": "Lease",
+      "sovereign": "Cuba"
+    },
+    "Uganda": {
+      "type": "Sovereign country",
+      "sovereign": "Uganda"
+    },
+    "Ukraine": {
+      "type": "Sovereign country",
+      "sovereign": "Ukraine"
+    },
+    "United Arab Emirates": {
+      "type": "Sovereign country",
+      "sovereign": "United Arab Emirates"
+    },
+    "United Kingdom": {
+      "type": "Country",
+      "sovereign": "United Kingdom"
+    },
+    "United Republic of Tanzania": {
+      "type": "Sovereign country",
+      "sovereign": "United Republic of Tanzania"
+    },
+    "United States Minor Outlying Islands": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "United States Virgin Islands": {
+      "type": "Dependency",
+      "sovereign": "United States of America"
+    },
+    "United States of America": {
+      "type": "Country",
+      "sovereign": "United States of America"
+    },
+    "Uruguay": {
+      "type": "Sovereign country",
+      "sovereign": "Uruguay"
+    },
+    "Uzbekistan": {
+      "type": "Sovereign country",
+      "sovereign": "Uzbekistan"
+    },
+    "Vanuatu": {
+      "type": "Sovereign country",
+      "sovereign": "Vanuatu"
+    },
+    "Vatican": {
+      "type": "Sovereign country",
+      "sovereign": "Vatican"
+    },
+    "Venezuela": {
+      "type": "Sovereign country",
+      "sovereign": "Venezuela"
+    },
+    "Vietnam": {
+      "type": "Sovereign country",
+      "sovereign": "Vietnam"
+    },
+    "Wallis and Futuna": {
+      "type": "Dependency",
+      "sovereign": "France"
+    },
+    "Western Sahara": {
+      "type": "Indeterminate",
+      "sovereign": "Western Sahara"
+    },
+    "Yemen": {
+      "type": "Sovereign country",
+      "sovereign": "Yemen"
+    },
+    "Zambia": {
+      "type": "Sovereign country",
+      "sovereign": "Zambia"
+    },
+    "Zimbabwe": {
+      "type": "Sovereign country",
+      "sovereign": "Zimbabwe"
+    },
+    "eSwatini": {
+      "type": "Sovereign country",
+      "sovereign": "eSwatini"
+    }
+  }
+}

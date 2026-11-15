@@ -55,7 +55,7 @@ test("Terrain, masks, country scoring and pins share the exact published model b
       dataset.inputModelSHA256,
       manifest.inputHashes["paleomap2024-model.zip"],
     );
-  assert.equal(eligible.length, 116);
+  assert.equal(eligible.length, 109);
   assert.equal(catalogue.length, 258);
   assert.equal(report.countries.length, catalogue.length);
   assert.equal(report.inputModelSHA256, data.inputModelSHA256);
@@ -69,7 +69,8 @@ test("Terrain, masks, country scoring and pins share the exact published model b
     const audit = report.countries.find((c) => c.id === entry.id);
     assert.equal(
       entry.eligible,
-      audit.unsupportedFraction < report.maximumUnsupportedFraction &&
+      audit.targetUnit &&
+        audit.unsupportedFraction < report.maximumUnsupportedFraction &&
         audit.sourceArea > 0,
     );
     assert.equal(entry.eligible, entry.reasons.length === 0);

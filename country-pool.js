@@ -1,8 +1,9 @@
 import { dailyIndex } from "./geo.js?v=terrain-game6";
 
-// Eligibility comes entirely from the offline geometry/rotation audit.
+// Target kinds come from published administrative metadata; reconstruction
+// eligibility remains an automatic geometry/rotation audit.
 export function supportedCountries(catalogue) {
-  return catalogue.filter((c) => c.eligible === true);
+  return catalogue.filter((c) => c.targetUnit === true && c.eligible === true);
 }
 export function dailyCountry(date, catalogue) {
   const pool = supportedCountries(catalogue);
