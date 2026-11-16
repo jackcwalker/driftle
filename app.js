@@ -175,6 +175,7 @@ async function start(restore = true, randomize = false) {
     return;
   }
   busy = false;
+  if (!restore) resetView();
   ui();
   draw();
   if (!restore) save();
@@ -300,7 +301,24 @@ canvas.addEventListener("pointercancel", releasePointer);
 
 $("zoom-in").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1.5);
 $("zoom-out").onclick = () => d3.select(canvas).call(zoom.scaleBy, 1 / 1.5);
-$("zoom-reset").onclick = () => setView(d3.zoomIdentity);
+// A fixed, target-independent opening camera keeps Pangaea readable on phones.
+// Desktop retains the complete world. Resizing preserves the player's own view.
+function openingView() {
+  if (width > 600 || width >= height) return d3.zoomIdentity;
+  const k = 2.4;
+  const center = d3.geoEqualEarth()
+    .scale(baseScale)
+    .translate(baseTranslate)([25, -10]);
+  return {
+    k,
+    x: width / 2 - center[0] * k,
+    y: height / 2 - center[1] * k,
+  };
+}
+function resetView() {
+  setView(openingView());
+}
+$("zoom-reset").onclick = resetView;
 function applyZoom() {
   if (projection && baseTranslate)
     projection
@@ -349,7 +367,7 @@ function resize() {
       x: width / 2 - center[0] * zoomTransform.k,
       y: height / 2 - center[1] * zoomTransform.k,
     });
-  } else setView(zoomTransform);
+  } else resetView();
   draw();
 }
 function marker(coord, color, r = 5, label = null) {
@@ -519,7 +537,7 @@ canvas.onkeydown = (e) => {
   if (!data || !projection) return;
   if (["+", "=", "-", "0"].includes(e.key)) {
     e.preventDefault();
-    if (e.key === "0") setView(d3.zoomIdentity);
+    if (e.key === "0") resetView();
     else d3.select(canvas).call(zoom.scaleBy, e.key === "-" ? 1 / 1.5 : 1.5);
     return;
   }

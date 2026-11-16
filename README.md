@@ -28,9 +28,11 @@ with it. Ocean/ambiguous clicks stay grey and fixed; the limitation is described
 Overlapping pins have offset labels with leader lines. Each pick shows its distance,
 and points earned. After playback the next
 round is immediately ready; selecting a new location clears the previous feedback. Trackpad: two-finger scroll to pan and pinch to zoom around the gesture position.
-Phone: one-finger drag to pan, two-finger pinch to zoom, tap to select. Mouse:
+Portrait phones open at 240% zoom centred on Pangaea, using the same camera for
+every country. Desktop starts with the full world. Phone: one-finger drag to pan,
+two-finger pinch to zoom, tap to select. Mouse:
 drag to pan and Ctrl+wheel to zoom. Use +/− or keyboard +/− to zoom, and ↺ or
-keyboard 0 to reset. Pan bounds keep land in reach; window rotation/resizing
+keyboard 0 to return to the opening view. Pan bounds keep land in reach; window rotation/resizing
 preserves the viewed location. Drags and pinches do not place guesses.
 
 Scores are on the side; instructions use a dialog. Final results are a non-modal,

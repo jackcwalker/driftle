@@ -271,3 +271,12 @@ crossfade described above. All 42 Node tests pass.
 - Browser win path: Libya miss at 300 Ma, correct territory at 225 Ma. The clock
   continued through 150 and 75 Ma to Today before results appeared; 10,011 points
   retained the miss and awarded remaining rounds. No browser warnings or errors.
+
+## Mobile opening camera (2026-11-16)
+
+- Portrait phone at 319 × 760 starts at 240%, centred on Pangaea independently
+  of the chosen country. New random challenges and map reset return to this view.
+- Browser checked: pan does not place a guess; a subsequent tap enables Pick;
+  submitting a pick drifts to 225 Ma while keeping the 240% camera.
+- Desktop at 1280 × 800 still opens at 100%. Resize continues to preserve the
+  player's current view. All 43 automated checks pass; no browser errors.
